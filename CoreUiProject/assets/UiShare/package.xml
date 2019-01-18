@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="bh7nngms" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="jav40" name="Button.xml" path="/btn/" exported="true"/>
+  </resources>
+  <publish name="UiShare"/>
+</packageDescription>

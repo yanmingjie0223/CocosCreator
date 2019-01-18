@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="bbamfob6" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="jav40" name="BagView.xml" path="/" exported="true"/>
+    <image id="jav41" name="1.png" path="/image/"/>
+    <image id="jav42" name="2.png" path="/image/"/>
+    <image id="jav43" name="3.png" path="/image/"/>
+    <image id="jav44" name="4.png" path="/image/"/>
+    <image id="jav45" name="5.png" path="/image/"/>
+    <image id="jav46" name="8.png" path="/image/"/>
+  </resources>
+  <publish name="Bag"/>
+</packageDescription>

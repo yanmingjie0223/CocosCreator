@@ -1,0 +1,29 @@
+{
+	"groups":[
+		{
+			"keys":"Preload_atlas0_png,Preload_bin",
+			"name":"preload"
+		},
+		{
+			"keys":"UiShare_bin",
+			"name":"main"
+		}
+	],
+	"resources":[
+		{
+			"name":"Preload_atlas0_png",
+			"type":"image",
+			"url":"ui/Preload_atlas0.png"
+		},
+		{
+			"name":"Preload_bin",
+			"type":"bin",
+			"url":"ui/Preload.bin"
+		},
+		{
+			"name":"UiShare_bin",
+			"type":"bin",
+			"url":"ui/UiShare.bin"
+		}
+	]
+}

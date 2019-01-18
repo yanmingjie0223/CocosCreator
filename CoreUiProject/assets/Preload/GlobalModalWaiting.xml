@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="640,1136">
+  <displayList>
+    <image id="n3" name="n3" src="admq3" fileName="image/barBg.png" xy="225,474" group="n4_jyky"/>
+    <image id="n1" name="loadBg" src="admq2" fileName="image/bar.png" xy="247,495" pivot="0.5,0.5" group="n4_jyky"/>
+    <group id="n4_jyky" name="n4" xy="225,474" size="189,188" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+  </displayList>
+</component>
