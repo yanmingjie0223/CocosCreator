@@ -8,7 +8,7 @@ const {ccclass} = cc._decorator;
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:05:01
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-24 16:33:07
+ * @Last Modified time: 2019-01-24 21:52:00
  */
 @ccclass
 export default class AppEntry extends cc.Component {

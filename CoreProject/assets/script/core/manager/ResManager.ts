@@ -9,7 +9,7 @@ type ResJson = {
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-14 19:19:01
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-24 17:33:52
+ * @Last Modified time: 2019-01-24 21:44:50
  */
 export default class ResManager extends Singleton {
 

@@ -6,7 +6,7 @@ import App from "../App";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 16:20:26
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-24 20:29:48
+ * @Last Modified time: 2019-01-24 21:48:05
  */
 export default class LayerManager extends Singleton {
 
