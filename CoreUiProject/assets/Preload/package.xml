@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<packageDescription id="b3udd8ji" jpegQuality="80" compressPNG="true">
+<packageDescription id="36dt0efa" jpegQuality="80" compressPNG="true">
   <resources>
-    <component id="admq0" name="GlobalModalWaiting.xml" path="/" exported="true"/>
-    <image id="admq2" name="bar.png" path="/image/" exported="true"/>
-    <image id="admq3" name="barBg.png" path="/image/" exported="true"/>
-    <image id="admq4" name="wBg.png" path="/image/" exported="true"/>
+    <component id="bg9v0" name="GlobalModalWaiting.xml" path="/" exported="true"/>
+    <image id="bg9v1" name="bar.png" path="/image/" exported="true"/>
+    <image id="bg9v2" name="barBg.png" path="/image/" exported="true"/>
+    <image id="bg9v3" name="wBg.png" path="/image/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>
