@@ -4,7 +4,7 @@
 # 继承类
 Singleton 单例继承<br/>
 BComponent ui绑定类继承，提供有全局事件处理方法<br/>
-BaseView 所有view继承方法<br/>
+BaseView 所有view继承方法
 * onInit() 初始化信息重写方法
 * onShown() 界面完全显示后实现重写方法
 * onUpdate() 帧跟新方法
@@ -12,10 +12,10 @@ BaseView 所有view继承方法<br/>
 * onProgress() view依赖资源加载进度实现逻辑继承重写方法
 * onShowAnimation() view展开动画方法，如有个别界面独特动画可继承重写
 * 注：App.ViewManager.show开始添加显示view，因为客户端主要在view表现<br/>
-BaseModel<br/>
+BaseModel
 * 单例model数据处理
 * 注册获取在App.ModelManager中<br/>
-BaseCtrl<br/>
+BaseCtrl
 * 绑定在view中的控制类，在创建view的时候也会给view创建一个控制类
 
 # manager管理类
