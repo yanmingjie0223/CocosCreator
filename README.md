@@ -11,10 +11,10 @@ BaseView 所有view继承方法<br/>
 * onClickMatte() 点击蒙层继承重写方法
 * onProgress() view依赖资源加载进度实现逻辑继承重写方法
 * onShowAnimation() view展开动画方法，如有个别界面独特动画可继承重写
-* 注：App.ViewManager.show开始添加显示view，因为客户端主要在view表现
+* 注：App.ViewManager.show开始添加显示view，因为客户端主要在view表现<br/>
 BaseModel<br/>
 * 单例model数据处理
-* 注册获取在App.ModelManager中
+* 注册获取在App.ModelManager中<br/>
 BaseCtrl<br/>
 * 绑定在view中的控制类，在创建view的时候也会给view创建一个控制类
 
