@@ -4,7 +4,7 @@ import Singleton from "../base/Singleton";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 16:38:25
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-10 19:27:17
+ * @Last Modified time: 2019-01-28 11:13:01
  */
 export default class DateUtils extends Singleton {
 
@@ -14,7 +14,7 @@ export default class DateUtils extends Singleton {
 
     /**
      * 格式化时间获取：时分秒 00:00:00
-     * @param {number} 时间戳差值
+     * @param {number} 时间戳差值（ms）
      */
     public formatTime(time: number): string {
         let str: string = "";
@@ -44,7 +44,7 @@ export default class DateUtils extends Singleton {
 
     /**
      * 使用时间返回所需要的字符串格式"2016年06月12日"
-     * @param {number} 时间戳
+     * @param {number} 时间戳（ms）
      * @param {string} 返回格式，例如："yyyy年MM月dd日"
      * @return {string} 返回指点格式字符串
      * */

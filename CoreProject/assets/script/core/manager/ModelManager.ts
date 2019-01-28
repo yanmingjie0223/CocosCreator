@@ -6,7 +6,7 @@ import App from "../App";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 10:59:30
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-22 15:38:32
+ * @Last Modified time: 2019-01-28 11:00:43
  */
 export default class ModelManager extends Singleton {
 
@@ -36,7 +36,7 @@ export default class ModelManager extends Singleton {
                 App.DebugUtils.error('注册的该model不存在key');
             }
             else {
-                App.DebugUtils.warn('注册的该model已存在');
+                App.DebugUtils.warn('注册的该model已存在，请使用统一数据源！');
             }
         }
     }
@@ -50,6 +50,9 @@ export default class ModelManager extends Singleton {
         const key: string = (modelClass as any).key;
         if (this._modelCache && this._modelCache[key]) {
             return this._modelCache[key];
+        }
+        else {
+            App.DebugUtils.warn('获取model数据源对象不存在！');
         }
         return null;
     }

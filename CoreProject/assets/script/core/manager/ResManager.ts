@@ -152,11 +152,8 @@ export default class ResManager extends Singleton {
         for (let i = 0, len = urls.length; i < len; i++) {
             resName = urls[i];
             res = this._resCache[resName];
-            if (res) {
+            if (res && res.count > 0) {
                 res.count -= 1;
-            }
-            else {
-                this.release(resName);
             }
         }
     }
@@ -165,6 +162,7 @@ export default class ResManager extends Singleton {
      * 移除资源名
      */
     private release(resUrl: string): void {
+        // 移除资源之前移除fgui包
         if (resUrl.indexOf('ui') !== -1) {
             const pkgName: string = resUrl.split('/')[1];
             this.removeUiPackage(pkgName);

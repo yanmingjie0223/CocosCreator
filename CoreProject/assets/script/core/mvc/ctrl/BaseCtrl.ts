@@ -6,7 +6,7 @@ import BaseView from "../view/BaseView";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-11 15:21:06
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 11:10:28
+ * @Last Modified time: 2019-01-28 11:11:13
  */
 export default class BaseCtrl {
 
@@ -38,6 +38,9 @@ export default class BaseCtrl {
         return this._view;
     }
 
+    /**
+     * 全局事件处理
+     */
     protected addEventListener(type: string, callback: Function, target?: any, useCapture?: boolean): void {
         App.EventManager.on.apply(App.EventManager, arguments);
     }
