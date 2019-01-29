@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="640,1136">
+  <displayList>
+    <component id="n1_jav4" name="bagBtn" src="bg9v0" fileName="btn/Button.xml" pkg="34dfamg7" xy="277,1037" size="86,99">
+      <relation target="" sidePair="bottom-bottom"/>
+      <Button icon="ui://339no4o4bg9v1"/>
+    </component>
+    <image id="n4_bg9v" name="n4" src="bg9v1" fileName="image/bagIm.png" xy="277,0"/>
+  </displayList>
+</component>

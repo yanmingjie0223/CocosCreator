@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="615,387">
+  <displayList>
+    <image id="n0_jav4" name="n0" src="bg9v5" fileName="image/5.png" xy="0,0" group="n3_jyky"/>
+    <component id="n2_jav4" name="closeBtn" src="bg9v0" fileName="btn/Button.xml" pkg="34dfamg7" xy="504,0" size="61,53" group="n3_jyky">
+      <Button icon="ui://31k90usybg9v4"/>
+    </component>
+    <richtext id="n4_jyky" name="tf" xy="129,170" size="327,24" group="n3_jyky" fontSize="14" ubb="true" autoSize="none" text=""/>
+    <group id="n3_jyky" name="n3" xy="0,0" size="615,387" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+  </displayList>
+</component>
