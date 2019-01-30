@@ -6,5 +6,5 @@
     <image id="bg9v2" name="barBg.png" path="/image/" exported="true"/>
     <image id="bg9v3" name="wBg.png" path="/image/" exported="true"/>
   </resources>
-  <publish name=""/>
+  <publish name="preload"/>
 </packageDescription>

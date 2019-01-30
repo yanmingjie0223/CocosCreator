@@ -6,7 +6,7 @@ import App from "../App";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 16:20:26
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 10:39:43
+ * @Last Modified time: 2019-01-30 14:14:00
  */
 export default class LayerManager extends Singleton {
 
@@ -18,6 +18,8 @@ export default class LayerManager extends Singleton {
      * 初始化
      */
     public init(): void {
+        this.initLayer();
+
         const rootCom: fgui.GComponent = fgui.GRoot.inst;
         rootCom.addChild(ViewLayer.BOTTOM_COMPONENT);
         rootCom.addChild(ViewLayer.MIDDLE_COMPONENT);
@@ -64,6 +66,13 @@ export default class LayerManager extends Singleton {
                 break;
         }
         return layerCom;
+    }
+
+    /**
+     * 初始化view层级
+     */
+    public initLayer(): void {
+        ViewLayer.init();
     }
 
 }

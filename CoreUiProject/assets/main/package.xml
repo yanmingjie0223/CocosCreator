@@ -4,5 +4,5 @@
     <component id="bg9v0" name="MainView.xml" path="/" exported="true"/>
     <image id="bg9v1" name="bagIm.png" path="/image/" exported="true"/>
   </resources>
-  <publish name=""/>
+  <publish name="main"/>
 </packageDescription>
