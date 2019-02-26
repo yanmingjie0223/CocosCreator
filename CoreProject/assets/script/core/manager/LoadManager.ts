@@ -9,7 +9,7 @@ type ResJson = {
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-25 14:15:27
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 20:59:13
+ * @Last Modified time: 2019-02-26 11:05:42
  */
 export default class LoadManager extends Singleton {
 
@@ -54,8 +54,8 @@ export default class LoadManager extends Singleton {
             return;
         }
 
-        let urls: Array<string>;
         let groupName: string;
+        let urls: Array<string> = [];
         for (let i = 0; i < groupNames.length; i++) {
             groupName = groupNames[i];
             urls = urls.concat(this.getGroupUrls(groupName));
@@ -122,6 +122,23 @@ export default class LoadManager extends Singleton {
     public loadPackage(pkgName: string, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
         this.loadGroup(pkgName, function() {
             App.ResManager.addUiPackage(pkgName);
+            completeFun && completeFun.apply(thisObj);
+        }, errorFun, progressFun, thisObj);
+    }
+
+    /**
+     * 加载包名
+     * @param pkgNameArr 包名也是资源组名
+     * @param completeFun 加载成功
+     * @param errorFun 加载失败
+     * @param progressFun 加载进度
+     * @param thisObj 函数this对象
+     */
+    public loadArrayPackage(pkgNameArr: Array<string>, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+        this.loadArrayGroup(pkgNameArr, function() {
+            for (let i = 0, len = pkgNameArr.length; i < len; i++) {
+                App.ResManager.addUiPackage(pkgNameArr[i]);
+            }
             completeFun && completeFun.apply(thisObj);
         }, errorFun, progressFun, thisObj);
     }
