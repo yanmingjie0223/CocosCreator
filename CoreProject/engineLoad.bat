@@ -1,3 +1,3 @@
 @echo off
 set currPath=%~dp0
-xcopy /s /i /y %currPath%reload %currPath%build\web-mobile
+xcopy /s /i /y %currPath%engineLoad %currPath%build\web-mobile
