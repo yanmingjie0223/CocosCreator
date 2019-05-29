@@ -7,7 +7,7 @@ import App from "../../core/App";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-22 17:00:28
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 19:21:24
+ * @Last Modified time: 2019-05-29 20:33:56
  */
 export default class BagView extends BaseView {
 
@@ -17,7 +17,7 @@ export default class BagView extends BaseView {
     private _tf: fgui.GRichTextField = null;
 
     public constructor() {
-        super('bag', 'BagView', ViewType.WINDOW, ViewLayer.MAX_LAYER);
+        super('bag', 'BagView', ViewType.WINDOW, ViewLayer.WINDOW_LAYER);
     }
 
     public destroy() {

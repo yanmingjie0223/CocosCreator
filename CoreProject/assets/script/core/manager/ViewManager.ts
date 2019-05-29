@@ -11,7 +11,7 @@ import BaseModel from "../mvc/model/BaseModel";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 10:54:16
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 11:27:51
+ * @Last Modified time: 2019-05-29 20:44:40
  */
 export default class ViewManager extends Singleton {
 
@@ -36,7 +36,7 @@ export default class ViewManager extends Singleton {
 
     /**
      * 显示view
-     * @param ctrlClass view控制类
+     * @param ctrlClass view控制类 new () => BaseCtrl or typeof BaseCtrl
      * @param modelClass model类，该数据源是单例
      * @param viewClass view类
      * @param viewData view类数据

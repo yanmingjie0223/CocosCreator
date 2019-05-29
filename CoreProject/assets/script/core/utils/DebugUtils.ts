@@ -5,7 +5,7 @@ import App from "../App";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 11:29:26
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-22 10:44:34
+ * @Last Modified time: 2019-05-29 20:37:01
  */
 export default class DebugUtils extends Singleton {
 
@@ -22,19 +22,19 @@ export default class DebugUtils extends Singleton {
         }
     }
 
-    public log(...args: any[]): void {
+    public log(...args: Array<any>): void {
         if (this.isDebug) {
             console.log.apply(console.log, args);
         }
     }
 
-    public warn(...args: any[]): void {
+    public warn(...args: Array<any>): void {
         if (this.isDebug) {
             console.warn.apply(console.warn, args);
         }
     }
 
-    public error(...args: any[]): void {
+    public error(...args: Array<any>): void {
         if (this.isDebug) {
             console.error.apply(console.error, args);
         }
