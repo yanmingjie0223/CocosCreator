@@ -27,6 +27,7 @@
 #### PathManager 资源路径管理类，获取路径统一走管理类
 #### ResManager 资源获取/清理管理
 #### StageManager 舞台管理，fgui GRoot初始化，获取舞台/显示区域宽高/适配宽高调整
+#### PlatformManager 平台控制，平台类型定义在PlatformType中
 #### SystemManager 设备管理，获取设备适配信息
 #### TimeManager 时间管理类，获取本地/服务端时间
 #### ViewManager view管理类，控制view显示和ctrl绑定
