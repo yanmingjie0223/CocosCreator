@@ -8,7 +8,7 @@ const {ccclass, executionOrder} = cc._decorator;
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:05:01
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-02-26 11:06:10
+ * @Last Modified time: 2019-05-30 16:23:11
  */
 @ccclass
 @executionOrder(-1)
@@ -37,6 +37,7 @@ export default class AppEntry extends cc.Component {
 
         App.ResManager.init();
         App.LoadManager.init();
+        App.PlatformManager.init();
         App.SystemManager.init();
         App.StageManager.init();
         App.LayerManager.init();

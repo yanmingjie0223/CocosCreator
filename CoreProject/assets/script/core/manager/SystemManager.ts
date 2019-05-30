@@ -1,11 +1,12 @@
 import Singleton from "../base/Singleton";
 import App from "../App";
+import PlatformType from "../const/PlatformType";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-24 15:50:06
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 17:25:36
+ * @Last Modified time: 2019-05-30 16:22:15
  */
 export interface IFitItem {
     width: number,  // 宽
@@ -42,16 +43,32 @@ export default class SystemManager extends Singleton {
      * @param systemName 设备名称
      */
     public getFitInfo(systemName: string = this._systemName): IFitItem {
-        if (this._viewFitJson[systemName]) {
+        if (systemName && this._viewFitJson[systemName]) {
             return this._viewFitJson[systemName];
         }
         return null;
     }
 
     private initSystemName(): void {
-        const wx = window['wx'];
-        if (wx) {
-            wx.getSystemInfo({
+        let platformMini: any;
+        const platName: string = App.PlatformManager.platformName;
+        switch (platName) {
+            case PlatformType.NATIVE:
+            case PlatformType.WEB:
+                return;
+            case PlatformType.QQ:
+                platformMini = window['qq'];
+                break
+            case PlatformType.WX:
+                platformMini = window['wx'];
+                break;
+            default:
+                App.DebugUtils.error(`${platformMini} 平台还未处理！`);
+                return;
+        }
+        // 目前指定微信小游戏和QQ小游戏平台
+        if (platformMini) {
+            platformMini.getSystemInfo({
                 success: (systemInfo: SystemInfo) => {
                     this._systemName = systemInfo.model;
                 }

@@ -16,12 +16,13 @@ import FguiManager from "./manager/FguiManager";
 import EffectUtils from "./utils/EffectUtils";
 import SystemManager from "./manager/SystemManager";
 import LoadManager from "./manager/LoadManager";
+import PlatformManager from "./manager/PlatformManager";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:06:25
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 14:23:00
+ * @Last Modified time: 2019-05-30 16:16:49
  */
 export default class App {
 
@@ -31,6 +32,10 @@ export default class App {
 
     public static get SystemManager(): SystemManager {
         return SystemManager.getInstance<SystemManager>();
+    }
+
+    public static get PlatformManager(): PlatformManager {
+        return PlatformManager.getInstance<PlatformManager>();
     }
 
     public static get StageManager(): StageManager {
