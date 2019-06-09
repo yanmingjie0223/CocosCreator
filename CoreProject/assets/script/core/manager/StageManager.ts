@@ -1,8 +1,8 @@
 import Singleton from "../base/Singleton";
 import App from "../App";
-import FitType from "../const/FitType";
 import AppConfig from "../../config/AppConfig";
 import { IFitItem } from "./SystemManager";
+import { FitType } from "../const/FitType";
 
 /*
  * @Author: yanmingjie0223@qq.com

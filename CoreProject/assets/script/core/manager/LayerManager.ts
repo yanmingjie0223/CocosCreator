@@ -1,6 +1,6 @@
 import Singleton from "../base/Singleton";
-import ViewLayer from "../const/ViewLayer";
 import App from "../App";
+import ViewLayer, { ViewLayerType } from "../const/ViewLayer";
 
 /*
  * @Author: yanmingjie0223@qq.com
@@ -28,12 +28,12 @@ export default class LayerManager extends Singleton {
         rootCom.addChild(ViewLayer.WINDOW_COMPONENT);
         rootCom.addChild(ViewLayer.MAX_COMPONENT);
 
-        ViewLayer.BOTTOM_COMPONENT.name = ViewLayer.BOTTOM_LAYER;
-        ViewLayer.MIDDLE_COMPONENT.name = ViewLayer.MIDDLE_LAYER;
-        ViewLayer.TOP_COMPONENT.name = ViewLayer.TOP_LAYER;
-        ViewLayer.GUIDE_COMPONENT.name = ViewLayer.GUIDE_LAYER;
-        ViewLayer.WINDOW_COMPONENT.name = ViewLayer.WINDOW_LAYER;
-        ViewLayer.MAX_COMPONENT.name = ViewLayer.MAX_LAYER;
+        ViewLayer.BOTTOM_COMPONENT.name = ViewLayerType.BOTTOM_LAYER;
+        ViewLayer.MIDDLE_COMPONENT.name = ViewLayerType.MIDDLE_LAYER;
+        ViewLayer.TOP_COMPONENT.name = ViewLayerType.TOP_LAYER;
+        ViewLayer.GUIDE_COMPONENT.name = ViewLayerType.GUIDE_LAYER;
+        ViewLayer.WINDOW_COMPONENT.name = ViewLayerType.WINDOW_LAYER;
+        ViewLayer.MAX_COMPONENT.name = ViewLayerType.MAX_LAYER;
     }
 
     /**
@@ -43,22 +43,22 @@ export default class LayerManager extends Singleton {
     public getLayerComponent(layer: string): fgui.GComponent {
         let layerCom: fgui.GComponent;
         switch (layer) {
-            case ViewLayer.BOTTOM_LAYER:
+            case ViewLayerType.BOTTOM_LAYER:
                 layerCom = ViewLayer.BOTTOM_COMPONENT;
                 break;
-            case ViewLayer.MIDDLE_LAYER:
+            case ViewLayerType.MIDDLE_LAYER:
                 layerCom = ViewLayer.MIDDLE_COMPONENT;
                 break;
-            case ViewLayer.TOP_LAYER:
+            case ViewLayerType.TOP_LAYER:
                 layerCom = ViewLayer.TOP_COMPONENT;
                 break;
-            case ViewLayer.GUIDE_LAYER:
+            case ViewLayerType.GUIDE_LAYER:
                 layerCom = ViewLayer.GUIDE_COMPONENT;
                 break;
-            case ViewLayer.WINDOW_LAYER:
+            case ViewLayerType.WINDOW_LAYER:
                 layerCom = ViewLayer.WINDOW_COMPONENT;
                 break;
-            case ViewLayer.MAX_LAYER:
+            case ViewLayerType.MAX_LAYER:
                 layerCom = ViewLayer.MAX_COMPONENT;
                 break;
             default:

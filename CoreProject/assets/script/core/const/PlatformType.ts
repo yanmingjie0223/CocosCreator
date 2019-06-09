@@ -4,15 +4,13 @@
  * @Last Modified by: yanmingjie0223@qq.com
  * @Last Modified time: 2019-05-30 16:07:59
  */
-export default class PlatformType {
-
+export const enum PlatformType {
     // web
-    public static readonly WEB: string = 'web';
+    WEB = 'web',
     // native
-    public static readonly NATIVE: string = 'native';
+    NATIVE = 'native',
     // wx mini game
-    public static readonly WX: string = 'wx';
+    WX = 'wx',
     // qq mini game
-    public static readonly QQ: string = 'qq';
-
+    QQ = 'qq',
 }

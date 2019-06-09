@@ -4,42 +4,58 @@
  * @Last Modified by: yanmingjie0223@qq.com
  * @Last Modified time: 2019-01-30 14:10:09
  */
+export const enum ViewLayerType {
+    /**
+     * view底层类型
+     */
+    BOTTOM_LAYER = 'bottom_layer',
+    /**
+     * view中层类型
+     */
+    MIDDLE_LAYER = 'middle_layer',
+    /**
+     * view上层类型
+     */
+    TOP_LAYER = 'top_layer',
+    /**
+     * 引导层类型
+     */
+    GUIDE_LAYER = 'guide_layer',
+    /**
+     * 弹窗层类型
+     */
+    WINDOW_LAYER = 'window_layer',
+    /**
+     * 最外层类型
+     */
+    MAX_LAYER = 'max_layer',
+}
+
 export default class ViewLayer {
 
     /**
      * view底层
      */
-    public static readonly BOTTOM_LAYER: string = 'bottom_layer';
     public static BOTTOM_COMPONENT: fgui.GComponent;
-
     /**
      * view中层
      */
-    public static readonly MIDDLE_LAYER: string = 'middle_layer';
     public static MIDDLE_COMPONENT: fgui.GComponent;
-
     /**
      * view上层
      */
-    public static readonly TOP_LAYER: string = 'top_layer';
     public static TOP_COMPONENT: fgui.GComponent;
-
     /**
      * 引导层
      */
-    public static readonly GUIDE_LAYER: string = 'guide_layer';
     public static GUIDE_COMPONENT: fgui.GComponent;
-
     /**
      * 弹窗层
      */
-    public static readonly WINDOW_LAYER: string = 'window_layer';
     public static WINDOW_COMPONENT: fgui.GComponent;
-
     /**
      * 最外层
      */
-    public static readonly MAX_LAYER: string = 'max_layer';
     public static MAX_COMPONENT: fgui.GComponent;
 
 

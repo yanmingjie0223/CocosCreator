@@ -1,6 +1,6 @@
 import Singleton from "../base/Singleton";
 import App from "../App";
-import PlatformType from "../const/PlatformType";
+import { PlatformType } from "../const/PlatformType";
 
 /*
  * @Author: yanmingjie0223@qq.com

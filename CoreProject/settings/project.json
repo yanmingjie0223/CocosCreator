@@ -1,4 +1,5 @@
 {
+  "assets-sort-type": "name",
   "collision-matrix": [
     [
       true
@@ -22,7 +23,7 @@
   "group-list": [
     "default"
   ],
-  "last-module-event-record-time": 1551149672310,
+  "last-module-event-record-time": 1560054314757,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,

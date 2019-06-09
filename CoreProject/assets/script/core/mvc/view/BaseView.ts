@@ -2,9 +2,9 @@ import App from "../../App";
 import BaseModel from "../model/BaseModel";
 import BaseViewData from "./BaseViewData";
 import BaseCtrl from "../ctrl/BaseCtrl";
-import ViewType from "../../const/ViewType";
 import BComponent from "../../base/BComponent";
 import AppConfig from "../../../config/AppConfig";
+import { ViewType } from "../../const/ViewType";
 
 /*
  * @Author: yanmingjie0223@qq.com

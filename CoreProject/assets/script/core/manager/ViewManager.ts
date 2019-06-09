@@ -2,10 +2,10 @@ import Singleton from "../base/Singleton";
 import BaseView from "../mvc/view/BaseView";
 import App from "../App";
 import BaseViewData from "../mvc/view/BaseViewData";
-import ViewEvent from "../const/ViewEvent";
 import { ViewShowType } from "../const/ViewShowType";
 import BaseCtrl from "../mvc/ctrl/BaseCtrl";
 import BaseModel from "../mvc/model/BaseModel";
+import { ViewEvent } from "../const/ViewEvent";
 
 /*
  * @Author: yanmingjie0223@qq.com
