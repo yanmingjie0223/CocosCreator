@@ -145,6 +145,7 @@ export default class BaseView extends BComponent {
      */
     public destroy(): void {
         App.ResManager.removeGroupUse(this._pkgName);
+        this._ctrl && this._ctrl.destroy();
         this._isDestroy = true;
         this._isInit = false;
 

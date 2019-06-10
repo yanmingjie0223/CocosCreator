@@ -39,6 +39,14 @@ export default class BaseCtrl {
     }
 
     /**
+     * 销毁对象
+     */
+    public destroy(): void {
+        this._model = null;
+        this._view = null;
+    }
+
+    /**
      * 全局事件处理
      */
     protected addEventListener(type: string, callback: Function, target?: any, useCapture?: boolean): void {
