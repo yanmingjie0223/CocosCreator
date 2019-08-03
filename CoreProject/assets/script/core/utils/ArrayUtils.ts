@@ -17,15 +17,7 @@ export default class ArrayUtils extends Singleton {
      * @param {Array} arr
      */
     public upset(arr: Array<any>): void {
-        const len: number = arr.length;
-        let index: number;
-        let tmp: any;
-        for (let i = len - 1; i >= 0; i--) {
-            index = (Math.random() * i)|0;
-            tmp = arr[i];
-            arr[i] = arr[index];
-            arr[index] = tmp;
-        }
+        arr.sort(() => Math.random() - 0.5);
     }
 
 }
