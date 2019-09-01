@@ -5,13 +5,13 @@ import BagView from "../bag/BagView";
 import { ViewShowType } from "../../core/const/ViewShowType";
 import { ViewType } from "../../core/const/ViewType";
 import { ViewLayerType } from "../../core/const/ViewLayer";
-import { ViewEvent } from "../../core/const/ViewEvent";
+import { ViewEvent } from "../../core/event/ViewEvent";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-21 16:21:50
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 19:21:30
+ * @Last Modified time: 2019-09-01 22:45:35
  */
 export default class MainView extends BaseView {
 

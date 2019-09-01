@@ -31,6 +31,7 @@
 #### SystemManager 设备管理，获取设备适配信息
 #### TimeManager 时间管理类，获取本地/服务端时间
 #### ViewManager view管理类，控制view显示和ctrl绑定
+#### I18nManager 语言控制管理类，目前把中文和英文放一个文件中，如果后面文本多可以分开放
 
 # 类管理
 App 入口管理方便统一跟踪

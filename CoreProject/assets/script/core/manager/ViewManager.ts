@@ -5,13 +5,13 @@ import BaseViewData from "../mvc/view/BaseViewData";
 import { ViewShowType } from "../const/ViewShowType";
 import BaseCtrl from "../mvc/ctrl/BaseCtrl";
 import BaseModel from "../mvc/model/BaseModel";
-import { ViewEvent } from "../const/ViewEvent";
+import { ViewEvent } from "../event/ViewEvent";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 10:54:16
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-05-29 20:44:40
+ * @Last Modified time: 2019-09-01 22:45:31
  */
 export default class ViewManager extends Singleton {
 

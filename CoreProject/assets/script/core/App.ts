@@ -17,12 +17,13 @@ import EffectUtils from "./utils/EffectUtils";
 import SystemManager from "./manager/SystemManager";
 import LoadManager from "./manager/LoadManager";
 import PlatformManager from "./manager/PlatformManager";
+import I18nManager from "./manager/I18nManager";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:06:25
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-05-30 16:16:49
+ * @Last Modified time: 2019-09-01 22:53:33
  */
 export default class App {
 
@@ -48,6 +49,10 @@ export default class App {
 
     public static get EventManager(): EventManager {
         return EventManager.getInstance();
+    }
+
+    public static get I18nManager(): I18nManager {
+        return I18nManager.getInstance();
     }
 
     public static get PathManager(): PathManager {
