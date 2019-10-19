@@ -158,8 +158,8 @@ export default class LoadManager extends Singleton {
                 break;
             }
         }
-        const keys: string = group.keys;
-        const keyLen: number = keys.split(',').length;
+        const keys: Array<string> = group.keys.split(',');
+        const keyLen: number = keys.length;
         for (let i = 0, len = resources.length; i < len; i++) {
             if (keys.indexOf(resources[i].name) !== -1) {
                 urls.push(resources[i].url);

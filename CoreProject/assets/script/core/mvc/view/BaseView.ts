@@ -33,6 +33,8 @@ export default class BaseView extends BComponent {
     private _isInit: boolean;
     // 是否消耗
     private _isDestroy: boolean;
+    // 是否托管资源
+    private _isTrust: boolean;
     // view透传数据
     private _viewData: BaseViewData
 
@@ -141,10 +143,17 @@ export default class BaseView extends BComponent {
     }
 
     /**
+     * 是否托管资源，如果界面资源不需要定时释放，可重写该方法
+     */
+    public get isTrust(): boolean {
+        return this._isTrust;
+    }
+
+    /**
      * 消耗，子类可继承重写添加消耗逻辑
      */
     public destroy(): void {
-        App.ResManager.removeGroupUse(this._pkgName);
+        App.ResManager.removeGroupUse(this._pkgName, this.isTrust);
         this._ctrl && this._ctrl.destroy();
         this._isDestroy = true;
         this._isInit = false;
@@ -234,7 +243,7 @@ export default class BaseView extends BComponent {
         }
 
         this.showModalWait();
-        App.ResManager.addGroupUse(this._pkgName);
+        App.ResManager.addGroupUse(this._pkgName, this.isTrust);
         const isExistPkg: boolean = fgui.UIPackage.getByName(this._pkgName) ? true : false;
         if (!this._isInit || !isExistPkg) {
             App.LoadManager.loadPackage(this._pkgName, this.toInitUI, this.destroy, this.onProgress, this);

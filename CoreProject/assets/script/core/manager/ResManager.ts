@@ -85,8 +85,10 @@ export default class ResManager extends Singleton {
     /**
      * 添加资源组使用
      * @param groupName 资源组名
+     * @param isTrust 是否托管
      */
-    public addGroupUse(groupName: string): void {
+    public addGroupUse(groupName: string, isTrust: boolean): void {
+        if (!isTrust) return;
         const urls: Array<string> = App.LoadManager.getGroupUrls(groupName);
         this.addUseRes(urls);
     }
@@ -94,8 +96,10 @@ export default class ResManager extends Singleton {
     /**
      * 移除资源组使用
      * @param groupName 资源组名
+     * @param isTrust 是否托管
      */
-    public removeGroupUse(groupName: string): void {
+    public removeGroupUse(groupName: string, isTrust: boolean): void {
+        if (!isTrust) return;
         const urls: Array<string> = App.LoadManager.getGroupUrls(groupName);
         this.removeUseRes(urls);
     }
