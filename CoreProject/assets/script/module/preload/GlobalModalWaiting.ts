@@ -41,12 +41,12 @@ export default class GlobalModalWaiting extends BComponent {
             this.showUI();
         }
 
-        let rotation: number = this._barBg.rotation;
+        let rotation: number = this._bar.rotation;
         rotation += 10;
         if(rotation > 360) {
             rotation = rotation % 360;
         }
-        this._barBg.rotation = rotation;
+        this._bar.rotation = rotation;
     }
 
     private hideUI(): void {
