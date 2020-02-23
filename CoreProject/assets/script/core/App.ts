@@ -18,14 +18,20 @@ import SystemManager from "./manager/SystemManager";
 import LoadManager from "./manager/LoadManager";
 import PlatformManager from "./manager/PlatformManager";
 import I18nManager from "./manager/I18nManager";
+import SoundManager from "./manager/SoundManager";
+import NetManager from "./manager/NetManager";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:06:25
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-09-01 22:53:33
+ * @Last Modified time: 2019-12-21 21:11:00
  */
 export default class App {
+
+    public static get SoundManager(): SoundManager {
+        return SoundManager.getInstance<SoundManager>();
+    }
 
     public static get TimeManager(): TimeManager {
         return TimeManager.getInstance<TimeManager>();
@@ -77,6 +83,10 @@ export default class App {
 
     public static get ModelManager(): ModelManager {
         return ModelManager.getInstance<ModelManager>();
+    }
+
+    public static get NetManager(): NetManager {
+        return NetManager.getInstance<NetManager>();
     }
 
     public static get ArrayUtils(): ArrayUtils {

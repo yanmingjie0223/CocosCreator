@@ -9,6 +9,7 @@ import { PlatformType } from "../const/PlatformType";
  * @Last Modified time: 2019-05-30 16:22:15
  */
 export interface IFitItem {
+    // 例如 "iPhone X": {"width": 640, "height": 1247, "alignH": "center", "alignV": "middle"}
     width: number,  // 宽
     height: number, // 高
     alignH: string, // 水平适配 center left right

@@ -29,7 +29,7 @@ export default class RandomUtils extends Singleton {
      * 获取数组中随机一个单元
      * @param arr 数组数据源
      */
-    public randomArray(arr: Array<any>): any {
+    public randomArray<T>(arr: Array<T>): T {
         const index: number = this.random(0, arr.length) | 0;
         return arr[index];
     }

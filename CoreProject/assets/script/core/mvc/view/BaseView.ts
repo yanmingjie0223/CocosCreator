@@ -315,6 +315,7 @@ export default class BaseView extends BComponent {
                     this._bgLoader.url = AppConfig.matteUrl;
                     this._bgLoader.fill = fgui.LoaderFillType.ScaleFree;
                 }
+                this._bgLoader.alpha = 0.6;
                 this.contentPane.addChildAt(this._bgLoader, 0);
             }
         }

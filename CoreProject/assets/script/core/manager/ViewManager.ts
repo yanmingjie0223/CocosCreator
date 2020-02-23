@@ -113,7 +113,7 @@ export default class ViewManager extends Singleton {
      * 获取view
      * @param viewClass view类
      */
-    public getView(viewClass: {new(): BaseView}): BaseView {
+    public getView<T extends BaseView>(viewClass: {new(): BaseView}): T {
         const key: string = (viewClass as any).key;
         if (!this._views || !this._views[key]) {
             return null;

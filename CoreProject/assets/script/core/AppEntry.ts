@@ -35,6 +35,7 @@ export default class AppEntry extends cc.Component {
         App.DebugUtils.isDebug = true;
         App.DebugUtils.init();
 
+        App.SoundManager.init();
         App.I18nManager.init();
         App.ResManager.init();
         App.LoadManager.init();

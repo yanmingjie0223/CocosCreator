@@ -4,7 +4,7 @@ import App from "../App";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-25 13:54:13
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 14:36:31
+ * @Last Modified time: 2019-12-15 21:32:14
  */
 export default class BComponent extends fgui.GComponent {
 
@@ -32,7 +32,7 @@ export default class BComponent extends fgui.GComponent {
         App.EventManager.off.apply(App.EventManager, arguments);
     }
     protected emitEvent(type: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void {
-        App.EventManager.emit.apply(App.EventManager, arguments);
+        App.EventManager.emitEvent.apply(App.EventManager, arguments);
     }
     protected hasAddEventListener(type: string): boolean {
         return App.EventManager.hasEventListener(type);

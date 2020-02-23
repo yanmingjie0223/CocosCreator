@@ -4,12 +4,26 @@ import Singleton from "../base/Singleton";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 17:04:38
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-10 11:25:35
+ * @Last Modified time: 2019-12-28 23:58:07
  */
 export default class StringUtils extends Singleton {
 
     public constructor() {
         super();
+    }
+
+    /**
+     * 获取对应字段的信息
+     * @param key 字段
+     */
+    public getQueryString(key: string) {
+        const reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+        const url = decodeURI(window.location.search);
+        var match = url.substr(1).match(reg);
+        if (match != null) {
+            return unescape(match[2]);
+        }
+        return null
     }
 
     /**

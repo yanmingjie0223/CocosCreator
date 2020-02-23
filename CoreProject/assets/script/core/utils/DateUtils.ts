@@ -4,7 +4,7 @@ import Singleton from "../base/Singleton";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 16:38:25
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-28 11:13:01
+ * @Last Modified time: 2019-12-17 23:54:10
  */
 export default class DateUtils extends Singleton {
 
@@ -14,31 +14,23 @@ export default class DateUtils extends Singleton {
 
     /**
      * 格式化时间获取：时分秒 00:00:00
-     * @param {number} 时间戳差值（ms）
+     * @param {number} 时间戳差值（s）
+     * @param {number} 取时间位，例如：1：取到秒 2：取到分钟 3：取到小时
      */
-    public formatTime(time: number): string {
-        let str: string = "";
-        let h: number = time / 3600;
-        h = parseInt(h + "");
-        let m: number = (time - h * 3600) / 60;
-        m = parseInt(m + "");
-        let s: number = time - h * 3600 - m * 60;
-        s = parseInt(s + "");
-        if (h > 0) {
-            str += h + ":";
+    public formatTime(time: number, place: number = 3): string {
+        let str: string = '';
+        let h: number = (time / 3600) | 0;
+        let m: number = ((time - h * 3600) / 60) | 0;
+        let s: number = (time - h * 3600 - m * 60) | 0;
+
+        if (place >= 3) {
+            str += h > 0 ? `${h}:` : '';
         }
-        if (m > 9) {
-            str += m + ":";
+        if (place >= 2) {
+            str += m > 9 ? `${m}:` : `0${m}:`;
         }
-        else {
-            str += "0" + m + ":";
-        }
-        if (s > 9) {
-            str += s + "";
-        }
-        else {
-            str += "0" + s;
-        }
+        str += s > 9 ? `${s}` : `0${s}`;
+
         return str;
     }
 
