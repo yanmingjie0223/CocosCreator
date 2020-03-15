@@ -68,7 +68,7 @@ export default class SystemManager extends Singleton {
                 return;
         }
         // 目前指定微信小游戏和QQ小游戏平台
-        if (platformMini) {
+        if (platformMini && platformMini.getSystemInfo) {
             platformMini.getSystemInfo({
                 success: (systemInfo: SystemInfo) => {
                     this._systemName = systemInfo.model;

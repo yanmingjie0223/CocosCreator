@@ -23,19 +23,19 @@ export default class DebugUtils extends Singleton {
     }
 
     public log(...args: Array<any>): void {
-        if (this.isDebug) {
+        if (this.isDebug && CC_DEBUG) {
             console.log.apply(console.log, args);
         }
     }
 
     public warn(...args: Array<any>): void {
-        if (this.isDebug) {
+        if (this.isDebug && CC_DEBUG) {
             console.warn.apply(console.warn, args);
         }
     }
 
     public error(...args: Array<any>): void {
-        if (this.isDebug) {
+        if (this.isDebug && CC_DEBUG) {
             console.error.apply(console.error, args);
         }
     }

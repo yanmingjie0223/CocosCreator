@@ -40,6 +40,7 @@ export default class MainView extends BaseView {
 
     private onClickBtn(): void {
         App.ViewManager.show(BagCtrl, null, BagView, null, ViewShowType.SINGLETON_VIEW);
+        // App.ViewManager.show(null, null, BagView, null, ViewShowType.SINGLETON_VIEW);
     }
 
     private initEvent(): void {

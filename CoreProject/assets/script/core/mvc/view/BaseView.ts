@@ -75,6 +75,7 @@ export default class BaseView extends BComponent {
      */
     public set model(_model: BaseModel) {
         this._model = _model;
+        this._ctrl && (this._ctrl.model = _model);
     }
     public get model(): BaseModel {
         return this._model;
@@ -85,7 +86,7 @@ export default class BaseView extends BComponent {
      */
     public set ctrl(_ctrl: BaseCtrl) {
         this._ctrl = _ctrl;
-        this._ctrl.view = this;
+        this._ctrl && (this._ctrl.view = this);
     }
     public get ctrl(): BaseCtrl {
         return this._ctrl;

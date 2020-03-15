@@ -59,13 +59,12 @@ export default class ViewManager extends Singleton {
             view.viewData = viewData;
         }
         else {
-            const ctrl: BaseCtrl = new ctrlClass();
+            const ctrl: BaseCtrl = ctrlClass ? new ctrlClass() : null;
             const model: BaseModel = App.ModelManager.getModel(modelClass);
             view = new viewClass();
             view.viewData = viewData;
             view.ctrl = ctrl;
             view.model = model;
-            ctrl.model = model;
             this._views[key] = view;
         }
 
