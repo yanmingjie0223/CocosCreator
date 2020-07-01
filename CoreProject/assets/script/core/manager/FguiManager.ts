@@ -5,7 +5,7 @@ import GlobalModalWaiting from "../../module/preload/GlobalModalWaiting";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-21 16:09:28
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 19:22:13
+ * @Last Modified time: 2020-07-01 20:51:48
  */
 export default class FguiManager extends Singleton {
 

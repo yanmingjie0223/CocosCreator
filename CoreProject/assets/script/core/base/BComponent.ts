@@ -4,7 +4,7 @@ import App from "../App";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-25 13:54:13
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-12-15 21:32:14
+ * @Last Modified time: 2020-07-01 20:56:43
  */
 export default class BComponent extends fgui.GComponent {
 

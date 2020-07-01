@@ -4,13 +4,13 @@ import BaseViewData from "./BaseViewData";
 import BaseCtrl from "../ctrl/BaseCtrl";
 import BComponent from "../../base/BComponent";
 import AppConfig from "../../../config/AppConfig";
-import { ViewType } from "../../const/ViewType";
+import { ViewType } from "../../const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-14 19:02:44
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 20:31:31
+ * @Last Modified time: 2020-07-01 21:49:52
  */
 export default class BaseView extends BComponent {
 

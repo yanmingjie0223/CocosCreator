@@ -4,7 +4,7 @@ import Singleton from "../base/Singleton";
  * @Author: yanmingjie
  * @Date: 2019-12-17 23:30:15
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-12-25 22:19:05
+ * @Last Modified time: 2020-07-01 21:23:57
  */
 export default class SoundManager extends Singleton {
 
@@ -16,9 +16,15 @@ export default class SoundManager extends Singleton {
         this._effect = {};
     }
 
+    /**
+     * 播放背景音乐
+     * @param url
+     * @param isLoop
+     * @param isRes 是否resources中资源
+     */
     public playMusic(url: string, isLoop: boolean = true, isRes: boolean = true): void {
         if (isRes) {
-            cc.loader.loadRes(url, cc.AudioClip, (err, clip: cc.AudioClip) => {
+            cc.assetManager.loadRemote(url, cc.AudioClip, (err, clip: cc.AudioClip) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;
@@ -30,7 +36,7 @@ export default class SoundManager extends Singleton {
             });
         }
         else {
-            cc.loader.load(url, (err, clip: cc.AudioClip) => {
+            cc.assetManager.loadRemote(url, (err, clip: cc.AudioClip) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;
@@ -43,9 +49,15 @@ export default class SoundManager extends Singleton {
         }
     }
 
+    /**
+     * 播放音效
+     * @param url
+     * @param isLoop
+     * @param isRes 是否resources中资源
+     */
     public playEffect(url: string, isLoop: boolean = false, isRes: boolean = true): void {
         if (isRes) {
-            cc.loader.loadRes(url, cc.AudioClip, (err, clip: cc.AudioClip) => {
+            cc.resources.load(url, cc.AudioClip, (err, clip: cc.AudioClip) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;
@@ -58,7 +70,7 @@ export default class SoundManager extends Singleton {
             });
         }
         else {
-            cc.loader.load(url, (err, clip: cc.AudioClip) => {
+            cc.assetManager.loadRemote(url, (err, clip: cc.AudioClip) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;

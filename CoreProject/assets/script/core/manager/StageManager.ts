@@ -2,13 +2,13 @@ import Singleton from "../base/Singleton";
 import App from "../App";
 import AppConfig from "../../config/AppConfig";
 import { IFitItem } from "./SystemManager";
-import { FitType } from "../const/FitType";
+import { FitType } from "../const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 15:04:52
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 10:35:23
+ * @Last Modified time: 2020-07-01 21:47:52
  */
 export default class StageManager extends Singleton {
 
@@ -25,7 +25,6 @@ export default class StageManager extends Singleton {
      * 场景初始化
      */
     public init(): void {
-        fgui.addLoadHandler();
         fgui.GRoot.create();
         // 显示节点包装，未后面的适配做准备
         this._viewNode = new cc.Node();

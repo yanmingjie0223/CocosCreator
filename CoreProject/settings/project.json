@@ -1,17 +1,27 @@
 {
-  "assets-sort-type": "name",
+  "group-list": [
+    "default"
+  ],
   "collision-matrix": [
     [
       true
     ]
   ],
-  "design-resolution-height": 1136,
-  "design-resolution-width": 640,
   "excluded-modules": [
-    "Geom Utils",
-    "3D",
-    "3D Primitive"
+    "3D Physics/Builtin"
   ],
+  "preview-port": 7456,
+  "design-resolution-width": 640,
+  "design-resolution-height": 1136,
+  "fit-width": true,
+  "fit-height": true,
+  "use-project-simulator-setting": false,
+  "simulator-orientation": false,
+  "use-customize-simulator": true,
+  "simulator-resolution": {
+    "height": 640,
+    "width": 960
+  },
   "facebook": {
     "appID": "",
     "audience": {
@@ -21,19 +31,5 @@
     "live": {
       "enable": false
     }
-  },
-  "fit-height": true,
-  "fit-width": true,
-  "group-list": [
-    "default"
-  ],
-  "last-module-event-record-time": 1560054314757,
-  "simulator-orientation": false,
-  "simulator-resolution": {
-    "height": 640,
-    "width": 960
-  },
-  "start-scene": "9aca4acc-14c4-4e43-983c-99f63df9d762",
-  "use-customize-simulator": false,
-  "use-project-simulator-setting": false
+  }
 }

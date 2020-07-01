@@ -1,12 +1,12 @@
 import { I18nEnConfig, I18nZhConfig } from "../../config/I18nConfig";
 import App from "../App";
-import { I18nType } from "../const/I18nType";
+import { I18nType } from "../const/CoreConst";
 
 /*
  * @Author: yanmingjie
  * @Date: 2019-08-19 23:11:05
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-09-01 23:40:06
+ * @Last Modified time: 2020-07-01 21:52:10
  */
 export default class I18n {
 

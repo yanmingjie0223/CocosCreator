@@ -1,12 +1,12 @@
 import Singleton from "../base/Singleton";
 import I18n from "../i18n/I18n";
-import { I18nType } from "../const/I18nType";
+import { I18nType } from "../const/CoreConst";
 
 /*
  * @Author: yanmingjie
  * @Date: 2019-09-01 22:47:12
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-09-01 22:52:10
+ * @Last Modified time: 2020-07-01 22:23:56
  */
 export default class I18nManager extends Singleton {
 

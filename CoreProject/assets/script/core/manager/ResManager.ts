@@ -9,7 +9,7 @@ type ResCache = {
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-14 19:19:01
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 21:05:12
+ * @Last Modified time: 2020-07-01 21:33:55
  */
 export default class ResManager extends Singleton {
 
@@ -46,9 +46,10 @@ export default class ResManager extends Singleton {
     /**
      * 获取资源
      * @param url 资源地址
+     * @param type 文件类型
      */
-    public getRes(url: string): any {
-        return cc.loader.getRes(url);
+    public getRes(url: string, type?: typeof cc.Asset): any {
+        return cc.resources.get(url, type);
     }
 
     /**
@@ -171,7 +172,7 @@ export default class ResManager extends Singleton {
             const pkgName: string = resUrl.split('/')[1];
             this.removeUiPackage(pkgName);
         }
-        cc.loader.release(resUrl);
+        cc.resources.release(resUrl);
     }
 
 }

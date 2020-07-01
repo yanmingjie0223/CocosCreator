@@ -1,12 +1,12 @@
 import Singleton from "../base/Singleton";
 import App from "../App";
-import { PlatformType } from "../const/PlatformType";
+import { PlatformType } from "../const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-24 15:50:06
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-05-30 16:22:15
+ * @Last Modified time: 2020-07-01 21:47:59
  */
 export interface IFitItem {
     // 例如 "iPhone X": {"width": 640, "height": 1247, "alignH": "center", "alignV": "middle"}
@@ -34,8 +34,8 @@ export default class SystemManager extends Singleton {
     public init(): void {
         this.initSystemName();
 
-        const resUrl: string = 'data/systemConfig.json';
-        this._viewFitJson = App.ResManager.getRes(resUrl).json;
+        const resUrl: string = 'data/systemConfig';
+        this._viewFitJson = App.ResManager.getRes(resUrl, cc.JsonAsset).json;
         App.ResManager.clearRes(resUrl);
     }
 

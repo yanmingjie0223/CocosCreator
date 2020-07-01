@@ -1,15 +1,21 @@
 import Singleton from "../base/Singleton";
 import App from "../App";
+import { ResFile } from "../const/CoreConst";
 type ResJson = {
     groups: Array<{keys: string, name: string}>,
     resources: Array<{name: string, type: string, url: string}>
 };
+const fileType: { [type: string]: typeof cc.Asset } = {
+    'image': cc.SpriteFrame,
+    'bin': cc.BufferAsset,
+    'json': cc.JsonAsset
+}
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-25 14:15:27
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-02-26 11:05:42
+ * @Last Modified time: 2020-07-01 22:40:34
  */
 export default class LoadManager extends Singleton {
 
@@ -21,8 +27,8 @@ export default class LoadManager extends Singleton {
     }
 
     public init(): void {
-        const resUrl: string = 'resource.json';
-        this._resJson = App.ResManager.getRes(resUrl).json;
+        const resUrl: string = 'resource';
+        this._resJson = App.ResManager.getRes(resUrl, cc.JsonAsset).json;
         this.removeExtname();
         App.ResManager.clearRes(resUrl);
     }
@@ -37,8 +43,8 @@ export default class LoadManager extends Singleton {
      */
     public loadGroup(groupName: string, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
         if (!groupName) return;
-        const urls: Array<string> = this.getGroupUrls(groupName);
-        this.loadArray(urls, completeFun, errorFun, progressFun, thisObj);
+        const resFiles: Array<ResFile> = this.getGroupUrls(groupName);
+        this.loadArray(resFiles, completeFun, errorFun, progressFun, thisObj);
     }
 
     /**
@@ -55,26 +61,28 @@ export default class LoadManager extends Singleton {
         }
 
         let groupName: string;
-        let urls: Array<string> = [];
+        let resFiles: Array<ResFile> = [];
         for (let i = 0; i < groupNames.length; i++) {
             groupName = groupNames[i];
-            urls = urls.concat(this.getGroupUrls(groupName));
+            resFiles = resFiles.concat(this.getGroupUrls(groupName));
         }
-        this.loadArray(urls, completeFun, errorFun, progressFun, thisObj);
+        this.loadArray(resFiles, completeFun, errorFun, progressFun, thisObj);
     }
 
     /**
      * 加载单个资源
-     * @param url 资源地址
+     * @param resFile 资源信息
      * @param completeFun 加载完成返回
      * @param errorFun 加载错误返回
      * @param progressFun 加载进度返回
      * @param thisObj 加载this对象
      */
-    public load(url: string, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
-        cc.loader.loadRes(url,
+    public load(resFile: ResFile, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+        cc.resources.load(
+            resFile.url,
+            resFile.type,
             function(completedCount: number, totalCount: number, item: any) {
-                progressFun && progressFun.apply(thisObj, arguments)
+                progressFun && progressFun.apply(thisObj, arguments);
             },
             function(error: Error, resource: any) {
                 if (error) {
@@ -89,26 +97,48 @@ export default class LoadManager extends Singleton {
 
     /**
      * 加载多个资源
-     * @param url 资源地址
+     * @param resFiles 资源地址
      * @param completeFun 加载完成返回
      * @param errorFun 加载错误返回
      * @param progressFun 加载进度返回
      * @param thisObj 加载this对象
      */
-    public loadArray(url: Array<string>, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
-        cc.loader.loadResArray(url,
-            function(completedCount: number, totalCount: number, item: any) {
-                progressFun && progressFun.apply(thisObj, arguments)
-            },
-            function(error: Error, resource: any) {
-                if (error) {
-                    errorFun && errorFun.apply(thisObj, arguments);
-                }
-                else {
-                    completeFun && completeFun.apply(thisObj);
-                }
+    public loadArray(resFiles: Array<ResFile>, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+        let comCount: number = 0;
+        let errCount: number = 0;
+        let err: Error;
+        let asset: any;
+        let resFile: ResFile;
+        const resLen: number = resFiles.length;
+        for (let i = 0; i < resLen; i++) {
+            resFile = resFiles[i];
+            this.load(
+                resFile,
+                () => {
+                    ++comCount;
+                    deal();
+                },
+                (error: Error, resource: any) => {
+                    ++errCount;
+                    err = error;
+                    asset = resource;
+                    deal();
+                },
+                null,
+                this
+            );
+        }
+        function deal() {
+            progressFun && progressFun.apply(thisObj, [comCount, resLen]);
+            if (comCount + errCount < resLen) return;
+
+            if (errCount > 0) {
+                errorFun && errorFun.apply(thisObj, [err, asset]);
             }
-        );
+            else {
+                completeFun && completeFun.apply(thisObj);
+            }
+        }
     }
 
     /**
@@ -147,8 +177,8 @@ export default class LoadManager extends Singleton {
      * 获取资源组中所有资源url
      * @param groupName 资源组
      */
-    public getGroupUrls(groupName: string): Array<string> {
-        const urls: Array<string> = [];
+    public getGroupUrls(groupName: string): Array<ResFile> {
+        const resFiles: Array<ResFile> = [];
         const groups: Array<{keys: string, name: string}> = this._resJson.groups;
         const resources: Array<{name: string, type: string, url: string}> = this._resJson.resources;
         let group: {keys: string, name: string};
@@ -162,13 +192,20 @@ export default class LoadManager extends Singleton {
         const keyLen: number = keys.length;
         for (let i = 0, len = resources.length; i < len; i++) {
             if (keys.indexOf(resources[i].name) !== -1) {
-                urls.push(resources[i].url);
-                if (urls.length >= keyLen) {
+                resFiles.push({
+                    url: resources[i].url,
+                    type: this.getType(resources[i].type)
+                });
+                if (resFiles.length >= keyLen) {
                     break;
                 }
             }
         }
-        return urls;
+        return resFiles;
+    }
+
+    private getType(type: string): typeof cc.Asset {
+        return fileType[type];
     }
 
     /**

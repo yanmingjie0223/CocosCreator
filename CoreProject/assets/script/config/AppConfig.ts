@@ -2,7 +2,7 @@
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-24 16:19:06
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-02-26 11:25:25
+ * @Last Modified time: 2020-07-01 21:51:50
  */
 export default class AppConfig {
 
@@ -20,6 +20,16 @@ export default class AppConfig {
      * appName
      */
     public static appName: string = '';
+
+    /**
+     * token
+     */
+    public static token: string = '';
+
+    /**
+     * 角色id
+     */
+    public static uId: string = '';
 
     /**
      * ui原始宽高

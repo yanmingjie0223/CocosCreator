@@ -1,14 +1,14 @@
 import App from "./App";
 import MainCtrl from "../module/main/MainCtrl";
 import MainView from "../module/main/MainView";
-import { ViewShowType } from "./const/ViewShowType";
+import { ResFile, ViewShowType } from "./const/CoreConst";
 const {ccclass, executionOrder} = cc._decorator;
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:05:01
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-09-01 22:56:48
+ * @Last Modified time: 2020-07-01 22:40:57
  */
 @ccclass
 @executionOrder(-1)
@@ -24,9 +24,15 @@ export default class AppEntry extends cc.Component {
     }
 
     private loadJson(): void {
-        const resJson: Array<string> = [
-            'data/systemConfig',
-            'resource'
+        const resJson: Array<ResFile> = [
+            {
+                url: 'data/systemConfig',
+                type: cc.JsonAsset
+            },
+            {
+                url: 'resource',
+                type: cc.JsonAsset
+            }
         ]
         App.LoadManager.loadArray(resJson, this.onJson, this.onJsonError, null, this);
     }

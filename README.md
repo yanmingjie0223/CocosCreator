@@ -1,5 +1,9 @@
 # CocosCreator
-基于cocos creator基础引擎工程
+基于cocos creator 2D 基础引擎工程
+
+# 分支
+* 2.3.x 支持cocos creator 2D 2.3.x前版本
+* master 支持cocos creator 2D 2.4.0版本
 
 # 继承类
 #### Singleton 单例继承

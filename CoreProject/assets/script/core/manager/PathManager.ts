@@ -4,7 +4,7 @@ import Singleton from "../base/Singleton";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-17 11:28:13
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-17 13:59:03
+ * @Last Modified time: 2020-07-01 22:27:54
  */
 export default class PathManager extends Singleton {
 

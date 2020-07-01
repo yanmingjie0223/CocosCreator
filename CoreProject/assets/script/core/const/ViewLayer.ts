@@ -2,35 +2,8 @@
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-16 17:01:29
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-30 14:10:09
+ * @Last Modified time: 2020-07-01 21:54:15
  */
-export const enum ViewLayerType {
-    /**
-     * view底层类型
-     */
-    BOTTOM_LAYER = 'bottom_layer',
-    /**
-     * view中层类型
-     */
-    MIDDLE_LAYER = 'middle_layer',
-    /**
-     * view上层类型
-     */
-    TOP_LAYER = 'top_layer',
-    /**
-     * 引导层类型
-     */
-    GUIDE_LAYER = 'guide_layer',
-    /**
-     * 弹窗层类型
-     */
-    WINDOW_LAYER = 'window_layer',
-    /**
-     * 最外层类型
-     */
-    MAX_LAYER = 'max_layer',
-}
-
 export default class ViewLayer {
 
     /**

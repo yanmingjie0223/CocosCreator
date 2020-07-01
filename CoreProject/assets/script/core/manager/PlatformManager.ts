@@ -1,11 +1,11 @@
 import Singleton from "../base/Singleton";
-import { PlatformType } from "../const/PlatformType";
+import { PlatformType } from "../const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-05-30 15:54:08
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-05-30 16:25:59
+ * @Last Modified time: 2020-07-01 21:50:21
  */
 export default class PlatformManager extends Singleton {
 

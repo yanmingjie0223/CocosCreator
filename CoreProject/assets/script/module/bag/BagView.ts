@@ -1,13 +1,12 @@
 import BaseView from "../../core/mvc/view/BaseView";
-import { ViewLayerType } from "../../core/const/ViewLayer";
 import App from "../../core/App";
-import { ViewType } from "../../core/const/ViewType";
+import { ViewType, ViewLayerType } from "../../core/const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-22 17:00:28
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-05-29 20:33:56
+ * @Last Modified time: 2020-07-01 21:54:44
  */
 export default class BagView extends BaseView {
 

@@ -1,12 +1,13 @@
 import Singleton from "../base/Singleton";
 import App from "../App";
-import ViewLayer, { ViewLayerType } from "../const/ViewLayer";
+import ViewLayer from "../const/ViewLayer";
+import { ViewLayerType } from "../const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 16:20:26
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-30 14:14:00
+ * @Last Modified time: 2020-07-01 21:54:35
  */
 export default class LayerManager extends Singleton {
 
