@@ -30,7 +30,7 @@ export default class HttpRequest extends cc.Node {
 
     public constructor() {
         super();
-        this._xhr = cc.loader.getXMLHttpRequest();
+        this._xhr = new XMLHttpRequest();
     }
 
     /**
