@@ -1,6 +1,7 @@
 import Singleton from "../base/Singleton";
 import App from "../App";
 import AppConfig from "../../config/AppConfig";
+import { ResFile } from "../const/CoreConst";
 type ResCache = {
     [url: string]: {count: number, cacheTime: number, isClear: boolean}
 }
@@ -90,7 +91,11 @@ export default class ResManager extends Singleton {
      */
     public addGroupUse(groupName: string, isTrust: boolean): void {
         if (!isTrust) return;
-        const urls: Array<string> = App.LoadManager.getGroupUrls(groupName);
+        const resFile: Array<ResFile> = App.LoadManager.getGroupUrls(groupName);
+        const urls: Array<string> = [];
+        for (let i = 0, len = resFile.length; i < len; i++) {
+            urls.push(resFile[i].url);
+        }
         this.addUseRes(urls);
     }
 
@@ -101,7 +106,11 @@ export default class ResManager extends Singleton {
      */
     public removeGroupUse(groupName: string, isTrust: boolean): void {
         if (!isTrust) return;
-        const urls: Array<string> = App.LoadManager.getGroupUrls(groupName);
+        const resFile: Array<ResFile> = App.LoadManager.getGroupUrls(groupName);
+        const urls: Array<string> = [];
+        for (let i = 0, len = resFile.length; i < len; i++) {
+            urls.push(resFile[i].url);
+        }
         this.removeUseRes(urls);
     }
 
