@@ -1,12 +1,12 @@
-import App from "../../App";
-import BaseModel from "../model/BaseModel";
-import BaseView from "../view/BaseView";
+import EventManager from "../manager/EventManager";
+import BaseModel from "./BaseModel";
+import BaseView from "./BaseView";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-11 15:21:06
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-28 11:11:13
+ * @Last Modified time: 2020-12-06 23:49:15
  */
 export default class BaseCtrl {
 
@@ -50,16 +50,20 @@ export default class BaseCtrl {
      * 全局事件处理
      */
     protected addEventListener(type: string, callback: Function, target?: any, useCapture?: boolean): void {
-        App.EventManager.on.apply(App.EventManager, arguments);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        eventMgr.addEventListener.apply(eventMgr, arguments);
     }
     protected offEventListener(type: string, callback?: Function, target?: any): void {
-        App.EventManager.off.apply(App.EventManager, arguments);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        eventMgr.offEventListener.apply(eventMgr, arguments);
     }
     protected emitEvent(type: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void {
-        App.EventManager.emit.apply(App.EventManager, arguments);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        eventMgr.emitEvent.apply(eventMgr, arguments);
     }
     protected hasAddEventListener(type: string): boolean {
-        return App.EventManager.hasEventListener(type);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        return eventMgr.hasAddEventListener(type);
     }
 
 }

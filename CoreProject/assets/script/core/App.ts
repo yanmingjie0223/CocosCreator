@@ -20,12 +20,13 @@ import PlatformManager from "./manager/PlatformManager";
 import I18nManager from "./manager/I18nManager";
 import SoundManager from "./manager/SoundManager";
 import NetManager from "./manager/NetManager";
+import DisplayUtils from "./utils/DisplayUtils";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:06:25
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-12-21 21:11:00
+ * @Last Modified time: 2020-12-06 23:06:58
  */
 export default class App {
 
@@ -115,6 +116,10 @@ export default class App {
 
     public static get StringUtils(): StringUtils {
         return StringUtils.getInstance<StringUtils>();
+    }
+
+    public static get DisplayUtils(): DisplayUtils {
+        return DisplayUtils.getInstance<DisplayUtils>();
     }
 
 }

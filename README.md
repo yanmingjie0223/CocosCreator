@@ -3,7 +3,7 @@
 
 # 分支
 * 2.3.x 支持cocos creator 2D 2.3.x前版本
-* master 支持cocos creator 2D 2.4.0版本
+* master 支持cocos creator 2D 2.4.x版本
 
 # 继承类
 #### Singleton 单例继承
@@ -49,3 +49,9 @@ AppEntry 启动场景后ui入口，相当于main
 # libs依赖库
 fairygui 免费且易于，并支持多个引擎（非常感谢谷主开源）
 github上库地址 https://github.com/fairygui
+
+# 协议支持
+| 协议 | 支持  |
+| :------------ |:---------------:|
+| protobuf      |        待       |
+| flatbuffers   |        待       |

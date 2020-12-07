@@ -1,4 +1,4 @@
-import BaseView from "../../core/mvc/view/BaseView";
+import BaseView from "../../core/mvc/BaseView";
 import App from "../../core/App";
 import BagCtrl from "../bag/BagCtrl";
 import BagView from "../bag/BagView";
@@ -8,11 +8,11 @@ import { ViewType, ViewShowType, ViewEvent, ViewLayerType } from "../../core/con
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-21 16:21:50
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:55:03
+ * @Last Modified time: 2020-12-06 23:46:36
  */
 export default class MainView extends BaseView {
 
-    public static key: string = 'MainView';
+    public static readonly key: string = 'MainView';
 
     private _bagBtn: fgui.GButton = null;
 
@@ -26,6 +26,9 @@ export default class MainView extends BaseView {
 
     protected onInit(): void {
         this.initEvent();
+        App.EventManager.addEventListener(ViewEvent.VIEW_SHOW, () => {
+            console.log(`监听事件收到： view_show`);
+        }, this)
     }
 
     public destroy() {

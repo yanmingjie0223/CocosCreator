@@ -9,7 +9,7 @@ import Singleton from "../base/Singleton";
 export default class PathManager extends Singleton {
 
     public readonly root: string = '';
-    // ui地址
+    /**ui地址 */
     public readonly ui: string = 'ui/'
 
     public constructor() {

@@ -1,16 +1,16 @@
 import Singleton from "../base/Singleton";
-import BaseView from "../mvc/view/BaseView";
+import BaseView from "../mvc/BaseView";
 import App from "../App";
-import BaseViewData from "../mvc/view/BaseViewData";
-import BaseCtrl from "../mvc/ctrl/BaseCtrl";
-import BaseModel from "../mvc/model/BaseModel";
+import BaseCtrl from "../mvc/BaseCtrl";
+import BaseModel from "../mvc/BaseModel";
 import { ViewShowType, ViewEvent } from "../const/CoreConst";
+import BaseViewData from "../mvc/BaseViewData";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 10:54:16
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:53:02
+ * @Last Modified time: 2020-12-06 23:46:57
  */
 export default class ViewManager extends Singleton {
 
@@ -45,7 +45,7 @@ export default class ViewManager extends Singleton {
     public show(ctrlClass: {new(): BaseCtrl}, modelClass: {new(): BaseModel}, viewClass: {new(): BaseView}, viewData: BaseViewData, showType: number = ViewShowType.MULTI_VIEW, layer?: string): BaseView {
         const key: string = (viewClass as any).key;
         if (!key) {
-            App.DebugUtils.error('该view未存在key，请在检查一下遗漏！');
+            App.DebugUtils.error(`该${viewClass.name}未存在static key，请在检查一下遗漏！`);
         }
         // 单个窗体显示
         if (showType === ViewShowType.SINGLETON_VIEW) {
@@ -93,7 +93,7 @@ export default class ViewManager extends Singleton {
         }
 
         const view: BaseView = this._views[key];
-        view.node.parent = null;
+        view.removeFromParent();
         if (isDestroy) {
             delete this._views[key];
             view.destroy();
@@ -152,7 +152,7 @@ export default class ViewManager extends Singleton {
             return null;
         }
         if (this._willViews.length === 0) {
-            App.EventManager.emit(ViewEvent.WINDOW_CLOSE);
+            App.EventManager.emitEvent(ViewEvent.WINDOW_CLOSE);
             return null;
         }
 

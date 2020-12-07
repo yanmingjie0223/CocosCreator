@@ -1,4 +1,4 @@
-import BaseView from "../../core/mvc/view/BaseView";
+import BaseView from "../../core/mvc/BaseView";
 import App from "../../core/App";
 import { ViewType, ViewLayerType } from "../../core/const/CoreConst";
 
@@ -6,17 +6,17 @@ import { ViewType, ViewLayerType } from "../../core/const/CoreConst";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-22 17:00:28
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:54:44
+ * @Last Modified time: 2020-12-07 23:23:07
  */
 export default class BagView extends BaseView {
 
-    public static key: string = 'BagView';
+    public static readonly key: string = 'BagView';
 
     private _closeBtn: fgui.GButton = null;
     private _tf: fgui.GRichTextField = null;
 
     public constructor() {
-        super('bag', 'BagView', ViewType.WINDOW, ViewLayerType.WINDOW_LAYER);
+        super('bag', 'BagView', ViewType.X_WINDOW, ViewLayerType.WINDOW_LAYER);
     }
 
     public destroy() {

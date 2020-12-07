@@ -5,26 +5,23 @@ import BComponent from "../../core/base/BComponent";
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-22 21:31:34
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 14:56:00
+ * @Last Modified time: 2020-12-06 23:08:17
  */
 export default class GlobalModalWaiting extends BComponent {
+
+    private _bar: fgui.GImage = null;
+    private _barBg: fgui.GImage = null;
 
     private hideTime: number = 1;
     private _showTime: number;
     private _isShow: boolean;
-    private _bar: fgui.GImage;
-    private _barBg: fgui.GImage;
 
     public constructor() {
         super();
     }
 
     protected onConstruct(): void {
-        this.setSize(App.StageManager.viewWidth, App.StageManager.viewHeight);
-
-        this._barBg = this.getChild('barBg').asImage;
-        this._bar = this.getChild('bar').asImage;
-
+        App.DisplayUtils.bindGObject(this, this);
         this.hideUI();
     }
 

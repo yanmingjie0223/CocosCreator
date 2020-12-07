@@ -9,7 +9,7 @@ import App from "../App";
  */
 export default class DebugUtils extends Singleton {
 
-    // 是否开启debug模式
+    /**是否开启debug模式 */
     public isDebug: boolean = false;
 
     public constructor() {

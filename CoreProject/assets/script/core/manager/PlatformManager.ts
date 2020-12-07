@@ -9,7 +9,7 @@ import { PlatformType } from "../const/CoreConst";
  */
 export default class PlatformManager extends Singleton {
 
-    // 平台名字
+    /**平台名字 */
     private _platformName: string;
 
     public constructor() {

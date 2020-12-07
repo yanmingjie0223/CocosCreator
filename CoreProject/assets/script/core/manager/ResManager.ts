@@ -2,20 +2,30 @@ import Singleton from "../base/Singleton";
 import App from "../App";
 import AppConfig from "../../config/AppConfig";
 import { ResFile } from "../const/CoreConst";
+interface ResCacheFile {
+    count: number;
+    type: typeof cc.Asset;
+    cacheTime: number;
+    isClear: boolean;
+}
 type ResCache = {
-    [url: string]: {count: number, cacheTime: number, isClear: boolean}
+    [url: string]: Array<ResCacheFile>
 }
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-14 19:19:01
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:33:55
+ * @Last Modified time: 2020-12-07 23:33:45
  */
 export default class ResManager extends Singleton {
 
-    // 加载资源缓存
+    /**加载资源缓存 */
     private _resCache: ResCache;
+    /**资源检查间隔时间(s) */
+    private _interval: number = 5;
+    /**当前累计时间 */
+    private _time: number;
 
     public constructor() {
         super();
@@ -23,6 +33,7 @@ export default class ResManager extends Singleton {
 
     public init(): void {
         this._resCache = {};
+        this._time = 0;
     }
 
     /**
@@ -30,35 +41,57 @@ export default class ResManager extends Singleton {
      * @param dt 更新时间(s)
      */
     public onUpdate(dt: number): void {
-        let res: {count: number, cacheTime: number, isClear: boolean};
+        this._time += dt;
+        if (this._time < this._interval) {
+            return;
+        }
+
+        this._time -= this._interval;
+        let cacheFile: ResCacheFile;
+        let cacheFiles: Array<ResCacheFile>;
         const resCache: ResCache = this._resCache;
         for (let url in resCache) {
-            res = resCache[url];
-            if (res.count <= 0 && res.isClear) {
-                res.cacheTime += dt;
-            }
-            if (res.cacheTime >= AppConfig.resCacheTime) {
-                this.release(url);
-                delete this._resCache[url];
+            cacheFiles = resCache[url];
+            for (let i = 0, len = cacheFiles.length; i < len; i++) {
+                cacheFile = cacheFiles[i];
+                if (cacheFile.count <= 0 && cacheFile.isClear) {
+                    cacheFile.cacheTime += this._interval;
+                }
+                if (cacheFile.cacheTime >= AppConfig.resCacheTime) {
+                    this.release(url, cacheFile.type);
+                    cacheFiles.splice(i, 1);
+                    --i;
+                    --len;
+                    if (cacheFiles.length <= 0) {
+                        delete this._resCache[url];
+                        break;
+                    }
+                }
             }
         }
     }
 
     /**
      * 获取资源
-     * @param url 资源地址
+     * @param path 资源地址
      * @param type 文件类型
      */
-    public getRes(url: string, type?: typeof cc.Asset): any {
-        return cc.resources.get(url, type);
+    public getRes(path: string, type?: typeof cc.Asset): any {
+        return cc.resources.get(path, type);
     }
 
     /**
-     * 销毁缓存资源
-     * @param url 销毁资源
+     * 移除资源名
+     * @param path
+     * @param type
      */
-    public clearRes(url: string | Array<string>): void {
-        this.removeUseRes(url);
+    public release(path: string, type: typeof cc.Asset): void {
+        // 移除资源之前移除fgui包
+        if (path.indexOf('ui') !== -1) {
+            const pkgName: string = path.split('/')[1];
+            this.removeUiPackage(pkgName);
+        }
+        cc.resources.release(path, type);
     }
 
     /**
@@ -92,11 +125,7 @@ export default class ResManager extends Singleton {
     public addGroupUse(groupName: string, isTrust: boolean): void {
         if (!isTrust) return;
         const resFile: Array<ResFile> = App.LoadManager.getGroupUrls(groupName);
-        const urls: Array<string> = [];
-        for (let i = 0, len = resFile.length; i < len; i++) {
-            urls.push(resFile[i].url);
-        }
-        this.addUseRes(urls);
+        this.addUseRes(resFile);
     }
 
     /**
@@ -107,81 +136,71 @@ export default class ResManager extends Singleton {
     public removeGroupUse(groupName: string, isTrust: boolean): void {
         if (!isTrust) return;
         const resFile: Array<ResFile> = App.LoadManager.getGroupUrls(groupName);
-        const urls: Array<string> = [];
-        for (let i = 0, len = resFile.length; i < len; i++) {
-            urls.push(resFile[i].url);
-        }
-        this.removeUseRes(urls);
+        this.removeUseRes(resFile);
     }
 
     /**
      * 添加资源引用次数
-     * @param url 资源路径，可是数组类型
+     * @param files 资源路径，可是数组类型
      * @param isClear 是否能清理默认可清理资源
      */
-    public addUseRes(url: string | Array<string>, isClear: boolean = true): void {
-        let urls: Array<string>;
-        if (typeof(url) === 'string') {
-            urls = [url];
-        }
-        else {
-            urls = url;
-        }
-
-        let resName: string;
-        let res: {count: number, cacheTime: number, isClear: boolean};
-        for (let i = 0, len = urls.length; i < len; i++) {
-            resName = urls[i];
-            res = this._resCache[resName];
-            if (!res) {
-                res = {} as any;
-                res.count = 1;
-                res.cacheTime = 0;
-                res.isClear = isClear;
-                this._resCache[resName] = res;
+    public addUseRes(files: Array<ResFile>, isClear: boolean = true): void {
+        let file: ResFile;
+        let cacheFile: ResCacheFile;
+        let cacheFiles: Array<ResCacheFile>;
+        for (let i = 0, len = files.length; i < len; i++) {
+            file = files[i];
+            cacheFiles = this._resCache[file.url];
+            let isCache: boolean = false;
+            if (cacheFiles) {
+                for (let i = 0, len = cacheFiles.length; i < len; i++) {
+                    cacheFile = cacheFiles[i];
+                    if (file.type === cacheFile.type) {
+                        cacheFile.count += 1;
+                        cacheFile.cacheTime = 0;
+                        cacheFile.isClear = isClear;
+                        isCache = true;
+                        break;
+                    }
+                }
             }
-            else {
-                res.count += 1;
-                res.cacheTime = 0;
-                res.isClear = isClear;
+            if (!cacheFiles || !isCache) {
+                cacheFile = cc.js.createMap();
+                cacheFile.count = 1;
+                cacheFile.cacheTime = 0;
+                cacheFile.isClear = isClear;
+                cacheFile.type = file.type;
+                if (cacheFiles) {
+                    cacheFiles.push(cacheFile);
+                }
+                else {
+                    this._resCache[file.url] = [cacheFile];
+                }
             }
         }
     }
 
     /**
      * 删除资源引用次数
-     * @param url 资源路径，可是数组类型
+     * @param files 资源路径，可是数组类型
      */
-    public removeUseRes(url: string | Array<string>): void {
-        let urls: Array<string>;
-        if (typeof(url) === 'string') {
-            urls = [url];
-        }
-        else {
-            urls = url;
-        }
-
-        let resName: string;
-        let res: {count: number, cacheTime: number, isClear: boolean};
-        for (let i = 0, len = urls.length; i < len; i++) {
-            resName = urls[i];
-            res = this._resCache[resName];
-            if (res && res.count > 0) {
-                res.count -= 1;
+    public removeUseRes(files: Array<ResFile>): void {
+        let file: ResFile;
+        let cacheFiles: Array<ResCacheFile>;
+        let cacheFile: ResCacheFile;
+        for (let i = 0, len = files.length; i < len; i++) {
+            file = files[i];
+            cacheFiles = this._resCache[file.url];
+            if (cacheFiles) {
+                for (let i = 0, len = cacheFiles.length; i < len; i++) {
+                    cacheFile = cacheFiles[i];
+                    if (file.type === cacheFile.type) {
+                        cacheFile.count -= 1;
+                        break;
+                    }
+                }
             }
         }
-    }
-
-    /**
-     * 移除资源名
-     */
-    private release(resUrl: string): void {
-        // 移除资源之前移除fgui包
-        if (resUrl.indexOf('ui') !== -1) {
-            const pkgName: string = resUrl.split('/')[1];
-            this.removeUiPackage(pkgName);
-        }
-        cc.resources.release(resUrl);
     }
 
 }

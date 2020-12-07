@@ -13,7 +13,7 @@ export default class I18n {
     private _language: I18nType;
 
     public constructor() {
-        // 构造函数
+
     }
 
     /**

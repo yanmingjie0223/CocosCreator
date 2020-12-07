@@ -12,9 +12,9 @@ import { FitType } from "../const/CoreConst";
  */
 export default class StageManager extends Singleton {
 
-    // view显示节点
+    /**view显示节点 */
     private _viewNode: cc.Node;
-    // 舞台显示范围
+    /**舞台显示范围 */
     private _stageRect: {width: number, height: number};
 
     public constructor() {

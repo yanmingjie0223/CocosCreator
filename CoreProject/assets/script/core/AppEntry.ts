@@ -8,13 +8,14 @@ const {ccclass, executionOrder} = cc._decorator;
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:05:01
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 22:40:57
+ * @Last Modified time: 2020-12-07 23:15:33
  */
 @ccclass
 @executionOrder(-1)
 export default class AppEntry extends cc.Component {
 
     protected onLoad(): void {
+        this.initManager();
         this.loadJson();
     }
 
@@ -37,20 +38,26 @@ export default class AppEntry extends cc.Component {
         App.LoadManager.loadArray(resJson, this.onJson, this.onJsonError, null, this);
     }
 
-    private onJson(): void {
+    private initManager(): void {
         App.DebugUtils.isDebug = true;
         App.DebugUtils.init();
-
         App.SoundManager.init();
         App.I18nManager.init();
         App.ResManager.init();
-        App.LoadManager.init();
-        App.PlatformManager.init();
-        App.SystemManager.init();
         App.StageManager.init();
+        App.PlatformManager.init();
         App.LayerManager.init();
         App.ModelManager.init();
         App.ViewManager.init();
+    }
+
+    private initModel(): void {
+        // todo: 初始化model
+    }
+
+    private onJson(): void {
+        App.LoadManager.init();
+        App.SystemManager.init();
 
         App.LoadManager.loadPackage('preload', this.onPreload, null, null, this);
     }

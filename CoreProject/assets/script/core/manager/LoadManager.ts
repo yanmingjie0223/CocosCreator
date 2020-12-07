@@ -15,11 +15,11 @@ const fileType: { [type: string]: typeof cc.Asset } = {
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-25 14:15:27
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 22:40:34
+ * @Last Modified time: 2020-12-07 23:32:58
  */
 export default class LoadManager extends Singleton {
 
-    // 加载资源配置
+    /**加载资源配置 */
     private _resJson: ResJson;
 
     public constructor() {
@@ -30,7 +30,7 @@ export default class LoadManager extends Singleton {
         const resUrl: string = 'resource';
         this._resJson = App.ResManager.getRes(resUrl, cc.JsonAsset).json;
         this.removeExtname();
-        App.ResManager.clearRes(resUrl);
+        App.ResManager.release(resUrl, cc.JsonAsset);
     }
 
     /**

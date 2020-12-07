@@ -10,7 +10,7 @@ import App from "../App";
 export default class EffectUtils extends Singleton {
 
     private _typerTf: Array<fgui.GTextField> = [];
-    // 这个是二维数组和上面的tf对象对应
+    /**这个是二维数组和上面的tf对象对应 */
     private _tweenTf: Array<Array<fgui.GTweener>> = [];
 
     /**

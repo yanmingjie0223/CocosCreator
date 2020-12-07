@@ -1,12 +1,12 @@
 import Singleton from "../base/Singleton";
-import BaseModel from "../mvc/model/BaseModel";
+import BaseModel from "../mvc/BaseModel";
 import App from "../App";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 10:59:30
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-28 11:00:43
+ * @Last Modified time: 2020-12-06 23:46:33
  */
 export default class ModelManager extends Singleton {
 
@@ -45,7 +45,7 @@ export default class ModelManager extends Singleton {
      * 获取model对象源
      * @param modelClass model类
      */
-    public getModel(modelClass: {new(): BaseModel}): BaseModel {
+    public getModel<T>(modelClass: {new(): T}): T {
         if (!modelClass) return;
         const key: string = (modelClass as any).key;
         if (this._modelCache && this._modelCache[key]) {

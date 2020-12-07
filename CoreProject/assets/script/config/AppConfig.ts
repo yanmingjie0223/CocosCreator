@@ -2,7 +2,7 @@
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-24 16:19:06
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:51:50
+ * @Last Modified time: 2020-12-07 23:37:58
  */
 export default class AppConfig {
 
@@ -32,19 +32,23 @@ export default class AppConfig {
     public static uId: string = '';
 
     /**
-     * ui原始宽高
+     * ui原始宽
      */
     public static readonly initWidth: number = 640;
+
+    /**
+     * ui原始高
+     */
     public static readonly initHeight: number = 1136;
 
     /**
      * 资源无引用后缓存时间(s)
      */
-    public static readonly resCacheTime: number = 10;
+    public static readonly resCacheTime: number = 3 * 60;
 
     /**
      * 蒙层背景图片
      */
-    public static readonly matteUrl: string = 'ui://36dt0efabg9v3';
+    public static readonly matteUrl: string = 'ui://preload/wBg';
 
 }

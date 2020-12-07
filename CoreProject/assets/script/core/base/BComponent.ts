@@ -1,10 +1,10 @@
-import App from "../App";
+import EventManager from "../manager/EventManager";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-25 13:54:13
  * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 20:56:43
+ * @Last Modified time: 2020-12-06 16:41:04
  */
 export default class BComponent extends fgui.GComponent {
 
@@ -26,16 +26,20 @@ export default class BComponent extends fgui.GComponent {
      * 全局事件处理
      */
     protected addEventListener(type: string, callback: Function, target?: any, useCapture?: boolean): void {
-        App.EventManager.on.apply(App.EventManager, arguments);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        eventMgr.addEventListener.apply(eventMgr, arguments);
     }
     protected offEventListener(type: string, callback?: Function, target?: any): void {
-        App.EventManager.off.apply(App.EventManager, arguments);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        eventMgr.offEventListener.apply(eventMgr, arguments);
     }
     protected emitEvent(type: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void {
-        App.EventManager.emitEvent.apply(App.EventManager, arguments);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        eventMgr.emitEvent.apply(eventMgr, arguments);
     }
     protected hasAddEventListener(type: string): boolean {
-        return App.EventManager.hasEventListener(type);
+        const eventMgr = EventManager.getInstance<EventManager>();
+        return eventMgr.hasAddEventListener(type);
     }
 
 }

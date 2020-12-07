@@ -7,6 +7,7 @@ import AppConfig from "../../config/AppConfig";
  * @Date: 2019-12-21 20:55:26
  * @Last Modified by: yanmingjie0223@qq.com
  * @Last Modified time: 2019-12-24 22:08:13
+ * todo: 该类为测试临时使用
  */
 export default class NetManager extends Singleton {
 

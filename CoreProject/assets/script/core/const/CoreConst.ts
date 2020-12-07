@@ -10,34 +10,38 @@ export interface ResFile {
 }
 
 export const enum FitType {
-    /**
-     * 水平
-     */
+    /**水平居中 */
     ALIGN_CENTER = 'center',
+    /**水平左对齐 */
     ALIGN_LEFT = 'left',
+    /**水平右对齐 */
     ALIGN_RIGHT = 'right',
-    /**
-     * 垂直
-     */
+    /**垂直居中 */
     ALIGN_MIDDLE = 'middle',
+    /**垂直顶对齐 */
     ALIGN_TOP = 'top',
+    /**垂直底对齐 */
     ALIGN_BOTTOM = 'buttom',
 }
 
 export const enum I18nType {
-    ZH = 'zh', // 中文
-    EN = 'en', // 英文
+    /**中文 */
+    ZH = 'zh',
+    /**英文 */
+    EN = 'en',
 }
 
 export const enum PlatformType {
-    // web
+    /**web */
     WEB = 'web',
-    // native
+    /**native */
     NATIVE = 'native',
-    // wx mini game
+    /**wx mini game */
     WX = 'wx',
-    // qq mini game
+    /**qq mini game */
     QQ = 'qq',
+    /**微信小程序 */
+    WX_APP = 'wx_app',
 }
 
 export const enum ViewLayerType {
