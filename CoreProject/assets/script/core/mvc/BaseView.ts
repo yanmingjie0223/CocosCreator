@@ -1,10 +1,11 @@
+import AppConfig from "../../config/AppConfig";
 import App from "../App";
+import BComponent from "../base/BComponent";
+import { ViewType } from "../const/CoreConst";
+import ResManager from "../manager/ResManager";
+import BaseCtrl from "./BaseCtrl";
 import BaseModel from "./BaseModel";
 import BaseViewData from "./BaseViewData";
-import BaseCtrl from "./BaseCtrl";
-import BComponent from "../base/BComponent";
-import AppConfig from "../../config/AppConfig";
-import { ViewType } from "../const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
@@ -22,6 +23,8 @@ export default class BaseView extends BComponent {
     private _layer: string;
     /**包名 */
     private _pkgName: string;
+    /**所有包，也就是所有依赖包资源 */
+    private _pkgNames: Array<string>;
     /**单个界面资源 */
     private _resName: string;
     /**模块数据源 */
@@ -52,9 +55,10 @@ export default class BaseView extends BComponent {
      * @param type 界面类型，ViewType
      * @param layer 界面显示在哪层中
      */
-    public constructor(pkgName: string, resName: string, type: ViewType, layer: string) {
+    public constructor(pkgNames: Array<string>, resName: string, type: ViewType, layer: string) {
         super();
-        this._pkgName = pkgName;
+        this._pkgName = pkgNames[0];
+        this._pkgNames = pkgNames;
         this._resName = resName;
         this._type = type;
         this._layer = layer;
@@ -182,7 +186,10 @@ export default class BaseView extends BComponent {
      * 消耗，子类可继承重写添加消耗逻辑
      */
     public destroy(): void {
-        App.ResManager.removeGroupUse(this._pkgName, this.isTrust);
+        const resMgr = ResManager.getInstance<ResManager>();
+        this._pkgNames.forEach((pkgName: string) => {
+            resMgr.removeGroupUse(pkgName, this.isTrust);
+        });
         this._ctrl && this._ctrl.destroy();
         this._isDestroy = true;
         this._isInit = false;
@@ -299,10 +306,13 @@ export default class BaseView extends BComponent {
         }
 
         this.showModalWait();
-        App.ResManager.addGroupUse(this._pkgName, this.isTrust);
+        const resMgr = ResManager.getInstance<ResManager>();
+        this._pkgNames.forEach((pkgName: string) => {
+            resMgr.addGroupUse(pkgName, this.isTrust);
+        });
         const isExistPkg: boolean = fgui.UIPackage.getByName(this._pkgName) ? true : false;
         if (!this._isInit || !isExistPkg) {
-            App.LoadManager.loadPackage(this._pkgName, this.toInitUI, this.destroy, this.onProgress, this);
+            App.LoadManager.loadArrayPackage(this._pkgNames, this.toInitUI, this.destroy, this.onProgress, this);
         }
         else {
             this.onCompleteUI();

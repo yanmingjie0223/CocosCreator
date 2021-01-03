@@ -1,6 +1,6 @@
-import BaseView from "../../core/mvc/BaseView";
 import App from "../../core/App";
-import { ViewType, ViewLayerType } from "../../core/const/CoreConst";
+import { ViewLayerType, ViewType } from "../../core/const/CoreConst";
+import BaseView from "../../core/mvc/BaseView";
 
 /*
  * @Author: yanmingjie0223@qq.com
@@ -16,7 +16,7 @@ export default class BagView extends BaseView {
     private _tf: fgui.GRichTextField = null;
 
     public constructor() {
-        super('bag', 'BagView', ViewType.X_WINDOW, ViewLayerType.WINDOW_LAYER);
+        super(['bag'], 'BagView', ViewType.X_WINDOW, ViewLayerType.WINDOW_LAYER);
     }
 
     public destroy() {

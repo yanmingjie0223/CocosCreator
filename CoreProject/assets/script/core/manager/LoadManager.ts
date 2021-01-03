@@ -1,6 +1,6 @@
 import Singleton from "../base/Singleton";
-import App from "../App";
 import { ResFile } from "../const/CoreConst";
+import ResManager from "./ResManager";
 type ResJson = {
     groups: Array<{keys: string, name: string}>,
     resources: Array<{name: string, type: string, url: string}>
@@ -28,9 +28,10 @@ export default class LoadManager extends Singleton {
 
     public init(): void {
         const resUrl: string = 'resource';
-        this._resJson = App.ResManager.getRes(resUrl, cc.JsonAsset).json;
+        const resMgr = ResManager.getInstance<ResManager>();
+        this._resJson = resMgr.getRes(resUrl, cc.JsonAsset).json;
         this.removeExtname();
-        App.ResManager.release(resUrl, cc.JsonAsset);
+        resMgr.release(resUrl, cc.JsonAsset);
     }
 
     /**
@@ -151,7 +152,8 @@ export default class LoadManager extends Singleton {
      */
     public loadPackage(pkgName: string, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
         this.loadGroup(pkgName, function() {
-            App.ResManager.addUiPackage(pkgName);
+            const resMgr = ResManager.getInstance<ResManager>();
+            resMgr.addUiPackage(pkgName);
             completeFun && completeFun.apply(thisObj);
         }, errorFun, progressFun, thisObj);
     }
@@ -166,8 +168,9 @@ export default class LoadManager extends Singleton {
      */
     public loadArrayPackage(pkgNameArr: Array<string>, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
         this.loadArrayGroup(pkgNameArr, function() {
+            const resMgr = ResManager.getInstance<ResManager>();
             for (let i = 0, len = pkgNameArr.length; i < len; i++) {
-                App.ResManager.addUiPackage(pkgNameArr[i]);
+                resMgr.addUiPackage(pkgNameArr[i]);
             }
             completeFun && completeFun.apply(thisObj);
         }, errorFun, progressFun, thisObj);

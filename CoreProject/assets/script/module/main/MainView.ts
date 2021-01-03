@@ -1,8 +1,8 @@
-import BaseView from "../../core/mvc/BaseView";
 import App from "../../core/App";
+import { ViewEvent, ViewLayerType, ViewShowType, ViewType } from "../../core/const/CoreConst";
+import BaseView from "../../core/mvc/BaseView";
 import BagCtrl from "../bag/BagCtrl";
 import BagView from "../bag/BagView";
-import { ViewType, ViewShowType, ViewEvent, ViewLayerType } from "../../core/const/CoreConst";
 
 /*
  * @Author: yanmingjie0223@qq.com
@@ -17,7 +17,7 @@ export default class MainView extends BaseView {
     private _bagBtn: fgui.GButton = null;
 
     public constructor() {
-        super('main', 'MainView', ViewType.VIEW, ViewLayerType.MIDDLE_LAYER);
+        super(['main', 'bag'], 'MainView', ViewType.VIEW, ViewLayerType.MIDDLE_LAYER);
     }
 
     protected onShown(): void {

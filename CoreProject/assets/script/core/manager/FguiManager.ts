@@ -1,5 +1,5 @@
-import Singleton from "../base/Singleton";
 import GlobalModalWaiting from "../../module/preload/GlobalModalWaiting";
+import Singleton from "../base/Singleton";
 
 /*
  * @Author: yanmingjie0223@qq.com
@@ -30,9 +30,9 @@ export default class FguiManager extends Singleton {
      * 绑定fgui到类
      */
     private bindComponent(): void {
-        // UIConfig配置
-        fgui.UIObjectFactory.setExtension('ui://preload/GlobalModalWaiting', GlobalModalWaiting);
-
+        const setExtension: Function = fgui.UIObjectFactory.setExtension;
+        /**UIConfig配置 */
+        setExtension('ui://preload/GlobalModalWaiting', GlobalModalWaiting);
     }
 
 }
