@@ -1,12 +1,12 @@
 import Singleton from "../base/Singleton";
 import BaseModel from "../mvc/BaseModel";
-import App from "../App";
+import DebugUtils from "../utils/DebugUtils";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 10:59:30
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-06 23:46:33
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:26:52
  */
 export default class ModelManager extends Singleton {
 
@@ -32,11 +32,12 @@ export default class ModelManager extends Singleton {
             this._modelCache[key] = model;
         }
         else {
+            const debugUtils = DebugUtils.getInstance<DebugUtils>();
             if (!key) {
-                App.DebugUtils.error('注册的该model不存在key');
+                debugUtils.error('注册的该model不存在key');
             }
             else {
-                App.DebugUtils.warn('注册的该model已存在，请使用统一数据源！');
+                debugUtils.warn('注册的该model已存在，请使用统一数据源！');
             }
         }
     }
@@ -52,9 +53,23 @@ export default class ModelManager extends Singleton {
             return this._modelCache[key];
         }
         else {
-            App.DebugUtils.warn('获取model数据源对象不存在！');
+            const debugUtils = DebugUtils.getInstance<DebugUtils>();
+            debugUtils.warn('获取model数据源对象不存在！');
         }
         return null;
+    }
+
+    /**
+     * 销毁model数据源
+     * @param modelClass
+     */
+    public destroy(modelClass: {new(): BaseModel}): void {
+        if (!modelClass || !this._modelCache) return;
+        const key: string = (modelClass as any).key;
+        const model = this._modelCache[key];
+        if (model) {
+            model.destroy();
+        }
     }
 
     /**

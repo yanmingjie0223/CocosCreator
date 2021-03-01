@@ -1,14 +1,14 @@
-import App from "./App";
 import MainCtrl from "../module/main/MainCtrl";
 import MainView from "../module/main/MainView";
+import App from "./App";
 import { ResFile, ViewShowType } from "./const/CoreConst";
 const {ccclass, executionOrder} = cc._decorator;
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-09 15:05:01
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-07 23:15:33
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 17:24:47
  */
 @ccclass
 @executionOrder(-1)
@@ -74,7 +74,7 @@ export default class AppEntry extends cc.Component {
     }
 
     private onMain(): void {
-        App.ViewManager.show(MainCtrl, null, MainView, null, ViewShowType.MULTI_VIEW);
+        App.ViewManager.show(MainView, null, MainCtrl, null, ViewShowType.MULTI_VIEW);
     }
 
 }

@@ -1,19 +1,19 @@
 import Singleton from "../base/Singleton";
-import App from "../App";
+import DebugUtils from "../utils/DebugUtils";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-21 11:38:12
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-05-29 20:36:03
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:56:42
  */
 export default class TimeManager extends Singleton {
 
-    // 服务端时间(s)
+    /**服务端时间(s) */
     private _serverTime: number;
-    // 服务端和客户端时间差(s)
+    /**服务端和客户端时间差(s) */
     private _diffTime: number;
-    // 是否同步过时间
+    /**是否同步过时间 */
     private _isSyncTime: boolean;
 
     public constructor() {
@@ -44,7 +44,8 @@ export default class TimeManager extends Singleton {
      */
     public get serverTime(): number {
         if (this._serverTime === void 0) {
-            App.DebugUtils.warn('服务器时间还未同步，请先同步时间！');
+            const debugUtils = DebugUtils.getInstance<DebugUtils>();
+            debugUtils.warn('服务器时间还未同步，请先同步时间！');
             return null;
         }
         return this._serverTime;

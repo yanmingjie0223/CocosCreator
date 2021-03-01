@@ -1,14 +1,14 @@
-import Singleton from "../base/Singleton";
-import App from "../App";
 import AppConfig from "../../config/AppConfig";
-import { IFitItem } from "./SystemManager";
+import Singleton from "../base/Singleton";
 import { FitType } from "../const/CoreConst";
+import DebugUtils from "../utils/DebugUtils";
+import SystemManager, { IFitItem } from "./SystemManager";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 15:04:52
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:47:52
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:15:06
  */
 export default class StageManager extends Singleton {
 
@@ -111,7 +111,8 @@ export default class StageManager extends Singleton {
         let _y: number;
         let _w: number;
         let _h: number;
-        const fitInfo: IFitItem = App.SystemManager.getFitInfo();
+        const systemManager = SystemManager.getInstance<SystemManager>();
+        const fitInfo: IFitItem = systemManager.getFitInfo();
         if (fitInfo) {
             _w = fitInfo.width;
             _h = fitInfo.height;
@@ -128,7 +129,8 @@ export default class StageManager extends Singleton {
                     _x = this.stageWidth- _w;
                     break;
                 default:
-                    App.DebugUtils.error(`配置文件systemConfig.json中alignH: ${alignH}不支持！`);
+                    const debugUtils = DebugUtils.getInstance<DebugUtils>();
+                    debugUtils.error(`配置文件systemConfig.json中alignH: ${alignH}不支持！`);
                     break;
             }
             switch (alignV) {
@@ -142,7 +144,8 @@ export default class StageManager extends Singleton {
                     _y = this.stageHeight - _h;
                     break;
                 default:
-                    App.DebugUtils.error(`配置文件systemConfig.json中alignH: ${alignV}不支持！`);
+                    const debugUtils = DebugUtils.getInstance<DebugUtils>();
+                    debugUtils.error(`配置文件systemConfig.json中alignH: ${alignV}不支持！`);
                     break;
             }
         }

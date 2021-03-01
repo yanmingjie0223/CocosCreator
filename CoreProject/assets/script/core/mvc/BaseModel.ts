@@ -3,13 +3,15 @@ import EventManager from "../manager/EventManager";
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-14 15:33:01
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-06 23:49:08
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:53:13
  */
 export default abstract class BaseModel {
 
-    // 类名key
+    /**类名key */
     public static key: string = 'BaseModel';
+
+    public destroy(): void {}
 
     protected addEventListener(type: string, callback: Function, target?: any, useCapture?: boolean): void {
         const eventMgr = EventManager.getInstance<EventManager>();

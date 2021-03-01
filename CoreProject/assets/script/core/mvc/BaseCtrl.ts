@@ -5,17 +5,17 @@ import BaseView from "./BaseView";
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-11 15:21:06
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-06 23:49:15
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:53:43
  */
 export default class BaseCtrl {
 
-    // 类名key
+    /**类名key */
     public static key: string = 'BaseCtrl';
 
-    // 数据源
+    /**数据源 */
     private _model: BaseModel;
-    // view
+    /**view界面 */
     private _view: BaseView
 
     /**

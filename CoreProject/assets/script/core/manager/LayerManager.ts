@@ -1,13 +1,13 @@
 import Singleton from "../base/Singleton";
-import App from "../App";
-import ViewLayer from "../const/ViewLayer";
 import { ViewLayerType } from "../const/CoreConst";
+import ViewLayer from "../const/ViewLayer";
+import DebugUtils from "../utils/DebugUtils";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-18 16:20:26
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:54:35
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:11:02
  */
 export default class LayerManager extends Singleton {
 
@@ -63,7 +63,8 @@ export default class LayerManager extends Singleton {
                 layerCom = ViewLayer.MAX_COMPONENT;
                 break;
             default:
-                App.DebugUtils.error(`${layer} 是ViewLayer中未定义层级！`);
+                const debugUtils = DebugUtils.getInstance<DebugUtils>();
+                debugUtils.error(`${layer} 是ViewLayer中未定义层级！`);
                 break;
         }
         return layerCom;

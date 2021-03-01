@@ -1,11 +1,11 @@
 import Singleton from "../base/Singleton";
-import App from "../App";
+import DebugUtils from "./DebugUtils";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-23 20:20:42
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2019-01-25 10:49:30
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:44:41
  */
 export default class EffectUtils extends Singleton {
 
@@ -24,7 +24,8 @@ export default class EffectUtils extends Singleton {
      */
     public startTyperEffect(tfObj: fgui.GTextField, content: string, interval: number = 120, thisObj: any = null, callback: Function = null, agrs: Array<any> = null): void {
         if (!tfObj) {
-            App.DebugUtils.warn('该打字机效果对象未空！');
+            const debugUtils = DebugUtils.getInstance<DebugUtils>();
+            debugUtils.warn('该打字机效果对象未空！');
             return;
         }
         tfObj.text = '';

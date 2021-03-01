@@ -1,12 +1,14 @@
 import Singleton from "../base/Singleton";
-import App from "../App";
 import { PlatformType } from "../const/CoreConst";
+import DebugUtils from "../utils/DebugUtils";
+import PlatformManager from "./PlatformManager";
+import ResManager from "./ResManager";
 
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-24 15:50:06
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-07 23:32:38
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:16:37
  */
 
 /**
@@ -42,8 +44,9 @@ export default class SystemManager extends Singleton {
         this.initSystemName();
 
         const resUrl: string = 'data/systemConfig';
-        this._viewFitJson = App.ResManager.getRes(resUrl, cc.JsonAsset).json;
-        App.ResManager.release(resUrl, cc.JsonAsset);
+        const resManager = ResManager.getInstance<ResManager>();
+        this._viewFitJson = resManager.getRes(resUrl, cc.JsonAsset).json;
+        resManager.release(resUrl, cc.JsonAsset);
     }
 
     /**
@@ -59,7 +62,8 @@ export default class SystemManager extends Singleton {
 
     private initSystemName(): void {
         let platformMini: any;
-        const platName: string = App.PlatformManager.platformName;
+        const platformManager = PlatformManager.getInstance<PlatformManager>();
+        const platName: string = platformManager.platformName;
         switch (platName) {
             case PlatformType.NATIVE:
             case PlatformType.WEB:
@@ -71,7 +75,8 @@ export default class SystemManager extends Singleton {
                 platformMini = window['wx'];
                 break;
             default:
-                App.DebugUtils.error(`${platformMini} 平台还未处理！`);
+                const debugUtils = DebugUtils.getInstance<DebugUtils>();
+                debugUtils.error(`${platformMini} 平台还未处理！`);
                 return;
         }
         // 目前指定微信小游戏和QQ小游戏平台

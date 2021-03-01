@@ -1,8 +1,11 @@
 import AppConfig from "../../config/AppConfig";
-import App from "../App";
 import BComponent from "../base/BComponent";
 import { ViewType } from "../const/CoreConst";
+import LoadManager from "../manager/LoadManager";
 import ResManager from "../manager/ResManager";
+import StageManager from "../manager/StageManager";
+import DebugUtils from "../utils/DebugUtils";
+import DisplayUtils from "../utils/DisplayUtils";
 import BaseCtrl from "./BaseCtrl";
 import BaseModel from "./BaseModel";
 import BaseViewData from "./BaseViewData";
@@ -10,8 +13,8 @@ import BaseViewData from "./BaseViewData";
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-14 19:02:44
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-07 23:18:37
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:39:29
  */
 export default class BaseView extends BComponent {
 
@@ -218,14 +221,14 @@ export default class BaseView extends BComponent {
      */
     public showModalWait(): void {
         if (fgui.UIConfig.windowModalWaiting) {
-            const stageMgr = App.StageManager;
+            const stageManager = StageManager.getInstance<StageManager>();
             let modalWaitPane = this._modalWaitPane;
             if (!modalWaitPane) {
                 modalWaitPane = fgui.UIPackage.createObjectFromURL(fgui.UIConfig.windowModalWaiting).asCom;
                 this._modalWaitPane = modalWaitPane;
             }
-            modalWaitPane.x = (stageMgr.viewWidth - modalWaitPane.width) >> 1;
-            modalWaitPane.y = (stageMgr.viewHeight - modalWaitPane.height) >> 1;
+            modalWaitPane.x = (stageManager.viewWidth - modalWaitPane.width) >> 1;
+            modalWaitPane.y = (stageManager.viewHeight - modalWaitPane.height) >> 1;
             this.addChild(modalWaitPane);
         }
     }
@@ -243,7 +246,8 @@ export default class BaseView extends BComponent {
      * 界面显示接口
      */
     public show(): void {
-        this.addRelation(App.StageManager.GRoot, fgui.RelationType.Size);
+        const stageManager = StageManager.getInstance<StageManager>();
+        this.addRelation(stageManager.GRoot, fgui.RelationType.Size);
         this.initStart();
     }
 
@@ -301,7 +305,8 @@ export default class BaseView extends BComponent {
      */
     private initStart(): void {
         if (!this._pkgName || !this._resName) {
-            App.DebugUtils.warn(`${this.constructor.name}未设置包名或资源！`);
+            const debugUtils = DebugUtils.getInstance<DebugUtils>();
+            debugUtils.warn(`${this.constructor.name}未设置包名或资源！`);
             return;
         }
 
@@ -312,7 +317,8 @@ export default class BaseView extends BComponent {
         });
         const isExistPkg: boolean = fgui.UIPackage.getByName(this._pkgName) ? true : false;
         if (!this._isInit || !isExistPkg) {
-            App.LoadManager.loadArrayPackage(this._pkgNames, this.toInitUI, this.destroy, this.onProgress, this);
+            const loadManager = LoadManager.getInstance<LoadManager>();
+            loadManager.loadArrayPackage(this._pkgNames, this.toInitUI, this.destroy, this.onProgress, this);
         }
         else {
             this.onCompleteUI();
@@ -323,9 +329,11 @@ export default class BaseView extends BComponent {
      * 初始化ui
      */
     private toInitUI(): void {
+        const stageManager = StageManager.getInstance<StageManager>();
+        const displayUtils = DisplayUtils.getInstance<DisplayUtils>();
         this.contentPane = fgui.UIPackage.createObject(this._pkgName, this._resName).asCom;
-        App.DisplayUtils.bindGObject(this.contentPane, this);
-        this.setSize(App.StageManager.viewWidth, App.StageManager.viewHeight);
+        displayUtils.bindGObject(this.contentPane, this);
+        this.setSize(stageManager.viewWidth, stageManager.viewHeight);
         this.onPaneRelation();
         this._isInit = true;
         this.onCompleteUI();

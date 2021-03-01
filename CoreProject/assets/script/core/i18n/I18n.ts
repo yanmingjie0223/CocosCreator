@@ -1,20 +1,18 @@
 import { I18nEnConfig, I18nZhConfig } from "../../config/I18nConfig";
-import App from "../App";
 import { I18nType } from "../const/CoreConst";
+import DebugUtils from "../utils/DebugUtils";
 
 /*
  * @Author: yanmingjie
  * @Date: 2019-08-19 23:11:05
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-07-01 21:52:10
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:55:15
  */
 export default class I18n {
 
     private _language: I18nType;
 
-    public constructor() {
-
-    }
+    public constructor() {}
 
     /**
      * 获取对应的文本
@@ -24,6 +22,7 @@ export default class I18n {
     public getText(key: string, values?: Array<string>): string {
         let config: any;
         let configName: string;
+        const debugUtils = DebugUtils.getInstance<DebugUtils>();
         switch (this.language) {
             case I18nType.EN:
                 config = I18nEnConfig;
@@ -34,12 +33,12 @@ export default class I18n {
                 configName = 'I18nZhConfig';
                 break;
             default:
-                App.DebugUtils.error(`${this.language} 无对应语言文本配置！`);
+                debugUtils.error(`${this.language} 无对应语言文本配置！`);
                 return '';
         }
         let value: string = config[key];
         if (!value) {
-            App.DebugUtils.error(`${configName}中无key为${key}文本配置！`);
+            debugUtils.error(`${configName}中无key为${key}文本配置！`);
             return '';
         }
         // 替换指定值

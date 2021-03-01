@@ -1,7 +1,8 @@
-import Singleton from "../base/Singleton";
-import App from "../App";
 import AppConfig from "../../config/AppConfig";
+import Singleton from "../base/Singleton";
 import { ResFile } from "../const/CoreConst";
+import LoadManager from "./LoadManager";
+import PathManager from "./PathManager";
 interface ResCacheFile {
     count: number;
     type: typeof cc.Asset;
@@ -15,8 +16,8 @@ type ResCache = {
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-14 19:19:01
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-07 23:33:45
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 16:13:37
  */
 export default class ResManager extends Singleton {
 
@@ -101,7 +102,8 @@ export default class ResManager extends Singleton {
     public addUiPackage(pkgName: string): void {
         const pkg: fgui.UIPackage = fgui.UIPackage.getByName(pkgName);
         if (!pkg) {
-            const pkgUrl: string = App.PathManager.getPkgPath(pkgName);
+            const pathManager = PathManager.getInstance<PathManager>();
+            const pkgUrl: string = pathManager.getPkgPath(pkgName);
             fgui.UIPackage.addPackage(pkgUrl);
         }
     }
@@ -124,7 +126,8 @@ export default class ResManager extends Singleton {
      */
     public addGroupUse(groupName: string, isTrust: boolean): void {
         if (!isTrust) return;
-        const resFile: Array<ResFile> = App.LoadManager.getGroupUrls(groupName);
+        const loadManager = LoadManager.getInstance<LoadManager>();
+        const resFile: Array<ResFile> = loadManager.getGroupUrls(groupName);
         this.addUseRes(resFile);
     }
 
@@ -135,7 +138,8 @@ export default class ResManager extends Singleton {
      */
     public removeGroupUse(groupName: string, isTrust: boolean): void {
         if (!isTrust) return;
-        const resFile: Array<ResFile> = App.LoadManager.getGroupUrls(groupName);
+        const loadManager = LoadManager.getInstance<LoadManager>();
+        const resFile: Array<ResFile> = loadManager.getGroupUrls(groupName);
         this.removeUseRes(resFile);
     }
 

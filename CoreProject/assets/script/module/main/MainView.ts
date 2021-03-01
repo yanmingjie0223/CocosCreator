@@ -7,8 +7,8 @@ import BagView from "../bag/BagView";
 /*
  * @Author: yanmingjie0223@qq.com
  * @Date: 2019-01-21 16:21:50
- * @Last Modified by: yanmingjie0223@qq.com
- * @Last Modified time: 2020-12-06 23:46:36
+ * @Last Modified by: yanmingjie.jack@shengqugames.com
+ * @Last Modified time: 2021-03-01 17:06:36
  */
 export default class MainView extends BaseView {
 
@@ -39,8 +39,8 @@ export default class MainView extends BaseView {
     }
 
     private onClickBtn(): void {
-        App.ViewManager.show(BagCtrl, null, BagView, null, ViewShowType.SINGLETON_VIEW);
-        // App.ViewManager.show(null, null, BagView, null, ViewShowType.SINGLETON_VIEW);
+        App.ViewManager.show(BagView, null, BagCtrl, null, ViewShowType.SINGLETON_VIEW);
+        // App.ViewManager.show(BagView, null, null, null, ViewShowType.SINGLETON_VIEW);
     }
 
     private initEvent(): void {
