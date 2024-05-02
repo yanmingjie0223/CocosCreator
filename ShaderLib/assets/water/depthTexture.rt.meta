@@ -1,0 +1,40 @@
+{
+  "ver": "1.2.2",
+  "importer": "render-texture",
+  "imported": true,
+  "uuid": "d95eb4ab-6e16-454f-818b-6a1f3233258e",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "rt-sprite-frame",
+      "uuid": "d95eb4ab-6e16-454f-818b-6a1f3233258e@f9941",
+      "displayName": "depthTexture",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "imageUuidOrDatabaseUri": "d95eb4ab-6e16-454f-818b-6a1f3233258e",
+        "width": 960,
+        "height": 640
+      },
+      "ver": "1.0.0",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "width": 960,
+    "height": 640,
+    "anisotropy": 0,
+    "minfilter": "linear",
+    "magfilter": "linear",
+    "mipfilter": "none",
+    "wrapModeS": "repeat",
+    "wrapModeT": "repeat",
+    "redirect": "d95eb4ab-6e16-454f-818b-6a1f3233258e@f9941"
+  }
+}

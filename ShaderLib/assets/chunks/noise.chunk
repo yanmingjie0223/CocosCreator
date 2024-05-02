@@ -1,0 +1,137 @@
+// you can write GLSL code directly in here
+// http://www.voidcn.com/article/p-xzhhtofx-tg.html
+// http://www.voidcn.com/article/p-ypyuykko-pb.html
+
+vec2 hash22(vec2 p) {
+	p = vec2( dot(p,vec2(127.1,311.7)),
+			dot(p,vec2(269.5,183.3)) );
+
+	return -1.0 + 2.0*fract(sin(p)*43758.5453123);
+}
+
+float hash21(vec2 p) {
+	return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+	//vec3 p3  = fract(vec3(p.xyx) * .1931);
+	//p3 += dot(p3, p3.yzx + 19.19);
+	//return fract((p3.x + p3.y) * p3.z);
+}
+
+// =================================================================================
+
+float noise( in vec2 p ) {
+	vec2 i = floor( p );
+	vec2 f = fract( p );
+
+	// Ease Curve
+	//vec2 u = f*f*(3.0-2.0*f);
+	vec2 u = f*f*f*(6.0*f*f - 15.0*f + 10.0);
+
+	return mix( mix( dot( hash22( i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ),
+					dot( hash22( i + vec2(1.0,0.0) ), f - vec2(1.0,0.0) ), u.x),
+				mix( dot( hash22( i + vec2(0.0,1.0) ), f - vec2(0.0,1.0) ),
+				dot( hash22( i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
+
+	//return dot(hash22(i+vec2(0.0, 0.0)), f-vec2(0.0, 0.0));
+	//return dot(hash22(i+vec2(1.0, 0.0)), f-vec2(1.0, 0.0));
+	//return mix(dot(hash22(i+vec2(0.0, 0.0)), f-vec2(0.0, 0.0)),
+	//           dot(hash22(i+vec2(1.0, 0.0)), f-vec2(1.0, 0.0)), u.x);
+
+	//return dot(hash22(i+vec2(0.0, 1.0)), f-vec2(0.0, 1.0));
+	//return dot(hash22(i+vec2(1.0, 1.0)), f-vec2(1.0, 1.0));
+	//return mix(dot(hash22(i+vec2(0.0, 1.0)), f-vec2(0.0, 1.0)),
+	//           dot(hash22(i+vec2(1.0, 1.0)), f-vec2(1.0, 1.0)), u.x);
+}
+
+float noise_fractal(in vec2 p) {
+	p *= 5.0;
+	mat2 m = mat2( 1.6,  1.2, -1.2,  1.6 );
+	float f  = 0.5000*noise(p); p = m*p;
+	f += 0.2500*noise(p); p = m*p;
+	f += 0.1250*noise(p); p = m*p;
+	f += 0.0625*noise(p); p = m*p;
+
+	return f;
+}
+
+float noise_sum_abs(vec2 p) {
+	float f = 0.0;
+	p = p * 7.0;
+	f += 1.0000 * abs(noise(p)); p = 2.0 * p;
+	f += 0.5000 * abs(noise(p)); p = 2.0 * p;
+	f += 0.2500 * abs(noise(p)); p = 2.0 * p;
+	f += 0.1250 * abs(noise(p)); p = 2.0 * p;
+	f += 0.0625 * abs(noise(p)); p = 2.0 * p;
+
+	return f;
+}
+
+float value_noise(vec2 p) {
+	p *= 56.0;
+	vec2 pi = floor(p);
+	//vec2 pf = p - pi;
+	vec2 pf = fract(p);
+
+	vec2 w = pf * pf * (3.0 - 2.0 * pf);
+
+	// 它把原来的梯度替换成了一个简单的伪随机值，我们也不需要进行点乘操作，
+	// 而直接把晶格顶点处的随机值按权重相加即可。
+	return mix(mix(hash21(pi + vec2(0.0, 0.0)), hash21(pi + vec2(1.0, 0.0)), w.x),
+			mix(hash21(pi + vec2(0.0, 1.0)), hash21(pi + vec2(1.0, 1.0)), w.x),
+			w.y);
+}
+
+float simplex_noise(vec2 p) {
+	const float K1 = 0.366025404; // (sqrt(3)-1)/2;
+	const float K2 = 0.211324865; // (3-sqrt(3))/6;
+	// 变换到新网格的(0, 0)点
+	vec2 i = floor(p + (p.x + p.y) * K1);
+	// i - (i.x+i.y)*K2换算到旧网格点
+	// a:变形前输入点p到该网格点的距离
+	vec2 a = p - (i - (i.x + i.y) * K2);
+	vec2 o = (a.x < a.y) ? vec2(0.0, 1.0) : vec2(1.0, 0.0);
+	// 新网格(1.0, 0.0)或(0.0, 1.0)
+	// b = p - (i+o - (i.x + i.y + 1.0)*K2);
+	vec2 b = a - o + K2;
+	// 新网格(1.0, 1.0)
+	// c = p - (i+vec2(1.0, 1.0) - (i.x+1.0 + i.y+1.0)*K2);
+	vec2 c = a - 1.0 + 2.0 * K2;
+	// 计算每个顶点的权重向量，r^2 = 0.5
+	vec3 h = max(0.5 - vec3(dot(a, a), dot(b, b), dot(c, c)), 0.0);
+	// 每个顶点的梯度向量和距离向量的点乘，然后再乘上权重向量
+	vec3 n = h * h * h * h * vec3(dot(a, hash22(i)), dot(b, hash22(i + o)), dot(c, hash22(i + 1.0)));
+
+	// 之所以乘上70，是在计算了n每个分量的和的最大值以后得出的，这样才能保证将n各个分量相加以后的结果在[-1, 1]之间
+	return dot(vec3(70.0, 70.0, 70.0), n);
+}
+
+float snoise(vec3 uv, float res) {
+   // ❤
+   const vec3 s = vec3(1e0, 1e2, 1e3);
+   //const vec3 s = vec3(1., 100., 1000.);
+
+   uv *= res;
+
+   vec3 uv0 = floor(mod(uv, res))*s;
+   vec3 uv1 = floor(mod(uv+vec3(1.), res))*s;
+
+   vec3 f = fract(uv);
+   // 缓和函数
+   f = f*f*(3.0-2.0*f);
+
+   //  ❤扭曲图像
+   vec4 v = vec4(uv0.x+uv0.y+uv0.z, uv1.x+uv0.y+uv0.z,
+               uv0.x+uv1.y+uv0.z, uv1.x+uv1.y+uv0.z);
+   //vec4 v = vec4(uv0.x, uv0.y, uv1.x, uv1.y);
+
+   // ❤ 影响形状和速度
+   vec4 r = fract(sin(v*1e-1)*1e3);
+   //vec4 r = fract(sin(v));
+   float r0 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
+
+   // ❤ 影响形状和速度
+   r = fract(sin((v + uv1.z - uv0.z)*1e-1)*1e3);
+   //r = fract(sin(v));
+   float r1 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
+
+   return mix(r0, r1, f.z)*2.-1.;
+}

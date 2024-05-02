@@ -1,0 +1,61 @@
+// Effect Syntax Guide: https://docs.cocos.com/creator/manual/zh/shader/index.html
+
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: legacy/main-functions/general-vs:vert # builtin header
+      frag: unlit-fs:frag
+      properties: &props
+        mainTexture:    { value: white }
+        mainColor:      { value: [1, 1, 1, 1], editor: { type: color } }
+  - name: transparent
+    passes:
+    - vert: general-vs:vert # builtin header
+      frag: unlit-fs:frag
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+}%
+
+CCProgram unlit-fs %{
+  precision highp float;
+  #include <legacy/output>
+  #include <legacy/fog-fs>
+  #include <noise>
+
+  in vec2 v_uv;
+  in vec3 v_position;
+  uniform sampler2D mainTexture;
+
+  uniform Constant {
+    vec4 mainColor; 
+  };
+
+  vec4 frag () {
+    // 换算到[(-.5, -.5), (.5, .5)]
+    vec2 p = vec2(v_uv.x - 0.5, v_uv.y - 0.5);
+    // 定义火焰的基本形状 
+    float color = 3.0 - (3.*length(2.*p));
+    // ❤ 控制火焰发散的形式
+    vec3 coord = vec3(atan(p.x,p.y)/6.2832+.5, length(p)*.4, 0.5);
+    // 控制颜色的层次
+    for(int i = 1; i <= 7; i++) {
+      float power = pow(2.0, float(i));
+      color += (1.5 / power) * snoise(coord + vec3(0.,-cc_time.x*.05, cc_time.x*.01), power*16.);
+    }
+    vec4 col = vec4(color, pow(max(color,0.),2.)*0.4, pow(max(color,0.),3.)*0.15 , 1.0);
+    // 添加雾
+    CC_APPLY_FOG(col, v_position);
+    // 移除黑色背景
+    // if (col.x < 0.0001 && col.y < 0.0001 && col.z < 0.0001) {
+    //   discard;
+    // }
+    return CCFragOutput(col);
+  }
+}%

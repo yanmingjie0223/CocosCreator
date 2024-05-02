@@ -1,0 +1,16 @@
+{
+  "layer": [
+    {
+      "name": "SPHERE_BACK",
+      "value": 1
+    },
+    {
+      "name": "SPHERE_FRONT",
+      "value": 2
+    },
+    {
+      "name": "SCENE",
+      "value": 4
+    }
+  ]
+}

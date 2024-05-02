@@ -1,0 +1,178 @@
+// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: unlit-vs:vert
+      frag: unlit-fs:frag
+      properties: &props
+        mainTexture:    { value: grey }
+        tilingOffset:   { value: [1, 1, 0, 0] }
+        mainColor:      { value: [1, 1, 1, 1], linear: true, editor: { type: color } }
+
+        rimColor:       { value: [0, 0, 1, 1], linear: true, editor: { type: color } }
+        rimPow:         { value: 1, editor: { slide: true, range: [1, 3], step: 0.01 } }
+        rimIntensity:   { value: 1, editor: { slide: true, range: [1, 4], step: 0.01 } }
+        intersectPow:   { value: 1, editor: { slide: true, range: [1, 4], step: 0.01 } }
+        depthTexture:   { value: white } 
+        noiseTexture:   { value: white }
+        sceneTexture:   { value: white } 
+        XSpeed:         { value: 0.05, target: UVSpeed.x, editor: { slide: true, range: [0, 0.5], step: 0.01 } }
+        YSpeed:         { value: 0.05, target: UVSpeed.y, editor: { slide: true, range: [0, 0.5], step: 0.01 } }
+        distortIntensity: { value: 0.01, editor: { slide: true, range: [0, 0.5], step: 0.001 } }  
+      migrations: &migs
+        properties:
+          mainColor:    { formerlySerializedAs: color }
+  - name: transparent
+    passes:
+    - vert: unlit-vs:vert
+      frag: unlit-fs:frag
+      depthStencilState: &d1
+        depthTest: true
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+      migrations: *migs
+  - name: add
+    passes:
+    - vert: unlit-vs:vert
+      frag: unlit-fs:frag
+      rasterizerState: &r1 { cullMode: none }
+      depthStencilState: *d1
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one
+      properties: *props
+      migrations: *migs
+  - name: alpha-blend
+    passes:
+    - vert: unlit-vs:vert
+      frag: unlit-fs:frag
+      rasterizerState: *r1
+      depthStencilState: *d1
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+      migrations: *migs
+}%
+
+CCProgram unlit-vs %{
+  precision highp float;
+  #include <legacy/input>
+  #include <builtin/uniforms/cc-global>
+  #include <legacy/decode-base>
+  #include <legacy/local-batch>
+  #include <legacy/input>
+  #include <legacy/fog-vs>
+
+  out vec2 v_uv;
+  out vec3 v_position;
+  out vec3 v_worldNormal;
+  out vec4 v_screenPos;
+
+  uniform TexCoords {
+    vec4 tilingOffset;
+  };
+
+  vec4 vert () {
+    vec4 position;
+    CCVertInput(position);
+
+    mat4 matWorld, matworldIT;
+    CCGetWorldMatrixFull(matWorld, matworldIT);
+  
+    v_uv = a_texCoord * tilingOffset.xy + tilingOffset.zw;
+
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(v_uv);
+    #endif
+
+    v_position = (matWorld * position).xyz;
+    v_worldNormal = normalize((matworldIT * vec4(a_normal, 0.0)).xyz);
+    
+    v_screenPos = cc_matProj * (cc_matView * matWorld) * position;
+    return v_screenPos;
+  }
+}%
+
+CCProgram unlit-fs %{
+  precision highp float;
+  #include <legacy/output-standard>
+  #include <legacy/fog-fs>
+
+  in vec2 v_uv;
+  in vec3 v_position;
+  in vec3 v_worldNormal;
+  in vec4 v_screenPos;
+  
+  uniform sampler2D mainTexture;
+  uniform sampler2D depthTexture;
+  uniform sampler2D noiseTexture;
+  uniform sampler2D sceneTexture;
+  uniform Constant {
+    vec4 mainColor;
+
+    vec4 rimColor;
+    vec2 UVSpeed;
+    float rimPow;
+    float rimIntensity;
+    float intersectPow;
+    float distortIntensity;
+  };
+  
+
+  float LinearEyeDepth (float depth) {
+    float near = cc_nearFar.x;
+    float far = cc_nearFar.y;
+    float zc0 = (near - far) / near;
+    float zc1 = far / near;
+    vec4 bufferParams = vec4(zc0, zc1, zc0/far, zc1/far);
+    
+    float linearDepth = 1.0 / (bufferParams.z * depth + bufferParams.w);
+    return linearDepth;
+  }
+
+  vec4 frag () {
+    vec4 o = mainColor;
+
+    // rim color
+    vec3 viewDir = normalize(cc_cameraPos.xyz - v_position);
+    float fRim = 1.0 - abs(dot(normalize(v_worldNormal), viewDir));
+    fRim = pow(fRim, rimPow);
+    // o = mix(o, rimColor, fRim);
+
+    // intersect color
+    vec2 screenUV = v_screenPos.xy / v_screenPos.w * 0.5 + 0.5;
+    float sceneZ = LinearEyeDepth(texture(depthTexture, screenUV).r);
+    float sphereZ = LinearEyeDepth(v_screenPos.z / v_screenPos.w * 0.5 + 0.5);
+
+    float diff = clamp((sceneZ - sphereZ), 0.0, 1.0);
+    float fIntersect = 1.0 - diff;
+    fIntersect = pow(fIntersect, intersectPow);
+
+    float factor = max(fRim, fIntersect);
+
+    // distortion
+    vec2 newUV = v_uv + cc_time.xx * UVSpeed.xy;
+    vec4 offset = texture(noiseTexture, newUV);
+    screenUV += (offset.xy * 2.0 - 1.0) * distortIntensity;
+    vec4 distortColor = texture(sceneTexture, screenUV);
+    
+    o = rimColor * factor * rimIntensity + distortColor;
+    return o;
+  }
+}%

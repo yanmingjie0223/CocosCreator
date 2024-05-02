@@ -1,0 +1,66 @@
+// Effect Syntax Guide: https://github.com/cocos-creator/docs-3d/blob/master/zh/material-system/effect-syntax.md
+
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: legacy/main-functions/general-vs:vert # builtin header
+      frag: unlit-fs:frag
+      properties: &props
+        mainTexture:    { value: white }
+        mainColor:      { value: [1, 1, 1, 1], editor: { type: color } }
+		seedRandom:     { value: 1.0 }
+  - name: transparent
+    passes:
+    - vert: general-vs:vert # builtin header
+      frag: unlit-fs:frag
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+}%
+
+CCProgram unlit-fs %{
+	precision highp float;
+	#include <legacy/output>
+  	#include <legacy/fog-fs>
+	#include <noise>
+
+	in vec2 v_uv;
+	in vec3 v_position;
+	uniform sampler2D mainTexture;
+
+	uniform Constant {
+		vec4 mainColor;
+		float seedRandom;
+	};
+
+	bool radius(vec2 p, float seed) {
+		vec2 end = vec2(p.x - 0.5, p.y - 0.5);
+		float len = length(end);
+		// 随机数获取，暂定为0.1
+		float nX = 0.1 * end.x / len;
+		float nY = 0.1 * end.y / len;
+		float random = abs(value_noise(vec2(nX + seed, nY + seed)));
+		// 这里将范围且在块内
+		if (random > 0.4) {
+			random = random - 0.3;
+		}
+		return random > len ? true : false;
+	}
+
+	vec4 frag () {
+		vec4 col = mainColor * texture(mainTexture, v_uv);
+		vec2 pos = vec2(v_uv.x, v_uv.y);
+		bool radius = radius(pos, seedRandom);
+		if (!radius) {
+			discard;
+		}
+		CC_APPLY_FOG(col);
+		return CCFragOutput(col);
+	}
+}%
