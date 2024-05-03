@@ -6,4 +6,4 @@
   - version: 2.4.3
 - ShaderLib
   - shader 库
-  - version: 3.6.2
+  - version: 3.8.2

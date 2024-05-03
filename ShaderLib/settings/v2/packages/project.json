@@ -12,5 +12,20 @@
       "name": "SCENE",
       "value": 4
     }
-  ]
+  ],
+  "__version__": "1.0.6",
+  "fbx": {
+    "legacyFbxImporter": {
+      "visible": true
+    }
+  },
+  "general": {
+    "designResolution": {
+      "width": 960,
+      "height": 640
+    }
+  },
+  "script": {
+    "preserveSymlinks": true
+  }
 }

@@ -1,6 +1,6 @@
 # CocosCreator
 
-基于 cocos creator 3D 3.6.2 版本 shader 库
+基于 cocos creator 3D 3.8.2 版本 shader 库
 
 # shader
 

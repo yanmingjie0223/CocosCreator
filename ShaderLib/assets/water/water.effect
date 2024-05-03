@@ -146,7 +146,7 @@ CCProgram unlit-fs %{
     return linearDepth;
   }
 
-  vec4 lerp(vec4 aColor, vec4 bColor, float w) {
+  vec4 Lerp(vec4 aColor, vec4 bColor, float w) {
     float r = aColor.r + w * (bColor.r - aColor.r);
     float g = aColor.g + w * (bColor.g - aColor.g);
     float b = aColor.b + w * (bColor.b - aColor.b);
@@ -161,7 +161,7 @@ CCProgram unlit-fs %{
     float depthDifference = clamp((sceneZ - v_screenPos.w), 0.0, 1.0);
     // 深水和潜水颜色做插值
     float waterDepthDifference01 = saturate(depthDifference / depthMaxDistance);
-    vec4 waterColor = lerp(shallowColor, deepColor, waterDepthDifference01);
+    vec4 waterColor = Lerp(shallowColor, deepColor, waterDepthDifference01);
     // 采样噪声图
     vec2 distortSample = (texture(surfaceDistortion, v_uv).xy * 2.0 - 1.0) * surfaceDistortionAmount;
     vec2 noiseUV = vec2((v_uv.x + cc_time.x * surfaceNoiseScroll.x) + distortSample.x, (v_uv.y + cc_time.x * surfaceNoiseScroll.y) + distortSample.y);
