@@ -1,0 +1,11 @@
+node_modules
+bin/
+release/
+library/
+build/
+build-script/
+tools/
+doc/
+build-templates/
+preview-template/
+engine/
