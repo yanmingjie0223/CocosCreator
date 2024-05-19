@@ -10,6 +10,7 @@
 - 噪音消融(./dissolveNoise)
 - 能量罩(./energyEnvelope)
 - 内发光(./innerGrow)
+- 图形遮慕(./interlude)
 - 遮挡显示(./keepOut)
 - 噪音火(./noiseFire)
 - 水滴地板炸开(./noiseWaterDrop)
