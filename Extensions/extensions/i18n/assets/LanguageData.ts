@@ -68,7 +68,12 @@ export function t(key: string, changeData?: Record<string, string | number>): st
  * 节点多时会影响更新速度
  */
 export function updateSceneRenderers(): void {
-	const rootNodes = director.getScene()!.children;
+	const scene = director.getScene();
+	if (!scene) {
+		return;
+	}
+
+	const rootNodes = scene.children;
 	const allLocalizedLabels: any[] = [];
 	const allLocalizedSprites: any[] = [];
 	const allLocalizedMaterial: any[] = [];
