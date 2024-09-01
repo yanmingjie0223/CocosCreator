@@ -6,7 +6,7 @@ const Vue = require('vue/dist/vue.common.prod');
 
 const languageRoot = 'i18n/config';
 const languageFileRoot = 'extensions/i18n/assets/config';
-const languageContentTemplate: string = `import { languages } from "../LanguageData";\nlanguages.{{name}} = { // TODO: Dat };`;
+const languageContentTemplate: string = `import { languages } from "../runtime/LanguageData";\nlanguages.{{name}} = { // TODO: Dat };`;
 
 module.exports = Editor.Panel.define({
 	template: `

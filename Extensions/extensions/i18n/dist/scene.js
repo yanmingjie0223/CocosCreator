@@ -37,13 +37,16 @@ exports.methods = {
                 const attribute = `${cell[0].v}`;
                 for (let k = 1, kLen = cell.length; k < kLen; k++) {
                     const lang = `${langs[k].v}`;
+                    if (languages[lang][attribute]) {
+                        console.error(`存在相同key: ${attribute}`);
+                    }
                     languages[lang][attribute] = `${cell[k].v}`;
                 }
             }
             // 文件
             for (const key in languages) {
                 if (Object.prototype.hasOwnProperty.call(languages, key)) {
-                    let languageContent = `import { languages } from "../LanguageData";`;
+                    let languageContent = `import { languages } from "../runtime/LanguageData";`;
                     languageContent += `\nlanguages.${key} = ${JSON.stringify(languages[key])};`;
                     Editor.Message.request('asset-db', 'create-asset', `db://i18n/config/${key}.ts`, languageContent, {
                         overwrite: true

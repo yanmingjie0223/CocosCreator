@@ -45,7 +45,7 @@ export const methods = {
 			// 文件
 			for (const key in languages) {
 				if (Object.prototype.hasOwnProperty.call(languages, key)) {
-					let languageContent = `import { languages } from "../LanguageData";`;
+					let languageContent = `import { languages } from "../runtime/LanguageData";`;
 					languageContent += `\nlanguages.${key} = ${JSON.stringify(languages[key])};`;
 
 					Editor.Message.request(

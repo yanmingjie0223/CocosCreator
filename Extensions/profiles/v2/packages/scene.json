@@ -61,8 +61,8 @@
     },
     "fdec09af-7157-4c75-a98d-a0ad4d4a61cc": {
       "position": {
-        "x": 619.6874374757898,
-        "y": 601.1661569347116,
+        "x": 596.343718737895,
+        "y": 417.72343385275445,
         "z": 5000
       },
       "rotation": {
@@ -77,17 +77,173 @@
         "z": 0
       },
       "contentRect": {
-        "x": -279.0457339331622,
-        "y": -10.244743008651234,
+        "x": -687.5608118463222,
+        "y": -455.72070892347807,
         "width": 1320,
         "height": 898
       },
       "scale": 0.5140569133280332
+    },
+    "94563d32-4bc1-4752-90f4-7e5f3bc055af": {
+      "position": {
+        "x": 640,
+        "y": 360,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": -274.2857142857143,
+        "y": -261.991341991342,
+        "width": 924,
+        "height": 519.75
+      },
+      "scale": 0.721875
+    },
+    "9368c17e-afe9-4b25-8c93-e1617fb53fdf": {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": -462,
+        "y": -314.3,
+        "width": 0,
+        "height": 0
+      },
+      "scale": 1
+    },
+    "1afb771c-ba78-40fc-86fe-3df524b939e2": {
+      "position": {
+        "x": 640,
+        "y": 360,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": 0,
+        "y": 0,
+        "width": 924,
+        "height": 519.75
+      },
+      "scale": 0.721875
+    },
+    "0b0b0ac8-63ee-47ea-963d-3b6cbc5480e7": {
+      "position": {
+        "x": 640,
+        "y": 360,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": 0,
+        "y": 0,
+        "width": 924,
+        "height": 519.75
+      },
+      "scale": 0.721875
+    },
+    "7820fe97-f5e5-41f0-871b-5b5da7cb6da0": {
+      "position": {
+        "x": 640,
+        "y": 360,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": 0,
+        "y": 0,
+        "width": 924,
+        "height": 519.75
+      },
+      "scale": 0.721875
+    },
+    "527ea84c-fd44-4119-b27f-afd2dce815b9": {
+      "position": {
+        "x": 616.3904825858724,
+        "y": 260.4930985456439,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": 74.47348267385485,
+        "y": -44.335213904865924,
+        "width": 924,
+        "height": 519.75
+      },
+      "scale": 0.8525290774694421
     }
   },
   "camera-uuids": [
     "f46876e4-e81b-4931-b493-6d367be385e7",
-    "fdec09af-7157-4c75-a98d-a0ad4d4a61cc"
+    "fdec09af-7157-4c75-a98d-a0ad4d4a61cc",
+    "94563d32-4bc1-4752-90f4-7e5f3bc055af",
+    "9368c17e-afe9-4b25-8c93-e1617fb53fdf",
+    "1afb771c-ba78-40fc-86fe-3df524b939e2",
+    "0b0b0ac8-63ee-47ea-963d-3b6cbc5480e7",
+    "7820fe97-f5e5-41f0-871b-5b5da7cb6da0",
+    "527ea84c-fd44-4119-b27f-afd2dce815b9"
   ],
   "camera": {
     "color": [
@@ -109,5 +265,18 @@
     "iso": 0,
     "aperture": 19,
     "shutter": 7
+  },
+  "float-window": {
+    "position": {
+      "cc": {
+        "Camera": {
+          "dock": false,
+          "top": null,
+          "bottom": 10,
+          "left": null,
+          "right": 10
+        }
+      }
+    }
   }
 }
