@@ -2,7 +2,7 @@
 
 import { join } from 'path';
 import { existsSync, readdirSync } from 'fs';
-const Vue = require('vue/dist/vue.common.prod');
+import { createApp } from 'vue';
 
 const languageRoot = 'i18n/config';
 const languageFileRoot = 'extensions/i18n/assets/config';
@@ -72,40 +72,41 @@ module.exports = Editor.Panel.define({
 		content: '.content'
 	},
 	ready() {
-		const vm = new Vue({
-			el: this.$.content,
-			data: {
-				current: '',
-				list: [],
-				showAddInput: false
+		const app = createApp({
+			setup() {
+			},
+			data() {
+				return {
+					current: '',
+					list: [],
+					showAddInput: false
+				}
 			},
 			watch: {
 				current() {
-					const vm: any = this;
 					Editor.Message.send('scene', 'execute-scene-script', {
 						name: 'i18n',
 						method: 'changeCurrentLanguage',
-						args: [vm.current || '']
+						args: [this.current || '']
 					});
 				}
 			},
 			methods: {
 				add() {
-					vm.showAddInput = true;
+					this.showAddInput = true;
 					requestAnimationFrame(() => {
-						vm.$refs.addInput.focus();
+						this.$refs.addInput.focus();
 					});
 				},
 				importEx() {
-					const vm: any = this;
 					Editor.Message.send('scene', 'execute-scene-script', {
 						name: 'i18n',
 						method: 'importExcel',
-						args: [vm.current || '']
+						args: [this.current || '']
 					});
 				},
 				select(language: string) {
-					vm.current = language;
+					this.current = language;
 				},
 				async del(name: string) {
 					const result = await Editor.Dialog.info(`确定删除 ${name} 语言文件？`, {
@@ -120,7 +121,7 @@ module.exports = Editor.Panel.define({
 							'delete-asset',
 							`db://${languageRoot}/${filename}.ts`
 						);
-						vm.refresh();
+						this.refresh();
 					}
 				},
 				async refresh() {
@@ -128,18 +129,18 @@ module.exports = Editor.Panel.define({
 					if (!existsSync(dir)) {
 						return;
 					}
-					vm.current =
-						(await Editor.Message.request('scene', 'execute-scene-script', {
-							name: 'i18n',
-							method: 'queryCurrentLanguage',
-							args: []
-						})) || '';
+
+					this.current = await Editor.Message.request('scene', 'execute-scene-script', {
+						name: 'i18n',
+						method: 'queryCurrentLanguage',
+						args: []
+					}) || '';
 					const names = readdirSync(dir);
-					vm.$set(vm, 'list', []);
+					this.list = [];
 					names.forEach((name) => {
 						const language = name.replace(/\.[^\.]+$/, '');
 						if (!/\./.test(language)) {
-							vm.list.push(language);
+							this.list.push(language);
 						}
 					});
 				},
@@ -153,7 +154,7 @@ module.exports = Editor.Panel.define({
 					}
 
 					const languageContent = languageContentTemplate.replace(/{{name}}/g, language);
-					vm.showAddInput = false;
+					this.showAddInput = false;
 
 					await Editor.Message.request(
 						'asset-db',
@@ -161,10 +162,12 @@ module.exports = Editor.Panel.define({
 						`db://${languageRoot}/${language}.ts`,
 						languageContent
 					);
-					vm.refresh();
+					this.refresh();
 				}
 			}
 		});
-		vm.refresh();
+
+		const vm = app.mount(this.$.content!);
+		(vm as any).refresh();
 	}
 });

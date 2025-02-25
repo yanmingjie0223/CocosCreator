@@ -15,5 +15,7 @@ export class QuatreeTest extends Component {
 
 		window['rect'] = rect;
 		window['tree'] = tree;
+		console.log(rect);
+		console.log(tree);
 	}
 }

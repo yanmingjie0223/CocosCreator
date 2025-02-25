@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
 const fs_1 = require("fs");
-const Vue = require('vue/dist/vue.common.prod');
+const vue_1 = require("vue");
 const languageRoot = 'i18n/config';
 const languageFileRoot = 'extensions/i18n/assets/config';
 const languageContentTemplate = `import { languages } from "../runtime/LanguageData";\nlanguages.{{name}} = { // TODO: Dat };`;
@@ -70,40 +70,41 @@ module.exports = Editor.Panel.define({
         content: '.content'
     },
     ready() {
-        const vm = new Vue({
-            el: this.$.content,
-            data: {
-                current: '',
-                list: [],
-                showAddInput: false
+        const app = (0, vue_1.createApp)({
+            setup() {
+            },
+            data() {
+                return {
+                    current: '',
+                    list: [],
+                    showAddInput: false
+                };
             },
             watch: {
                 current() {
-                    const vm = this;
                     Editor.Message.send('scene', 'execute-scene-script', {
                         name: 'i18n',
                         method: 'changeCurrentLanguage',
-                        args: [vm.current || '']
+                        args: [this.current || '']
                     });
                 }
             },
             methods: {
                 add() {
-                    vm.showAddInput = true;
+                    this.showAddInput = true;
                     requestAnimationFrame(() => {
-                        vm.$refs.addInput.focus();
+                        this.$refs.addInput.focus();
                     });
                 },
                 importEx() {
-                    const vm = this;
                     Editor.Message.send('scene', 'execute-scene-script', {
                         name: 'i18n',
                         method: 'importExcel',
-                        args: [vm.current || '']
+                        args: [this.current || '']
                     });
                 },
                 select(language) {
-                    vm.current = language;
+                    this.current = language;
                 },
                 async del(name) {
                     const result = await Editor.Dialog.info(`确定删除 ${name} 语言文件？`, {
@@ -114,7 +115,7 @@ module.exports = Editor.Panel.define({
                     if (result.response === 0) {
                         let filename = name;
                         await Editor.Message.request('asset-db', 'delete-asset', `db://${languageRoot}/${filename}.ts`);
-                        vm.refresh();
+                        this.refresh();
                     }
                 },
                 async refresh() {
@@ -122,18 +123,17 @@ module.exports = Editor.Panel.define({
                     if (!(0, fs_1.existsSync)(dir)) {
                         return;
                     }
-                    vm.current =
-                        (await Editor.Message.request('scene', 'execute-scene-script', {
-                            name: 'i18n',
-                            method: 'queryCurrentLanguage',
-                            args: []
-                        })) || '';
+                    this.current = await Editor.Message.request('scene', 'execute-scene-script', {
+                        name: 'i18n',
+                        method: 'queryCurrentLanguage',
+                        args: []
+                    }) || '';
                     const names = (0, fs_1.readdirSync)(dir);
-                    vm.$set(vm, 'list', []);
+                    this.list = [];
                     names.forEach((name) => {
                         const language = name.replace(/\.[^\.]+$/, '');
                         if (!/\./.test(language)) {
-                            vm.list.push(language);
+                            this.list.push(language);
                         }
                     });
                 },
@@ -145,12 +145,13 @@ module.exports = Editor.Panel.define({
                         return;
                     }
                     const languageContent = languageContentTemplate.replace(/{{name}}/g, language);
-                    vm.showAddInput = false;
+                    this.showAddInput = false;
                     await Editor.Message.request('asset-db', 'create-asset', `db://${languageRoot}/${language}.ts`, languageContent);
-                    vm.refresh();
+                    this.refresh();
                 }
             }
         });
+        const vm = app.mount(this.$.content);
         vm.refresh();
     }
 });
