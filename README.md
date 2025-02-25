@@ -9,7 +9,7 @@
   - version: 3.8.5
 - Extensions
   - 拓展插件
-  - version: 3.8.3
+  - version: 3.8.5
 - ShaderLib
   - shader 库
-  - version: 3.8.3
+  - version: 3.8.5
