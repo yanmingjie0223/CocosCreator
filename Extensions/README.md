@@ -3,9 +3,9 @@
 - ability
 	- 技能
 - core
-	- 主干
+	- 主核心
 - dijkstra
-	- dijkstra图
+	- dijkstra最短图
 - fsm
 	- 状态机
 - i18n
