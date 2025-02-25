@@ -1,0 +1,12 @@
+{
+    "texture": {
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "linear"
+    },
+    "erp-texture-cube": {
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "linear"
+    }
+}
