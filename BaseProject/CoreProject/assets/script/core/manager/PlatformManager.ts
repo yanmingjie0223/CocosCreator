@@ -10,11 +10,7 @@ import { PlatformType } from "../const/CoreConst";
 export default class PlatformManager extends Singleton {
 
     /**平台名字 */
-    private _platformName: string;
-
-    public constructor() {
-        super();
-    }
+    private _platformName: string = null!;
 
     public init(): void {
         this.initPlatform();
@@ -31,15 +27,16 @@ export default class PlatformManager extends Singleton {
     }
 
     private initPlatform(): void {
+		const win = window as any;
         let platName: string;
         // 这里判断native平台，需要注意
         if (!CC_PREVIEW && CC_JSB) {
             platName = PlatformType.NATIVE;
         }
-        else if (window['qq']) {
+        else if (win['qq']) {
             platName = PlatformType.QQ;
         }
-        else if (window['wx']) {
+        else if (win['wx']) {
             platName = PlatformType.WX;
         }
         else {

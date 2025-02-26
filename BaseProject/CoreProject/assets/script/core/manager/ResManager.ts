@@ -22,15 +22,11 @@ type ResCache = {
 export default class ResManager extends Singleton {
 
     /**加载资源缓存 */
-    private _resCache: ResCache;
+    private _resCache: ResCache = null!;
     /**资源检查间隔时间(s) */
     private _interval: number = 5;
     /**当前累计时间 */
-    private _time: number;
-
-    public constructor() {
-        super();
-    }
+    private _time: number = 0;
 
     public init(): void {
         this._resCache = {};

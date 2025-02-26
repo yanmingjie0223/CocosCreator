@@ -22,7 +22,14 @@ export default class EffectUtils extends Singleton {
      * @param callback 打印完成回调函数
      * @param agrs 打印完成回调透传参数
      */
-    public startTyperEffect(tfObj: fgui.GTextField, content: string, interval: number = 120, thisObj: any = null, callback: Function = null, agrs: Array<any> = null): void {
+    public startTyperEffect(
+		tfObj: fgui.GTextField,
+		content: string,
+		interval: number = 120,
+		thisObj: any = null,
+		callback: Function | null = null,
+		agrs: Array<any> | null = null
+	): void {
         if (!tfObj) {
             const debugUtils = DebugUtils.getInstance<DebugUtils>();
             debugUtils.warn('该打字机效果对象未空！');
@@ -67,7 +74,16 @@ export default class EffectUtils extends Singleton {
      * @param callback 打印完成回调函数
      * @param agrs 打印完成回调透传参数
      */
-    private addTfTween(tfObj: fgui.GTextField, currStr: string, currNum: number, len: number, interval: number, thisObj: any = null, callback: Function = null, agrs: Array<any> = null): void {
+    private addTfTween(
+		tfObj: fgui.GTextField,
+		currStr: string,
+		currNum: number,
+		len: number,
+		interval: number,
+		thisObj: any = null,
+		callback: Function | null = null,
+		agrs: Array<any> | null = null
+	): void {
         const mTime: number = (interval * currNum) / 1000;
         const tween: fgui.GTweener = fgui.GTween.to(0, 1, mTime);
         tween.onComplete(() => {
@@ -118,7 +134,7 @@ export default class EffectUtils extends Singleton {
             currChar = content.charAt(i);
             currStr = content.slice(i);
             if (currChar === '[') {
-                index = currStr.match(/\[\/.*?\]/).index;
+                index = currStr.match(/\[\/.*?\]/)!.index!;
                 const temp: string = currStr.slice(index);
                 index = temp.indexOf(']') + index;
                 returnStr += this.ubbDisperse(currStr.slice(0, index + 1));

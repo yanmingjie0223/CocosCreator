@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "1f62c9bf-ee70-4593-b1c8-f24948fa4daa",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "bag_atlas0": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "83f6f2ce-6c0f-4294-91bb-921ddceb1afb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "1f62c9bf-ee70-4593-b1c8-f24948fa4daa",
       "trimType": "auto",
       "trimThreshold": 1,

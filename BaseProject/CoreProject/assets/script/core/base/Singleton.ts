@@ -15,4 +15,10 @@ export default class Singleton {
         return this._instance as T;
     }
 
+	public static deleteInstance(): void {
+        if (this._instance) {
+            this._instance = null!;
+        }
+    }
+
 }

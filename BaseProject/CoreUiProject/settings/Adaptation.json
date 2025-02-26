@@ -1,7 +1,8 @@
 {
-	"defaultResolution":"1136,640",
-	"designResolutionX":0,
-	"designResolutionY":0,
-	"scaleMode":"ConstantPixelSize",
-	"screenMathMode":"MatchWidthOrHeight"
+  "scaleMode": "ScaleWithScreenSize",
+  "screenMathMode": "MatchWidthOrHeight",
+  "designResolutionX": 750,
+  "designResolutionY": 1334,
+  "devices": [],
+  "fileName": "Adaptation"
 }

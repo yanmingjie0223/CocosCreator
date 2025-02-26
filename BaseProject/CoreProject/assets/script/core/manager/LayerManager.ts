@@ -11,10 +11,6 @@ import DebugUtils from "../utils/DebugUtils";
  */
 export default class LayerManager extends Singleton {
 
-    public constructor() {
-        super();
-    }
-
     /**
      * 初始化
      */
@@ -42,7 +38,7 @@ export default class LayerManager extends Singleton {
      * @param layer
      */
     public getLayerComponent(layer: string): fgui.GComponent {
-        let layerCom: fgui.GComponent;
+        let layerCom: fgui.GComponent = ViewLayer.BOTTOM_COMPONENT;
         switch (layer) {
             case ViewLayerType.BOTTOM_LAYER:
                 layerCom = ViewLayer.BOTTOM_COMPONENT;

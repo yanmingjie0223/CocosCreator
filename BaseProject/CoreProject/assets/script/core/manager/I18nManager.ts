@@ -1,6 +1,6 @@
 import Singleton from "../base/Singleton";
-import I18n from "../i18n/I18n";
 import { I18nType } from "../const/CoreConst";
+import I18n from "../i18n/I18n";
 
 /*
  * @Author: yanmingjie
@@ -10,11 +10,7 @@ import { I18nType } from "../const/CoreConst";
  */
 export default class I18nManager extends Singleton {
 
-    private i18n: I18n;
-
-    public constructor() {
-        super();
-    }
+    private i18n: I18n = null!;
 
     public init(language: I18nType = I18nType.ZH): void {
         this.i18n = new I18n();

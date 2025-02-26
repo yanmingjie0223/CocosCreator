@@ -8,10 +8,6 @@ import Singleton from "../base/Singleton";
  */
 export default class RandomUtils extends Singleton {
 
-    public constructor() {
-        super();
-    }
-
     /**
      * 获取一个区间的随机数 (from, end)
      * @param {number} from 最小值

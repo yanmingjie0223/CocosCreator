@@ -32,13 +32,9 @@ interface IFitInfo {
 export default class SystemManager extends Singleton {
 
     /**设备名字 */
-    private _systemName: string;
+    private _systemName: string = "";
     /**适配信息数据 */
-    private _viewFitJson: IFitInfo
-
-    public constructor() {
-        super();
-    }
+    private _viewFitJson: IFitInfo = null!;
 
     public init(): void {
         this.initSystemName();
@@ -53,7 +49,7 @@ export default class SystemManager extends Singleton {
      * 获取设备适配信息
      * @param systemName 设备名称
      */
-    public getFitInfo(systemName: string = this._systemName): IFitItem {
+    public getFitInfo(systemName: string = this._systemName): IFitItem | null {
         if (systemName && this._viewFitJson[systemName]) {
             return this._viewFitJson[systemName];
         }
@@ -61,6 +57,7 @@ export default class SystemManager extends Singleton {
     }
 
     private initSystemName(): void {
+		const win = window as any;
         let platformMini: any;
         const platformManager = PlatformManager.getInstance<PlatformManager>();
         const platName: string = platformManager.platformName;
@@ -69,10 +66,10 @@ export default class SystemManager extends Singleton {
             case PlatformType.WEB:
                 return;
             case PlatformType.QQ:
-                platformMini = window['qq'];
+                platformMini = win['qq'];
                 break
             case PlatformType.WX:
-                platformMini = window['wx'];
+                platformMini = win['wx'];
                 break;
             default:
                 const debugUtils = DebugUtils.getInstance<DebugUtils>();

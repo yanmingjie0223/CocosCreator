@@ -24,7 +24,7 @@ export const enum HttpEvent {
 
 export default class HttpRequest extends cc.Node {
 
-    private _responseType: string;
+    private _responseType: string = "";
     private _data: any;
     private _xhr: XMLHttpRequest;
 
@@ -41,7 +41,13 @@ export default class HttpRequest extends cc.Node {
 	 * @param responseType Web 服务器的响应类型，可设置为 "text"、"json"、"xml"、"arraybuffer"
 	 * @param headers HTTP 请求的头部信息。参数形如key-value数组：key是头部的名称，不应该包括空白、冒号或换行；value是头部的值，不应该包括换行。比如["Content-Type","application/json"]
 	 */
-    public send(url: string, data: any, method: HttpType = HttpType.GET, responseType: ResponseType = ResponseType.TEXT, headers: Array<string> = null): void {
+    public send(
+		url: string,
+		data: any,
+		method: HttpType = HttpType.GET,
+		responseType: ResponseType = ResponseType.TEXT,
+		headers: Array<string> | null = null
+	): void {
         this._responseType = responseType;
         this._data = null;
         const xhr: XMLHttpRequest = this._xhr;
@@ -104,7 +110,7 @@ export default class HttpRequest extends cc.Node {
                 this._data = this._xhr.response || this._xhr.responseText;
             }
         }
-        catch (e) {
+        catch (e: any) {
             flag = false;
             this.error(e.message);
         }
@@ -147,11 +153,16 @@ export default class HttpRequest extends cc.Node {
         this.emit(HttpEvent.ERROR, message);
     }
 
-    private parseXMLFromString(value: string){
+    private parseXMLFromString(value: string): Document | null {
 		value = value.replace(/>\s+</g, '><');
-		let rst = (new DOMParser()).parseFromString(value, 'text/xml');
-		if (rst.firstChild.textContent.indexOf("This page contains the following errors")>-1){
-			throw new Error(rst.firstChild.firstChild.textContent);
+		const rst: Document | null = (new DOMParser()).parseFromString(value, 'text/xml');
+		if (
+			!rst ||
+			!rst.firstChild ||
+			!rst.firstChild.textContent ||
+			rst.firstChild.textContent.indexOf("This page contains the following errors") > -1
+		) {
+			throw new Error("This page contains the following errors");
 		}
 		return rst;
 	}

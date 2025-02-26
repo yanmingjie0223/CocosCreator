@@ -8,10 +8,6 @@ import Singleton from "../base/Singleton";
  */
 export default class DateUtils extends Singleton {
 
-    public constructor() {
-        super();
-    }
-
     /**
      * 格式化时间获取：时分秒 00:00:00
      * @param {number} 时间戳差值（s）

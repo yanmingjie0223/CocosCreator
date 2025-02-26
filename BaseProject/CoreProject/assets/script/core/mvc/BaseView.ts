@@ -21,7 +21,7 @@ export default class BaseView extends BComponent {
     /**viewType类型 */
     private _type: ViewType;
     /**界面展开动画类型 */
-    private _aniType: string;
+    private _aniType: string = null!;
     /**view所属层级 */
     private _layer: string;
     /**包名 */
@@ -31,25 +31,25 @@ export default class BaseView extends BComponent {
     /**单个界面资源 */
     private _resName: string;
     /**模块数据源 */
-    private _model: BaseModel;
+    private _model: BaseModel | null = null;
     /**界面控制 */
-    private _ctrl: BaseCtrl;
+    private _ctrl: BaseCtrl | null = null;
 
     /**是否初始化 */
-    private _isInit: boolean;
+    private _isInit: boolean = false;
     /**是否消耗 */
-    private _isDestroy: boolean;
+    private _isDestroy: boolean = false;
     /**是否托管资源 */
     private _isTrust: boolean;
     /**view透传数据 */
-    private _viewData: BaseViewData
+    private _viewData: BaseViewData | null = null;
 
     /**蒙层背景组件 */
-    private _bgLoader: fgui.GLoader;
+    private _bgLoader: fgui.GLoader = null!;
     /**主体组件 */
-    private _contentPane: fgui.GComponent;
+    private _contentPane: fgui.GComponent = null!;
     /**旋转加载屏蔽组件 */
-    private _modalWaitPane: fgui.GComponent;
+    private _modalWaitPane: fgui.GComponent = null!;
 
     /**
      * 构造函数
@@ -71,32 +71,32 @@ export default class BaseView extends BComponent {
     /**
      * view透传数据
      */
-    public set viewData(_viewData: BaseViewData) {
+    public set viewData(_viewData: BaseViewData | null) {
         this._viewData = _viewData;
     }
-    public get viewData(): BaseViewData {
+    public get viewData(): BaseViewData | null {
         return this._viewData;
     }
 
     /**
      * model数据
      */
-    public set model(_model: BaseModel) {
+    public set model(_model: BaseModel | null) {
         this._model = _model;
         this._ctrl && (this._ctrl.model = _model);
     }
-    public get model(): BaseModel {
+    public get model(): BaseModel | null {
         return this._model;
     }
 
     /**
      * ctrl控制
      */
-    public set ctrl(_ctrl: BaseCtrl) {
+    public set ctrl(_ctrl: BaseCtrl | null) {
         this._ctrl = _ctrl;
         this._ctrl && (this._ctrl.view = this);
     }
-    public get ctrl(): BaseCtrl {
+    public get ctrl(): BaseCtrl | null {
         return this._ctrl;
     }
 
@@ -171,7 +171,7 @@ export default class BaseView extends BComponent {
         if (this._contentPane) {
             return this._contentPane.getTransition(name);
         }
-        return null;
+        return null!;
     }
 
     /**
@@ -182,7 +182,7 @@ export default class BaseView extends BComponent {
         if (this._contentPane) {
             return this._contentPane.getController(name);
         }
-        return null;
+        return null!;
     }
 
     /**
@@ -197,21 +197,21 @@ export default class BaseView extends BComponent {
         this._isDestroy = true;
         this._isInit = false;
 
-        this._pkgName = null;
-        this._resName = null;
+        this._pkgName = null!;
+        this._resName = null!;
         this._ctrl = null;
         this._model = null;
         if (this._bgLoader) {
             this._bgLoader.dispose();
-            this._bgLoader = null;
+            this._bgLoader = null!;
         }
         if (this._modalWaitPane) {
             this._modalWaitPane.dispose();
-            this._modalWaitPane = null;
+            this._modalWaitPane = null!;
         }
         if (this._contentPane) {
             this._contentPane.dispose();
-            this._contentPane = null;
+            this._contentPane = null!;
         }
         this.dispose();
     }
@@ -247,6 +247,7 @@ export default class BaseView extends BComponent {
      */
     public show(): void {
         const stageManager = StageManager.getInstance<StageManager>();
+		this.setSize(stageManager.viewWidth, stageManager.viewHeight);
         this.addRelation(stageManager.GRoot, fgui.RelationType.Size);
         this.initStart();
     }
@@ -288,7 +289,6 @@ export default class BaseView extends BComponent {
         switch (this.type) {
             case ViewType.VIEW:
                 this._contentPane.addRelation(this, fgui.RelationType.Size);
-                this.setSize(this._contentPane.width, this._contentPane.height);
                 break;
             case ViewType.WINDOW:
             case ViewType.X_WINDOW:
@@ -329,11 +329,10 @@ export default class BaseView extends BComponent {
      * 初始化ui
      */
     private toInitUI(): void {
-        const stageManager = StageManager.getInstance<StageManager>();
         const displayUtils = DisplayUtils.getInstance<DisplayUtils>();
         this.contentPane = fgui.UIPackage.createObject(this._pkgName, this._resName).asCom;
         displayUtils.bindGObject(this.contentPane, this);
-        this.setSize(stageManager.viewWidth, stageManager.viewHeight);
+        this._contentPane.setSize(this.width, this.height);
         this.onPaneRelation();
         this._isInit = true;
         this.onCompleteUI();
@@ -367,7 +366,7 @@ export default class BaseView extends BComponent {
         if (this.type === ViewType.VIEW) {
             if (this._bgLoader) {
                 this._bgLoader.dispose();
-                this._bgLoader = null;
+                this._bgLoader = null!;
             }
         }
         else {

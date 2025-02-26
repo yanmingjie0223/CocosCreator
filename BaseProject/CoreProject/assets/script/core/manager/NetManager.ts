@@ -1,6 +1,6 @@
+import AppConfig from "../../config/AppConfig";
 import Singleton from "../base/Singleton";
 import HttpRequest, { HttpEvent, HttpType, ResponseType } from "../net/HttpRequest";
-import AppConfig from "../../config/AppConfig";
 
 /*
  * @Author: yanmingjie
@@ -10,10 +10,6 @@ import AppConfig from "../../config/AppConfig";
  * todo: 该类为测试临时使用
  */
 export default class NetManager extends Singleton {
-
-    public constructor() {
-        super();
-    }
 
     public sendGet(url: string, data: any, comleteFun: Function, thisObj: any): void {
         data['_token_'] = AppConfig.token;

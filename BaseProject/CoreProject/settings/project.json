@@ -11,16 +11,16 @@
     "3D Physics/Builtin"
   ],
   "preview-port": 7456,
-  "design-resolution-width": 640,
-  "design-resolution-height": 1136,
+  "design-resolution-width": 750,
+  "design-resolution-height": 1334,
   "fit-width": true,
   "fit-height": true,
   "use-project-simulator-setting": false,
   "simulator-orientation": false,
   "use-customize-simulator": true,
   "simulator-resolution": {
-    "height": 640,
-    "width": 960
+    "width": 960,
+    "height": 640
   },
   "facebook": {
     "appID": "",
@@ -35,5 +35,7 @@
   "migrate-history": [
     "cloud-function"
   ],
-  "last-module-event-record-time": 1607244801067
+  "last-module-event-record-time": 1607244801067,
+  "clear-simulator-cache": true,
+  "start-scene": "9aca4acc-14c4-4e43-983c-99f63df9d762"
 }

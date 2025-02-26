@@ -9,16 +9,12 @@ import BComponent from "../../core/base/BComponent";
  */
 export default class GlobalModalWaiting extends BComponent {
 
-    private _bar: fgui.GImage = null;
-    private _barBg: fgui.GImage = null;
+    private _bar: fgui.GImage = null!;
+    private _barBg: fgui.GImage = null!;
 
     private hideTime: number = 1;
-    private _showTime: number;
-    private _isShow: boolean;
-
-    public constructor() {
-        super();
-    }
+    private _showTime: number = null!;
+    private _isShow: boolean = null!;
 
     protected onConstruct(): void {
         App.DisplayUtils.bindGObject(this, this);
@@ -28,8 +24,8 @@ export default class GlobalModalWaiting extends BComponent {
     protected onDisable(): void {
         super.onDisable();
 
-        this._showTime = null;
-        this._isShow = null;
+        this._showTime = null!;
+        this._isShow = null!;
     }
 
     protected onUpdate(dt: number): void {

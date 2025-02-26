@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "2b48cc35-f977-426e-beb0-90fb9253de83",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "main_atlas0": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a8d74496-69ed-4db7-9e1f-011053a64a66",
+      "importer": "sprite-frame",
       "rawTextureUuid": "2b48cc35-f977-426e-beb0-90fb9253de83",
       "trimType": "auto",
       "trimThreshold": 1,

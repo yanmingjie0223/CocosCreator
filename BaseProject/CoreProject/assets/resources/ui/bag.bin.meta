@@ -1,5 +1,6 @@
 {
-  "ver": "1.0.0",
+  "ver": "1.0.2",
   "uuid": "17ea3580-6a6e-49ce-9b4b-62f6e15eb80a",
+  "importer": "buffer",
   "subMetas": {}
 }

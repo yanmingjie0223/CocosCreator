@@ -20,11 +20,7 @@ const fileType: { [type: string]: typeof cc.Asset } = {
 export default class LoadManager extends Singleton {
 
     /**加载资源配置 */
-    private _resJson: ResJson;
-
-    public constructor() {
-        super();
-    }
+    private _resJson: ResJson = null!;
 
     public init(): void {
         const resUrl: string = 'resource';
@@ -42,7 +38,13 @@ export default class LoadManager extends Singleton {
      * @param progressFun 加载进度
      * @param thisObj 函数this对象
      */
-    public loadGroup(groupName: string, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+    public loadGroup(
+		groupName: string,
+		completeFun: Function | null,
+		errorFun: Function | null,
+		progressFun: Function | null,
+		thisObj: any | null
+	): void {
         if (!groupName) return;
         const resFiles: Array<ResFile> = this.getGroupUrls(groupName);
         this.loadArray(resFiles, completeFun, errorFun, progressFun, thisObj);
@@ -56,7 +58,13 @@ export default class LoadManager extends Singleton {
      * @param progressFun 加载进度
      * @param thisObj 函数this对象
      */
-    public loadArrayGroup(groupNames: Array<string>, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+    public loadArrayGroup(
+		groupNames: Array<string>,
+		completeFun: Function | null,
+		errorFun: Function | null,
+		progressFun: Function | null,
+		thisObj: any | null
+	): void {
         if (!groupNames || groupNames.length <= 0) {
             return;
         }
@@ -78,7 +86,13 @@ export default class LoadManager extends Singleton {
      * @param progressFun 加载进度返回
      * @param thisObj 加载this对象
      */
-    public load(resFile: ResFile, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+    public load(
+		resFile: ResFile,
+		completeFun: Function | null,
+		errorFun: Function | null,
+		progressFun: Function | null,
+		thisObj: any | null
+	): void {
         cc.resources.load(
             resFile.url,
             resFile.type,
@@ -104,7 +118,13 @@ export default class LoadManager extends Singleton {
      * @param progressFun 加载进度返回
      * @param thisObj 加载this对象
      */
-    public loadArray(resFiles: Array<ResFile>, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+    public loadArray(
+		resFiles: Array<ResFile>,
+		completeFun: Function | null,
+		errorFun: Function | null,
+		progressFun: Function | null,
+		thisObj: any | null
+	): void {
         let comCount: number = 0;
         let errCount: number = 0;
         let err: Error;
@@ -125,7 +145,7 @@ export default class LoadManager extends Singleton {
                     asset = resource;
                     deal();
                 },
-                null,
+                null!,
                 this
             );
         }
@@ -150,7 +170,13 @@ export default class LoadManager extends Singleton {
      * @param progressFun 加载进度
      * @param thisObj 函数this对象
      */
-    public loadPackage(pkgName: string, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+    public loadPackage(
+		pkgName: string,
+		completeFun: Function | null,
+		errorFun: Function | null,
+		progressFun: Function | null,
+		thisObj: any | null
+	): void {
         this.loadGroup(pkgName, function() {
             const resMgr = ResManager.getInstance<ResManager>();
             resMgr.addUiPackage(pkgName);
@@ -166,7 +192,13 @@ export default class LoadManager extends Singleton {
      * @param progressFun 加载进度
      * @param thisObj 函数this对象
      */
-    public loadArrayPackage(pkgNameArr: Array<string>, completeFun: Function, errorFun: Function, progressFun: Function, thisObj: any): void {
+    public loadArrayPackage(
+		pkgNameArr: Array<string>,
+		completeFun: Function | null,
+		errorFun: Function | null,
+		progressFun: Function | null,
+		thisObj: any | null
+	): void {
         this.loadArrayGroup(pkgNameArr, function() {
             const resMgr = ResManager.getInstance<ResManager>();
             for (let i = 0, len = pkgNameArr.length; i < len; i++) {
@@ -184,7 +216,7 @@ export default class LoadManager extends Singleton {
         const resFiles: Array<ResFile> = [];
         const groups: Array<{keys: string, name: string}> = this._resJson.groups;
         const resources: Array<{name: string, type: string, url: string}> = this._resJson.resources;
-        let group: {keys: string, name: string};
+        let group: {keys: string, name: string} = { keys: "", name: "" };
         for (let i = 0, len = groups.length; i < len; i++) {
             if (groups[i].name === groupName) {
                 group = groups[i];

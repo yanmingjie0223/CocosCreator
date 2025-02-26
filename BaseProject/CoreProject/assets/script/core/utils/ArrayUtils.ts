@@ -8,10 +8,6 @@ import Singleton from "../base/Singleton";
  */
 export default class ArrayUtils extends Singleton {
 
-    public constructor() {
-        super();
-    }
-
     /**
      * 打乱数组中的元素
      * @param {Array} arr

@@ -8,10 +8,6 @@ import Singleton from "../base/Singleton";
  */
 export default class StringUtils extends Singleton {
 
-    public constructor() {
-        super();
-    }
-
     /**
      * 获取对应字段的信息
      * @param key 字段

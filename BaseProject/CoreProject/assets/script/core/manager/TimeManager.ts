@@ -10,15 +10,11 @@ import DebugUtils from "../utils/DebugUtils";
 export default class TimeManager extends Singleton {
 
     /**服务端时间(s) */
-    private _serverTime: number;
+    private _serverTime: number = null!;
     /**服务端和客户端时间差(s) */
-    private _diffTime: number;
+    private _diffTime: number = null!;
     /**是否同步过时间 */
-    private _isSyncTime: boolean;
-
-    public constructor() {
-        super();
-    }
+    private _isSyncTime: boolean = null!;
 
     /**
      * 初始化服务器时间(s)
@@ -46,7 +42,7 @@ export default class TimeManager extends Singleton {
         if (this._serverTime === void 0) {
             const debugUtils = DebugUtils.getInstance<DebugUtils>();
             debugUtils.warn('服务器时间还未同步，请先同步时间！');
-            return null;
+            return 0;
         }
         return this._serverTime;
     }

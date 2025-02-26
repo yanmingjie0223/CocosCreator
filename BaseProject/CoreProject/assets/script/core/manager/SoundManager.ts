@@ -8,11 +8,11 @@ import Singleton from "../base/Singleton";
  */
 export default class SoundManager extends Singleton {
 
-    private _musicId: number;
-    private _effect: { [url: string]: number };
+    private _musicId: number = null!;
+    private _effect: { [url: string]: number } = null!;
 
     public init(): void {
-        this._musicId = null;
+        this._musicId = null!;
         this._effect = {};
     }
 
@@ -24,7 +24,7 @@ export default class SoundManager extends Singleton {
      */
     public playMusic(url: string, isLoop: boolean = true, isRes: boolean = true): void {
         if (isRes) {
-            cc.resources.load(url, cc.AudioClip, (err, clip: cc.AudioClip) => {
+            cc.resources.load(url, cc.AudioClip, (err: Error, clip: cc.AudioClip | cc.AudioClip[]) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;
@@ -32,11 +32,11 @@ export default class SoundManager extends Singleton {
                 if (this._musicId) {
                     cc.audioEngine.stop(this._musicId);
                 }
-                this._musicId = cc.audioEngine.playMusic(clip, isLoop);
+                this._musicId = cc.audioEngine.playMusic(clip as cc.AudioClip, isLoop);
             });
         }
         else {
-            cc.assetManager.loadRemote(url, (err, clip: cc.AudioClip) => {
+            cc.assetManager.loadRemote(url, (err: Error, clip: cc.AudioClip) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;
@@ -57,12 +57,12 @@ export default class SoundManager extends Singleton {
      */
     public playEffect(url: string, isLoop: boolean = false, isRes: boolean = true): void {
         if (isRes) {
-            cc.resources.load(url, cc.AudioClip, (err, clip: cc.AudioClip) => {
+            cc.resources.load(url, cc.AudioClip, (err, clip: cc.AudioClip | cc.AudioClip[]) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;
                 }
-                const audioID = cc.audioEngine.playEffect(clip, isLoop);
+                const audioID = cc.audioEngine.playEffect(clip as cc.AudioClip, isLoop);
                 if (this._effect[url]) {
                     cc.audioEngine.stop(this._effect[url]);
                 }
@@ -70,7 +70,7 @@ export default class SoundManager extends Singleton {
             });
         }
         else {
-            cc.assetManager.loadRemote(url, (err, clip: cc.AudioClip) => {
+            cc.assetManager.loadRemote(url, (err: Error, clip: cc.AudioClip) => {
                 if (err) {
                     cc.error(`加载资源出错 ${url}`);
                     return;

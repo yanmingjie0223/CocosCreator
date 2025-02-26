@@ -12,10 +12,6 @@ export default class ModelManager extends Singleton {
 
     private _modelCache: any;
 
-    public constructor() {
-        super()
-    }
-
     public init(): void {
         this._modelCache = {};
         // todo: 初始化所有model数据源对象
@@ -46,8 +42,8 @@ export default class ModelManager extends Singleton {
      * 获取model对象源
      * @param modelClass model类
      */
-    public getModel<T>(modelClass: {new(): T}): T {
-        if (!modelClass) return;
+    public getModel<T>(modelClass: {new(): T} | null): T | null {
+        if (!modelClass) return null;
         const key: string = (modelClass as any).key;
         if (this._modelCache && this._modelCache[key]) {
             return this._modelCache[key];

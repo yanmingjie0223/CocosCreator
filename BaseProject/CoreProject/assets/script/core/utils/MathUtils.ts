@@ -7,9 +7,6 @@ import Singleton from "../base/Singleton";
  * @Last Modified time: 2021-03-01 15:51:46
  */
 export default class MathUtils extends Singleton {
-	public constructor() {
-		super();
-	}
 
 	/**
 	 * 弧度制转换为角度值
@@ -49,7 +46,7 @@ export default class MathUtils extends Singleton {
 	public getAngleTwoPoint(p1: cc.Vec2, p2: cc.Vec2): number {
 		const vy: number = p2.y - p1.y;
 		const vx: number = p2.x - p1.x;
-		let ang: number;
+		let ang: number = 0;
 
 		if (vy == 0) {
 			if (vx < 0) {
@@ -147,7 +144,7 @@ export default class MathUtils extends Singleton {
 		p2: cc.Vec2,
 		q1: cc.Vec2,
 		q2: cc.Vec2
-	): cc.Vec2 {
+	): cc.Vec2 | null {
 		if (
 			this.isRectCross(p1, p2, q1, q2) &&
 			this.isLineSegmentCross(p1, p2, q1, q2)
@@ -191,8 +188,8 @@ export default class MathUtils extends Singleton {
 
 	/**
 	 * 精确到小数点后多少位（舍尾）
-	 * @param {number} 精确值
-	 * @param {number} 精确位数
+	 * @param {number} exactValue 精确值
+	 * @param {number} count 精确位数
 	 * @return {number}
 	 * */
 	public exactCount(exactValue: number, count: number = 0): number {
@@ -203,9 +200,9 @@ export default class MathUtils extends Singleton {
 
 	/**
 	 * [0-1]区间获取二次贝塞尔曲线点切线角度
-	 * @param {cc.Vec2} p0起点
-	 * @param {cc.Vec2} p1控制点
-	 * @param {cc.Vec2} p2终点
+	 * @param {cc.Vec2} p0 起点
+	 * @param {cc.Vec2} p1 控制点
+	 * @param {cc.Vec2} p2 终点
 	 * @param {number} t [0-1]区间
 	 * @return {number}
 	 * */
@@ -235,7 +232,7 @@ export default class MathUtils extends Singleton {
 		p1: cc.Vec2,
 		p2: cc.Vec2,
 		t: number,
-		point: cc.Vec2 = null
+		point: cc.Vec2 | null = null
 	): cc.Vec2 {
 		if (!point) {
 			point = new cc.Vec2();
@@ -263,7 +260,7 @@ export default class MathUtils extends Singleton {
 		p2: cc.Vec2,
 		p3: cc.Vec2,
 		t: number,
-		point: cc.Vec2 = null
+		point: cc.Vec2 | null = null
 	): cc.Vec2 {
 		if (!point) {
 			point = new cc.Vec2();
@@ -281,10 +278,10 @@ export default class MathUtils extends Singleton {
 
 	/**
 	 * [0-1]区间获取三次贝塞尔曲线点切线角度
-	 * @param {cc.Vec2} p0起点
-	 * @param {cc.Vec2} p1控制点
-	 * @param {cc.Vec2} p2控制点
-	 * @param {cc.Vec2} p3终点
+	 * @param {cc.Vec2} p0 起点
+	 * @param {cc.Vec2} p1 控制点
+	 * @param {cc.Vec2} p2 控制点
+	 * @param {cc.Vec2} p3 终点
 	 * @param {number} t [0-1]区间
 	 * @return {number}
 	 * */

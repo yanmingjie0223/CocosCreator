@@ -14,7 +14,7 @@ export default class MainView extends BaseView {
 
     public static readonly key: string = 'MainView';
 
-    private _bagBtn: fgui.GButton = null;
+    private _bagBtn: fgui.GButton = null!;
 
     public constructor() {
         super(['main', 'bag'], 'MainView', ViewType.VIEW, ViewLayerType.MIDDLE_LAYER);

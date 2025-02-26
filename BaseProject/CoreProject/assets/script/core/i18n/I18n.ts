@@ -10,9 +10,7 @@ import DebugUtils from "../utils/DebugUtils";
  */
 export default class I18n {
 
-    private _language: I18nType;
-
-    public constructor() {}
+    private _language: I18nType = I18nType.ZH;
 
     /**
      * 获取对应的文本
@@ -45,12 +43,14 @@ export default class I18n {
         if (values && values.length > 0) {
             const valueLen: number = values.length;
             const reg: RegExp = new RegExp('\\${\\w+}', 'g');
-            const macths: Array<string> = value.match(reg);
-            for (let i = 0, len = macths.length; i < len; i++) {
-                if (valueLen > i) {
-                    value = value.replace(macths[i], values[i]);
-                }
-            }
+            const macths: Array<string> | null = value.match(reg);
+			if (macths) {
+				for (let i = 0, len = macths.length; i < len; i++) {
+					if (valueLen > i) {
+						value = value.replace(macths[i], values[i]);
+					}
+				}
+			}
         }
         return value;
     }

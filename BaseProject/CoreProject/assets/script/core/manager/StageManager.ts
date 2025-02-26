@@ -13,13 +13,9 @@ import SystemManager, { IFitItem } from "./SystemManager";
 export default class StageManager extends Singleton {
 
     /**view显示节点 */
-    private _viewNode: cc.Node;
+    private _viewNode: cc.Node = null!;
     /**舞台显示范围 */
-    private _stageRect: {width: number, height: number};
-
-    public constructor() {
-        super();
-    }
+    private _stageRect: {width: number, height: number} = null!;
 
     /**
      * 场景初始化
@@ -107,12 +103,12 @@ export default class StageManager extends Singleton {
     private initFitNode(): void {
         this.initStageRect();
 
-        let _x: number;
-        let _y: number;
+        let _x: number = 0;
+        let _y: number = 0;
         let _w: number;
         let _h: number;
         const systemManager = SystemManager.getInstance<SystemManager>();
-        const fitInfo: IFitItem = systemManager.getFitInfo();
+        const fitInfo: IFitItem | null = systemManager.getFitInfo();
         if (fitInfo) {
             _w = fitInfo.width;
             _h = fitInfo.height;

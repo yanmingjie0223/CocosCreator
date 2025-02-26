@@ -12,8 +12,8 @@ export default class BagView extends BaseView {
 
     public static readonly key: string = 'BagView';
 
-    private _closeBtn: fgui.GButton = null;
-    private _tf: fgui.GRichTextField = null;
+    private _closeBtn: fgui.GButton = null!;
+    private _tf: fgui.GRichTextField = null!;
 
     public constructor() {
         super(['bag'], 'BagView', ViewType.X_WINDOW, ViewLayerType.WINDOW_LAYER);

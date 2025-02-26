@@ -20,15 +20,11 @@ export default class ViewManager extends Singleton {
 	private _views: any;
 
 	/**将要逐个显示view集，二维数组：[[ctrlClass, modelClass, viewClass, viewData, layer]] */
-	private _willViews: any[];
+	private _willViews: any[] = null!;
 	/**当前显示单个view */
-	private _currView: { new (): BaseView };
+	private _currView: { new (): BaseView } = null!;
 	/**是否暂停逐个显示view功能 */
-	private _isPause: boolean;
-
-	public constructor() {
-		super();
-	}
+	private _isPause: boolean = null!;
 
 	public init(): void {
 		this._views = cc.js.createMap();
@@ -46,17 +42,17 @@ export default class ViewManager extends Singleton {
 	 */
 	public show(
 		viewClass: { new (): BaseView },
-		modelClass: { new (): BaseModel } = null,
-		ctrlClass: { new (): BaseCtrl } = null,
-		viewData: BaseViewData = null,
+		modelClass: { new (): BaseModel } | null = null!,
+		ctrlClass: { new (): BaseCtrl } | null = null,
+		viewData: BaseViewData | null = null,
 		showType: number = ViewShowType.MULTI_VIEW,
-		layer: string = null
-	): BaseView {
+		layer: string = null!
+	): BaseView | null {
 		const key: string = (viewClass as any).key;
 		const debugUtils = DebugUtils.getInstance<DebugUtils>();
 		if (!key) {
 			debugUtils.error(
-				`该${viewClass.name}未存在static key，请在检查一下遗漏！`
+				`该${viewClass.name}未存在static key, 请在检查一下遗漏! `
 			);
 		}
 		// 单个窗体显示
@@ -76,8 +72,8 @@ export default class ViewManager extends Singleton {
 			view.viewData = viewData;
 		} else {
 			const modelManager = ModelManager.getInstance<ModelManager>();
-			const ctrl: BaseCtrl = ctrlClass ? new ctrlClass() : null;
-			const model: BaseModel = modelManager.getModel(modelClass);
+			const ctrl: BaseCtrl | null = ctrlClass ? new ctrlClass() : null;
+			const model: BaseModel | null = modelManager.getModel(modelClass);
 			view = new viewClass();
 			view.viewData = viewData;
 			view.ctrl = ctrl;
@@ -89,7 +85,7 @@ export default class ViewManager extends Singleton {
 			view.layer = layer;
 		}
 		if (!view.layer) {
-			debugUtils.error("该view未设置显示layer层！");
+			debugUtils.error("该view未设置显示layer层!");
 		}
 
 		const layerManager = LayerManager.getInstance<LayerManager>();
@@ -130,7 +126,7 @@ export default class ViewManager extends Singleton {
 		eventManager.emitEvent(ViewEvent.VIEW_CLOSE, key);
 		// 继续下一个view显示
 		if (this._currView === viewClass) {
-			this._currView = null;
+			this._currView = null!;
 			this.nextShow();
 		}
 	}
@@ -161,7 +157,7 @@ export default class ViewManager extends Singleton {
 	 * 获取view
 	 * @param viewClass view类
 	 */
-	public getView<T extends BaseView>(viewClass: { new (): BaseView }): T {
+	public getView<T extends BaseView>(viewClass: { new (): BaseView }): T | null {
 		const key: string = (viewClass as any).key;
 		if (!this._views || !this._views[key]) {
 			return null;
@@ -197,7 +193,7 @@ export default class ViewManager extends Singleton {
 	/**
 	 * 显示下个view
 	 */
-	private nextShow(): BaseView {
+	private nextShow(): BaseView | null {
 		if (this._currView || this._isPause) {
 			return null;
 		}
@@ -214,7 +210,7 @@ export default class ViewManager extends Singleton {
 		const viewData: BaseViewData = willArr[3];
 		const layer: string = willArr[4];
 		this._currView = viewClass;
-		const view: BaseView = this.show(
+		const view: BaseView | null = this.show(
 			viewClass,
 			modelClass,
 			ctrlClass,

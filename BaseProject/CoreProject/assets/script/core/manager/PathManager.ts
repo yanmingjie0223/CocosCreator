@@ -12,10 +12,6 @@ export default class PathManager extends Singleton {
     /**ui地址 */
     public readonly ui: string = 'ui/'
 
-    public constructor() {
-        super();
-    }
-
     /**
      * 获取包名加载地址
      * @param pkgName 包名

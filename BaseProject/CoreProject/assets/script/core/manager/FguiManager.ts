@@ -9,10 +9,6 @@ import Singleton from "../base/Singleton";
  */
 export default class FguiManager extends Singleton {
 
-    public constructor() {
-        super();
-    }
-
     public init(): void {
         this.bindComponent();
     }

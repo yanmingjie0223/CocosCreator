@@ -1,5 +1,5 @@
-import Singleton from "../base/Singleton";
 import App from "../App";
+import Singleton from "../base/Singleton";
 
 /*
  * @Author: yanmingjie0223@qq.com
@@ -12,13 +12,10 @@ export default class DebugUtils extends Singleton {
     /**是否开启debug模式 */
     public isDebug: boolean = false;
 
-    public constructor() {
-        super();
-    }
-
     public init(): void {
         if (this.isDebug) {
-            window['App'] = App;
+			const win = window as any;
+            win['App'] = App;
         }
     }
 
