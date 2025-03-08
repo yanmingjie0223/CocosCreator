@@ -1,0 +1,12 @@
+node_modules
+bin/
+src/protobuf
+src/fgui
+src/expressions
+src/excel
+src/libs
+src/core/types
+release/
+libs/
+build/
+build-script/
