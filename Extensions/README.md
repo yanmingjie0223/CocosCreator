@@ -12,6 +12,8 @@
 	- 多语言本地化插件
 - pathfinding
 	- a*路径
+- platform
+	- 平台
 - quadtree
 	- 四叉树
 - rvo
