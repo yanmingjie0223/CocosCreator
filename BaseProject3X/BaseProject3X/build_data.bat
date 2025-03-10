@@ -26,8 +26,6 @@ if exist "%BYTES_PATH%" (
 	for %%i in (*.bytes) do (
 		set name=%%i
 		set bytesName=!name:~0,-6!
-		echo "%BYTES_PATH%\!bytesName!.bytes"
-		echo "%BIN_PATH%\!bytesName!.bin"
 		copy "%BYTES_PATH%\!bytesName!.bytes" "%BIN_PATH%\!bytesName!.bin"
 	)
 
