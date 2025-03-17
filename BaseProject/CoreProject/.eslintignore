@@ -1,11 +1,6 @@
 node_modules
 bin/
 release/
-library/
+libs/
 build/
 build-script/
-tools/
-doc/
-build-templates/
-preview-template/
-engine/
