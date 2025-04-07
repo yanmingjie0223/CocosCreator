@@ -17,4 +17,4 @@
   - version: 3.8.5
 - ShaderLib
   - shader 库
-  - version: 3.8.5
+  - version: 3.8.6

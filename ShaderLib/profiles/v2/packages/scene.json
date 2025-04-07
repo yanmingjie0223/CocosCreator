@@ -1,11 +1,21 @@
 {
-  "__version__": "1.0.2",
+  "__version__": "1.0.3",
   "builder": {},
   "gizmos-infos": {
     "is2D": false,
     "is3DIcon": false,
     "iconSize": 2,
     "gridVisible": true,
+    "originAxis2D": {
+      "x_visible": true,
+      "y_visible": true,
+      "z_visible": false
+    },
+    "originAxis3D": {
+      "x_visible": true,
+      "y_visible": false,
+      "z_visible": true
+    },
     "gridColor": [
       166,
       166,
@@ -80,7 +90,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -105,7 +115,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -130,7 +140,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -155,7 +165,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -180,7 +190,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -205,7 +215,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -230,7 +240,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -255,7 +265,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -280,7 +290,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -305,7 +315,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -330,7 +340,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -355,7 +365,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -380,7 +390,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -405,7 +415,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
@@ -430,15 +440,15 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 454
+        "height": 552
       },
       "scale": 1
     },
     "adf3d290-ad72-4ecb-8c6d-92392f30fec1": {
       "position": {
-        "x": 5056.838310788535,
-        "y": 5056.838310788534,
-        "z": 5056.838310788533
+        "x": 4137.9811314008275,
+        "y": 4137.9811314008275,
+        "z": 4137.9811314008275
       },
       "rotation": {
         "x": -0.27984814233312133,
@@ -455,7 +465,7 @@
         "x": 0,
         "y": 0,
         "width": 929,
-        "height": 557
+        "height": 552
       },
       "scale": 1
     }

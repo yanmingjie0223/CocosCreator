@@ -1,7 +1,3 @@
-# CocosCreator
-
-基于 cocos creator 3D 3.8.3 版本 shader 库
-
 # shader
 
 - 圆形头像(./avatar)
