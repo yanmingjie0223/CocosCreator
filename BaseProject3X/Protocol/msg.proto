@@ -1,0 +1,34 @@
+syntax = "proto3";
+package msg;
+
+enum MsgId {
+	NULL = 0;
+
+	// 回应协议
+	Msg_S2C_Msg = 100;
+
+	// 登录
+	User_C2S_Login = 100100;
+	// 登录返回
+	User_S2C_Login = 200100;
+}
+
+enum MsgCode {
+	// 成功
+	SUCC = 0;
+	// 失败
+	ERROR = -1;
+}
+
+enum PlatformType {
+	// 本地
+	H5 = 0;
+	// 微信小游戏
+	WX_MINI = 1;
+}
+
+message S2C_Msg {
+	MsgCode code = 1;
+	MsgId mId = 2;
+	string message = 3;
+}

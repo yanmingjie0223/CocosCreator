@@ -4,7 +4,7 @@ set curPath=%~dp0
 set WORKSPACE=.\
 
 set curPath=%~dp0
-set LUBAN_DLL=%WORKSPACE%\tools\Luban\Luban.dll
+set LUBAN_DLL=%WORKSPACE%..\Tools\Luban\Luban.dll
 set CONF_ROOT=%WORKSPACE%..\Design\Datas
 set BYTES_PATH=%curPath%assets\dynamic\temp_lubandata
 set BIN_PATH=%curPath%assets\dynamic\data

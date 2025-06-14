@@ -1,0 +1,26 @@
+syntax = "proto3";
+package msg.user;
+import "msg.proto";
+
+message UserData {
+	string nickname = 1;
+	string openId = 2;
+	string avatarUrl = 13;
+	string province = 14;
+	string city = 15;
+}
+
+message C2S_Login {
+	string nickname = 1;
+	string avatarUrl = 2;
+	string code = 3;
+	PlatformType platform = 4;
+}
+
+message S2C_Login {
+	MsgCode code = 1;
+	string message = 2;
+	string openId = 3;
+	string token = 4;
+	UserData user = 5;
+}

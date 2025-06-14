@@ -18,21 +18,15 @@ export namespace ncb {
 export class Global {
 
     constructor(_buf_: ByteBuf) {
-        this.key = _buf_.ReadString()
-        this.content = _buf_.ReadString()
+        this.TestCount = _buf_.ReadInt()
     }
 
     /**
-     * key
+     * 测试
      */
-    readonly key: string
-    /**
-     * 内容
-     */
-    readonly content: string
+    readonly TestCount: number
 
     resolve(tables:Tables) {
-        
         
     }
 }
@@ -43,23 +37,23 @@ export class Global {
 
 export namespace ncb {
 export class TbGlobal {
-    private _dataMap: Map<string, ncb.Global>
+    private _dataMap: Map<number, ncb.Global>
     private _dataList: ncb.Global[]
     constructor(_buf_: ByteBuf) {
-        this._dataMap = new Map<string, ncb.Global>()
+        this._dataMap = new Map<number, ncb.Global>()
         this._dataList = []
         for(let n = _buf_.ReadInt(); n > 0; n--) {
             let _v: ncb.Global
             _v = new ncb.Global(_buf_)
             this._dataList.push(_v)
-            this._dataMap.set(_v.key, _v)
+            this._dataMap.set(_v.TestCount, _v)
         }
     }
 
-    getDataMap(): Map<string, ncb.Global> { return this._dataMap; }
+    getDataMap(): Map<number, ncb.Global> { return this._dataMap; }
     getDataList(): ncb.Global[] { return this._dataList; }
 
-    get(key: string): ncb.Global | undefined {
+    get(key: number): ncb.Global | undefined {
         return this._dataMap.get(key); 
     }
 
