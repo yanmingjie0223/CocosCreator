@@ -7,6 +7,7 @@ import ModelManager from "./manager/ModelManager";
 import ResManager from "./manager/ResManager";
 import StageManager from "./manager/StageManager";
 import ViewManager from "./manager/ViewManager";
+import { WSManager } from "./manager/WSManager";
 import ArrayUtils from "./utils/ArrayUtils";
 import DateUtils from "./utils/DateUtils";
 import DebugUtils from "./utils/DebugUtils";
@@ -84,6 +85,10 @@ export default class App {
 
 	public static get DisplayUtils(): DisplayUtils {
 		return DisplayUtils.getInstance<DisplayUtils>();
+	}
+
+	public static get WSManager(): WSManager {
+		return WSManager.getInstance<WSManager>();
 	}
 
 }

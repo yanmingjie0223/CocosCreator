@@ -5,9 +5,6 @@ const { ccclass } = _decorator;
 @ccclass('AudioManager')
 export class AudioManager extends Component {
 	private static _inst: AudioManager = null!;
-	public static getInstance(): AudioManager {
-		return this._inst;
-	}
 
 	private _musicAudioSource: AudioSource = null!;
 	private _effectAudioSources: AudioSource[] = [];
@@ -15,8 +12,13 @@ export class AudioManager extends Component {
 	private _isMute: boolean = false;
 	private _isMuteMusic: boolean = false;
 	private _isMuteSound: boolean = false;
-
 	private _soundEffects: number = 1.0;
+	private _masterVolume: number = 1.0;
+
+	public static getInstance(): AudioManager {
+		return this._inst;
+	}
+
 	public get soundEffects(): number {
 		return this._soundEffects;
 	}
@@ -31,7 +33,6 @@ export class AudioManager extends Component {
 		}
 	}
 
-	private _masterVolume: number = 1.0;
 	public get masterVolume(): number {
 		return this._masterVolume;
 	}
@@ -191,7 +192,7 @@ export class AudioManager extends Component {
 		this._musicAudioSource = this.node.getComponent(AudioSource)!;
 		this._effectAudioSources = this.node
 			.getComponentsInChildren(AudioSource)
-			.filter((a) => a != this._musicAudioSource);
+			.filter((a) => a !== this._musicAudioSource);
 	}
 
 	private muteMusic(isMute: boolean): void {

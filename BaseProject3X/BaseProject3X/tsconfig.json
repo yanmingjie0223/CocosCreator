@@ -14,7 +14,8 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"outDir": "temp/vscode-dist",
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true
 	},
 	"exclude": [
 		"node_modules",

@@ -33,6 +33,7 @@ export default class AppEntry extends Component {
 		App.DebugUtils.initialize();
 		App.LayerManager.initialize(this.uiroot);
 		App.StageManager.initialize(this.uiroot);
+		App.WSManager.initialize();
 	}
 
 	private onMain(): void {

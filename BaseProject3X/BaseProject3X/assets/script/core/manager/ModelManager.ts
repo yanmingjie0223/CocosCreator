@@ -37,7 +37,9 @@ export default class ModelManager extends Singleton {
 	 * @param modelClass model类
 	 */
 	public getModel<T>(modelClass: { new(): T } | null): T | null {
-		if (!modelClass) return null;
+		if (!modelClass) {
+			return null;
+		}
 		const key: string = (modelClass as any).key;
 		if (this._modelMap && this._modelMap.get(key)) {
 			return this._modelMap.get(key) as T;
@@ -54,7 +56,9 @@ export default class ModelManager extends Singleton {
 	 * @param modelClass
 	 */
 	public destroy(modelClass: { new(): BaseModel }): void {
-		if (!modelClass || !this._modelMap) return;
+		if (!modelClass || !this._modelMap) {
+			return;
+		}
 		const key: string = (modelClass as any).key;
 		const model = this._modelMap.get(key);
 		if (model) {

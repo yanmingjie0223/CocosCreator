@@ -28,6 +28,10 @@ export class VideoSprite extends Component {
 		this.videoPlayer.clip = clip;
 	}
 
+	public get clip(): VideoClip | null {
+		return this.videoPlayer.clip;
+	}
+
 	public getVideoPlayer(): VideoPlayer {
 		return this.videoPlayer;
 	}
@@ -97,7 +101,7 @@ export class VideoSprite extends Component {
 				if (sprite.spriteFrame === null) {
 					sprite.spriteFrame = new SpriteFrame();
 				}
-				let texture = new Texture2D();
+				const texture = new Texture2D();
 				this._resetTexture(texture, this.videoWidth, this.videoHeight);
 				sprite.spriteFrame.texture = texture;
 			}

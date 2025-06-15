@@ -182,7 +182,7 @@ export class BaseView {
 		const stageManager = StageManager.getInstance<StageManager>();
 		if (!this._viewNode) {
 			const names = this._prefabName.split('/');
-			const viewNodeName = `${names[names.length - 1]}_Root`
+			const viewNodeName = `${names[names.length - 1]}_Root`;
 			this._viewNode = DisplayUtils.getInstance<DisplayUtils>().createParentFullNode(viewNodeName, stageManager.root);
 		}
 		this.initStart();

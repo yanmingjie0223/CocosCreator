@@ -5,10 +5,15 @@ export type Int32 = number;
 export type Nullable<T> = T | null | undefined;
 export type ValueOf<T> = T[keyof T];
 
+/**
+ * 深度拷贝
+ * @param obj
+ * @returns
+ */
 export function deepClone(obj: any) {
-	let newObj: any = Array.isArray(obj) ? [] : {};
+	const newObj: any = Array.isArray(obj) ? [] : {};
 	if (obj && typeof obj === 'object') {
-		for (let key in obj) {
+		for (const key in obj) {
 			if (obj.hasOwnProperty(key)) {
 				if (obj[key] === null) {
 					newObj[key] = null;

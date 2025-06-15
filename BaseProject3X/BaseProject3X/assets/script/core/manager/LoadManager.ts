@@ -29,7 +29,7 @@ export default class LoadManager extends Singleton {
 		>,
 		thisObj: any
 	): void {
-		if (resFile == null || resFile == void 0) {
+		if (resFile === null || resFile === void 0) {
 			ne.message = 'resFile 不允许为空';
 			errorFun && errorFun.apply(thisObj, [ne]);
 			return;
@@ -191,6 +191,7 @@ export default class LoadManager extends Singleton {
 				this
 			);
 		}
+		// eslint-disable-next-line require-jsdoc
 		function deal() {
 			progressFun && progressFun.apply(thisObj, [comCount, resLen]);
 			if (comCount + errCount < resLen) {
@@ -253,6 +254,7 @@ export default class LoadManager extends Singleton {
 				this
 			);
 		}
+		// eslint-disable-next-line require-jsdoc
 		function deal() {
 			if (comCount + errCount < resLen) {
 				return;

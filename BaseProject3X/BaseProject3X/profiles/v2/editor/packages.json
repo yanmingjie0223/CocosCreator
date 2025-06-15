@@ -1,1 +1,14 @@
-{}
+{
+  "disable-packages": {
+    "C:\\Users\\Administrator\\": {
+      "CocosCreator\\builtin-extensions\\3": {
+        "8": {
+          "5\\cocos-service": {
+            "name": "cocos-service",
+            "time": 1749978494617
+          }
+        }
+      }
+    }
+  }
+}
