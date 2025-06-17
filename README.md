@@ -7,6 +7,8 @@
 - BaseProject3X
   - 框架基础功能
   - luban
+  - colyseus(https://0-14-x.docs.colyseus.io/zh_cn/colyseus/)
+  - protobuf
   - ccc-devtools(https://github.com/potato47/ccc-devtools.git)
   - version: 3.8.5
 - ElectronWindow
