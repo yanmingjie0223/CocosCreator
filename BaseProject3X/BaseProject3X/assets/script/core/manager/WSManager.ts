@@ -19,7 +19,11 @@ export class WSManager extends Singleton {
 	private _room: Colyseus.Room = null!;
 
 	private get address(): string {
-		return `ws://${ColyseusConfig.host}:${ColyseusConfig.port}`;
+		let address = ColyseusConfig.url;
+		if (!address) {
+			address = `ws://${ColyseusConfig.host}:${ColyseusConfig.port}`;
+		}
+		return address;
 	}
 
 	public get room() {
@@ -31,10 +35,12 @@ export class WSManager extends Singleton {
 	}
 
 	public initialize(): void {
-		this._client = new Colyseus.Client(this.address);
+		if (!this._client) {
+			this._client = new Colyseus.Client(this.address);
+		}
 	}
 
-	public async login(name: string): Promise<void> {
+	public async login(name: string, avatarUrl: string = '', openId: string, platform: proto.msg.PlatformType = proto.msg.PlatformType.H5): Promise<void> {
 		if (!this._client) {
 			DebugUtils.getInstance<DebugUtils>().error('WSManager客户端未初始!');
 			return;
@@ -47,7 +53,14 @@ export class WSManager extends Singleton {
 
 		const loginData = proto.user.C2S_Login.create();
 		loginData.nickname = name;
+		loginData.avatarUrl = avatarUrl;
+		loginData.platform = platform;
+		loginData.openId = openId;
 		sendProtocol(this._room, proto.msg.MsgId.User_C2S_Login, loginData, MessageEvent.LOGIN);
+	}
+
+	public send(msgId: proto.msg.MsgId, protoData: any): void {
+		sendProtocol(this._room, msgId, protoData, MessageEvent.PROTO);
 	}
 
 	private registerHandlers(): void {

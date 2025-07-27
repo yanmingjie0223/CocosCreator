@@ -87,26 +87,4 @@ export default class DateUtils extends Singleton {
 		}
 	}
 
-	/**
-	 * 使用相差时间返回所需要的字符串格式"天:时:分|时:分:秒"
-	 * @param {number} diffT 间隔时间戳（ms）
-	 * @return {string} 返回指点格式字符串
-	 */
-	public getResidueTime(diffT: number): string {
-		if (diffT > 0) {
-			const oneDay = 24 * 60 * 60 * 1000;
-			const day = Math.floor(diffT / oneDay);
-			const dayStr = day > 0 ? `${day}天` : '';
-			const milDiffT = Math.ceil(diffT % oneDay);
-			const milStr = this.formatTime(milDiffT / 1000, 3, ['时', '分', '秒']);
-			let secStr = milStr;
-			if (day > 0) {
-				secStr = milStr.slice(0, milStr.length - 3);
-			}
-			const strT = dayStr + secStr;
-			return strT;
-		} else {
-			return '00时00分00秒';
-		}
-	}
 }

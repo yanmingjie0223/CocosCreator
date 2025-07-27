@@ -6,6 +6,8 @@ import LoadManager from "./manager/LoadManager";
 import ModelManager from "./manager/ModelManager";
 import ResManager from "./manager/ResManager";
 import StageManager from "./manager/StageManager";
+import StorageManager from "./manager/StorageManager";
+import TimeManager from "./manager/TimeManager";
 import ViewManager from "./manager/ViewManager";
 import { WSManager } from "./manager/WSManager";
 import ArrayUtils from "./utils/ArrayUtils";
@@ -89,6 +91,14 @@ export default class App {
 
 	public static get WSManager(): WSManager {
 		return WSManager.getInstance<WSManager>();
+	}
+
+	public static get StorageManager(): StorageManager {
+		return StorageManager.getInstance<StorageManager>();
+	}
+
+	public static get TimeManager(): TimeManager {
+		return TimeManager.getInstance<TimeManager>();
 	}
 
 }

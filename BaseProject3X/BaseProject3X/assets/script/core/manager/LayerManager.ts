@@ -1,4 +1,4 @@
-import { Node } from "cc";
+import { Node, Widget } from "cc";
 import Singleton from "../base/Singleton";
 import { ViewLayerType } from "../const/ViewConst";
 import DebugUtils from "../utils/DebugUtils";
@@ -18,6 +18,8 @@ export default class LayerManager extends Singleton {
 	 */
 	public initialize(uiroot: Node): void {
 		const displayUtils = DisplayUtils.getInstance<DisplayUtils>();
+		const widget = uiroot.getComponent(Widget);
+		widget?.updateAlignment();
 		this.BOTTOM_COMPONENT = displayUtils.createParentFullNode(ViewLayerType.BOTTOM_LAYER, uiroot);
 		this.MIDDLE_COMPONENT = displayUtils.createParentFullNode(ViewLayerType.MIDDLE_LAYER, uiroot);
 		this.TOP_COMPONENT = displayUtils.createParentFullNode(ViewLayerType.TOP_LAYER, uiroot);

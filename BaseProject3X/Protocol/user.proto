@@ -15,6 +15,7 @@ message C2S_Login {
 	string avatarUrl = 2;
 	string code = 3;
 	PlatformType platform = 4;
+	string openId = 5;
 }
 
 message S2C_Login {

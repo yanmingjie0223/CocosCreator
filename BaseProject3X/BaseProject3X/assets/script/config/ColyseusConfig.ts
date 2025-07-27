@@ -4,6 +4,10 @@ export default class ColyseusConfig {
 	 */
 	public static readonly host: string = 'localhost';
 	/**
+	 * 连接地址
+	 */
+	public static url: string = "";
+	/**
 	 * 端口
 	 */
 	public static readonly port: number = 2567;

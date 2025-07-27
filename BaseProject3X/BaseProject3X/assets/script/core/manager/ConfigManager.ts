@@ -20,7 +20,7 @@ export default class ConfigManager extends Singleton {
 		for (const curFileName of jsonFileNames) {
 			const bytes = ResManager.getInstance<ResManager>().getRes<BufferAsset>(`${UrlUtils.data}/${curFileName}`, UrlUtils.bundleName);
 			if (bytes) {
-				this.dataMap.set(curFileName, new Uint8Array(bytes.buffer()));
+				this.dataMap.set(curFileName, new Uint8Array(bytes.buffer()!));
 			}
 		}
 		this.tables = new cfg.Tables(this.getFileData.bind(this));

@@ -11,29 +11,30 @@ import DebugUtils from "./DebugUtils";
  * @returns
  */
 export function getProtocolClass(msgId: proto.msg.MsgId): any {
+	const debug = DebugUtils.getInstance<DebugUtils>();
 	const idName = proto.msg.MsgId[msgId];
 	if (!idName) {
-		DebugUtils.getInstance<DebugUtils>().error(`not found in msg.proto. id: ${msgId}`);
+		debug.error(`not found in msg.proto. id: ${msgId}`);
 		return null;
 	}
 
 	const idNameArr = idName.split("_");
 	if (idNameArr.length < 3) {
-		DebugUtils.getInstance<DebugUtils>().error(`Protocol naming: Protocol-pkg_end-to-end_protocol-name. for example: Login_C2S_Login`);
+		debug.error(`Protocol naming: Protocol-pkg_end-to-end_protocol-name. for example: Login_C2S_Login`);
 		return null;
 	}
 
 	const pkgName = idNameArr.shift()!.toLowerCase();
 	const pkgClass = (proto as any)[pkgName];
 	if (!pkgClass) {
-		DebugUtils.getInstance<DebugUtils>().error(`not found protocol pkg: ${pkgName}.proto`);
+		debug.error(`not found protocol pkg: ${pkgName}.proto`);
 		return null;
 	}
 
 	const protoName = idNameArr.join('_');
 	const protoClass = pkgClass[protoName];
 	if (!protoClass) {
-		DebugUtils.getInstance<DebugUtils>().error(`not found in ${pkgName}.proto: ${protoName}`);
+		debug.error(`not found in ${pkgName}.proto: ${protoName}`);
 		return null;
 	}
 
@@ -41,24 +42,32 @@ export function getProtocolClass(msgId: proto.msg.MsgId): any {
 }
 
 /**
- * 处理分发协议
+ * Processing distribution agreement
  * @param uint8s
  */
 export function dealProtocol(uint8s: Uint8Array): void {
+	const debug = DebugUtils.getInstance<DebugUtils>();
 	const reader = new BinaryReader(uint8s);
 	const msgId = reader.int32();
 	if (!msgId) {
-		DebugUtils.getInstance<DebugUtils>().error(`This Uint8Array parsing error checks whether the protocol id header has been written`);
+		debug.error(`This Uint8Array parsing error checks whether the protocol id header has been written`);
 		return;
 	}
 
 	const protoClass = getProtocolClass(msgId);
 	if (!protoClass) {
-		DebugUtils.getInstance<DebugUtils>().error(`This Uint8Array parsing error: ${msgId}`);
+		debug.error(`This Uint8Array parsing error: ${msgId}`);
 		return;
 	}
 
 	const protoObj = protoClass.decode(reader);
+
+	debug.log(
+		`%c ↓↓↓ [${proto.msg.MsgId[msgId]}] ↓↓↓ `,
+		'padding: 2px; background-color: #333; color: #22dd22; border: 2px solid #22dd22; font-family: consolas;',
+		protoObj
+	);
+
 	EventManager.getInstance<EventManager>().emitEvent(msgId, protoObj);
 }
 
@@ -99,5 +108,10 @@ export function sendProtocol(
 	if (!uint8s) {
 		return;
 	}
+	DebugUtils.getInstance<DebugUtils>().log(
+		`%c ↑↑↑ [${proto.msg.MsgId[msgId]}] ↑↑↑ `,
+		'padding: 2px; background-color: #1094e3; color: #dddd22; border: 2px solid #dddd22; font-family: consolas;',
+		protoObj
+	);
 	room.send(event, uint8s);
 }

@@ -1,4 +1,4 @@
-import { instantiate, Node, Prefab } from 'cc';
+import { easing, instantiate, isValid, Node, Prefab, Tween, tween, UIOpacity } from 'cc';
 import { ResFile, ViewLayerType, ViewType } from '../const/ViewConst';
 import LoadManager from '../manager/LoadManager';
 import ResManager from '../manager/ResManager';
@@ -41,6 +41,11 @@ export class BaseView {
 	private _viewNode: Node = null!;
 	/**主体组件 */
 	private _contentPane: Node = null!;
+
+	/** 缩放tween */
+	private _scaleTween: Tween<{ scale: number }> = null!;
+	/** 透明tween */
+	private _alphaTween: Tween<{ alpha: number }> = null!;
 
 	/**
 	 * 构造函数
@@ -173,6 +178,14 @@ export class BaseView {
 			this._contentPane.destroy();
 			this._contentPane = null!;
 		}
+		if (this._scaleTween) {
+			this._scaleTween.stop();
+			this._scaleTween = null!;
+		}
+		if (this._alphaTween) {
+			this._alphaTween.stop();
+			this._alphaTween = null!;
+		}
 	}
 
 	/**
@@ -213,7 +226,51 @@ export class BaseView {
 	 * 如果界面显示展开动画不一样可继承重写改方法
 	 */
 	protected onShowAnimation(): void {
-		this.onShown();
+		const that = this;
+		if (that._type === ViewType.WINDOW || that._type === ViewType.X_WINDOW) {
+			if (that._scaleTween) {
+				that._scaleTween.stop();
+				that._scaleTween = null!;
+			}
+			// 缩放
+			const scaleObj = { scale: 0 };
+			that._scaleTween = tween(scaleObj).to(0.5, { scale: 1 }, {
+				easing: easing.quadOut,
+				onUpdate(target, ratio) {
+					const scale = (<any>target).scale;
+					if (isValid(that._viewNode)) {
+						that._viewNode.setScale(scale, scale);
+					}
+				},
+			});
+			that._scaleTween.start();
+			// 透明
+			if (that._alphaTween) {
+				that._alphaTween.stop();
+				that._alphaTween = null!;
+			}
+			const alphaObj = { alpha: 0 };
+			that._alphaTween = tween(alphaObj).to(0.5, { alpha: 1 }, {
+				easing: easing.backOut,
+				onUpdate(target, ratio) {
+					const alpha = (<any>target).alpha * 255;
+					if (isValid(that._viewNode)) {
+						let uiOpacity = that._viewNode.getComponent(UIOpacity);
+						if (!uiOpacity) {
+							uiOpacity = that._viewNode.addComponent(UIOpacity);
+						}
+						uiOpacity.opacity = alpha;
+					}
+				},
+				onComplete() {
+					that.onShown();
+				}
+			});
+			that._alphaTween.start();
+		}
+		else {
+			that.onShown();
+		}
 	}
 
 	/**
@@ -247,6 +304,7 @@ export class BaseView {
 				LoadManager.getInstance<LoadManager>().loadArray(resFiles, this.toInitUI, this.destroy, this.onProgress, this);
 			}
 			else {
+				this.toInitUI();
 				this.onCompleteUI();
 			}
 		}

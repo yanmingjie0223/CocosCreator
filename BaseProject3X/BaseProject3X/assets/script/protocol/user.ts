@@ -23,6 +23,7 @@ export interface C2S_Login {
   avatarUrl: string;
   code: string;
   platform: PlatformType;
+  openId: string;
 }
 
 export interface S2C_Login {
@@ -158,7 +159,7 @@ export const UserData: MessageFns<UserData> = {
 };
 
 function createBaseC2S_Login(): C2S_Login {
-  return { nickname: "", avatarUrl: "", code: "", platform: 0 };
+  return { nickname: "", avatarUrl: "", code: "", platform: 0, openId: "" };
 }
 
 export const C2S_Login: MessageFns<C2S_Login> = {
@@ -174,6 +175,9 @@ export const C2S_Login: MessageFns<C2S_Login> = {
     }
     if (message.platform !== 0) {
       writer.uint32(32).int32(message.platform);
+    }
+    if (message.openId !== "") {
+      writer.uint32(42).string(message.openId);
     }
     return writer;
   },
@@ -217,6 +221,14 @@ export const C2S_Login: MessageFns<C2S_Login> = {
           message.platform = reader.int32() as any;
           continue;
         }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.openId = reader.string();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -232,6 +244,7 @@ export const C2S_Login: MessageFns<C2S_Login> = {
       avatarUrl: isSet(object.avatarUrl) ? globalThis.String(object.avatarUrl) : "",
       code: isSet(object.code) ? globalThis.String(object.code) : "",
       platform: isSet(object.platform) ? platformTypeFromJSON(object.platform) : 0,
+      openId: isSet(object.openId) ? globalThis.String(object.openId) : "",
     };
   },
 
@@ -249,6 +262,9 @@ export const C2S_Login: MessageFns<C2S_Login> = {
     if (message.platform !== 0) {
       obj.platform = platformTypeToJSON(message.platform);
     }
+    if (message.openId !== "") {
+      obj.openId = message.openId;
+    }
     return obj;
   },
 
@@ -261,6 +277,7 @@ export const C2S_Login: MessageFns<C2S_Login> = {
     message.avatarUrl = object.avatarUrl ?? "";
     message.code = object.code ?? "";
     message.platform = object.platform ?? 0;
+    message.openId = object.openId ?? "";
     return message;
   },
 };

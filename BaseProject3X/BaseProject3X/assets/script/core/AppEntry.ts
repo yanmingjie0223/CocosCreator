@@ -17,7 +17,7 @@ export default class AppEntry extends Component {
 	}
 
 	protected update(dt: number): void {
-
+		App.TimeManager.onUpdate(dt * 1000);
 	}
 
 	private loadConfig(): void {
@@ -33,7 +33,7 @@ export default class AppEntry extends Component {
 		App.DebugUtils.initialize();
 		App.LayerManager.initialize(this.uiroot);
 		App.StageManager.initialize(this.uiroot);
-		App.WSManager.initialize();
+		// App.WSManager.initialize();
 	}
 
 	private onMain(): void {
