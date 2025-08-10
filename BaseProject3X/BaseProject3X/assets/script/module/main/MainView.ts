@@ -1,4 +1,3 @@
-import App from "../../core/App";
 import { ViewLayerType, ViewType } from "../../core/const/ViewConst";
 import EventManager from "../../core/manager/EventManager";
 import { BaseView } from "../../core/mvc/BaseView";
@@ -19,7 +18,7 @@ export default class MainView extends BaseView {
 
 	public override onShown(): void {
 		console.log("onshown and login");
-		App.WSManager.login("yanmingjie", '', '');
+		// App.WSManager.login("yanmingjie", '', '');
 	}
 
 	private onLogin(obj: proto.user.S2C_Login): void {

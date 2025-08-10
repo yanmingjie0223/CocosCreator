@@ -19,11 +19,7 @@ export class WSManager extends Singleton {
 	private _room: Colyseus.Room = null!;
 
 	private get address(): string {
-		let address = ColyseusConfig.url;
-		if (!address) {
-			address = `ws://${ColyseusConfig.host}:${ColyseusConfig.port}`;
-		}
-		return address;
+		return ColyseusConfig.url;
 	}
 
 	public get room() {
@@ -65,8 +61,8 @@ export class WSManager extends Singleton {
 
 	private registerHandlers(): void {
 		if (this.room) {
-			this.room.onLeave.once(this.onLeaveGridRoom);
-			this.room.onStateChange.once(this.onRoomStateChange);
+			this.room.onLeave.once(this.onLeaveGridRoom.bind(this));
+			this.room.onStateChange.once(this.onRoomStateChange.bind(this));
 			this.room.onMessage("proto", (uint8s: Uint8Array) => {
 				dealProtocol(uint8s);
 			});
@@ -77,8 +73,8 @@ export class WSManager extends Singleton {
 
 	private unregisterHandlers(): void {
 		if (this.room) {
-			this.room.onLeave.remove(this.onLeaveGridRoom);
-			this.room.onStateChange.remove(this.onRoomStateChange);
+			this.room.onLeave.remove(this.onLeaveGridRoom.bind(this));
+			this.room.onStateChange.remove(this.onRoomStateChange.bind(this));
 		}
 	}
 

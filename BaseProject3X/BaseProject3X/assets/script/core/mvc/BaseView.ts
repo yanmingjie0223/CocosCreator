@@ -167,24 +167,25 @@ export class BaseView {
 	 * 消耗，子类可继承重写添加消耗逻辑
 	 */
 	public destroy(): void {
-		this._ctrl && this._ctrl.destroy();
-		this._isDestroy = true;
-		this._isInit = false;
+		const that = this;
+		that._ctrl && that._ctrl.destroy();
+		that._isDestroy = true;
+		that._isInit = false;
 
-		this._prefabName = null!;
-		this._ctrl = null;
-		this._model = null;
-		if (this._contentPane) {
-			this._contentPane.destroy();
-			this._contentPane = null!;
+		that._prefabName = null!;
+		that._ctrl = null;
+		that._model = null;
+		if (that._contentPane) {
+			that._contentPane.destroy();
+			that._contentPane = null!;
 		}
-		if (this._scaleTween) {
-			this._scaleTween.stop();
-			this._scaleTween = null!;
+		if (that._scaleTween) {
+			that._scaleTween.stop();
+			that._scaleTween = null!;
 		}
-		if (this._alphaTween) {
-			this._alphaTween.stop();
-			this._alphaTween = null!;
+		if (that._alphaTween) {
+			that._alphaTween.stop();
+			that._alphaTween = null!;
 		}
 	}
 
@@ -277,19 +278,20 @@ export class BaseView {
 	 * 继承重写window中的onInit方法
 	 */
 	private initStart(): void {
-		if (!this._prefabName) {
+		const that = this;
+		if (!that._prefabName) {
 			const debugUtils = DebugUtils.getInstance<DebugUtils>();
-			debugUtils.warn(`${this.constructor.name}未设置界面预制体资源!`);
+			debugUtils.warn(`${that.constructor.name}未设置界面预制体资源!`);
 			return;
 		}
 
-		if (!this._isInit) {
+		if (!that._isInit) {
 			let isLoad: boolean = false;
 			const resMgr = ResManager.getInstance<ResManager>();
 			const resFiles: Array<ResFile> = [];
-			for (let i = 0, len = this._prefabNames.length; i < len; i++) {
+			for (let i = 0, len = that._prefabNames.length; i < len; i++) {
 				const resFile: ResFile = {
-					url: this._prefabNames[i],
+					url: that._prefabNames[i],
 					bundle: UrlUtils.bundleName,
 					type: Prefab
 				};
@@ -301,15 +303,14 @@ export class BaseView {
 				}
 			}
 			if (isLoad) {
-				LoadManager.getInstance<LoadManager>().loadArray(resFiles, this.toInitUI, this.destroy, this.onProgress, this);
+				LoadManager.getInstance<LoadManager>().loadArray(resFiles, that.toInitUI, that.destroy, that.onProgress, that);
 			}
 			else {
-				this.toInitUI();
-				this.onCompleteUI();
+				that.toInitUI();
 			}
 		}
 		else {
-			this.onCompleteUI();
+			that.onCompleteUI();
 		}
 	}
 
@@ -317,21 +318,22 @@ export class BaseView {
 	 * 初始化ui
 	 */
 	private toInitUI(): void {
-		if (this.contentPane) {
-			this.onCompleteUI();
+		const that = this;
+		if (that.contentPane) {
+			that.onCompleteUI();
 			return;
 		}
 
 		const resMgr = ResManager.getInstance<ResManager>();
-		const prefab = resMgr.getRes<Prefab>(this._prefabName, UrlUtils.bundleName);
+		const prefab = resMgr.getRes<Prefab>(that._prefabName, UrlUtils.bundleName);
 		if (prefab) {
-			this.contentPane = instantiate(prefab);
-			this._viewNode.addChild(this.contentPane);
-			this._isInit = true;
-			this.onCompleteUI();
+			that.contentPane = instantiate(prefab);
+			that._viewNode.addChild(that.contentPane);
+			that._isInit = true;
+			that.onCompleteUI();
 		}
 		else {
-			this.destroy();
+			that.destroy();
 		}
 	}
 

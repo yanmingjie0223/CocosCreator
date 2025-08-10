@@ -2,7 +2,7 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import Colyseus from 'db://colyseus-sdk/colyseus.js';
 import * as proto from "../../protocol/index";
 import EventManager from "../manager/EventManager";
-import { MessageEvent } from "../manager/WSManager";
+import { MessageEvent } from "../net/WSManager";
 import DebugUtils from "./DebugUtils";
 
 /**

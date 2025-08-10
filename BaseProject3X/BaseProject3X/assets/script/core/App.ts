@@ -9,7 +9,7 @@ import StageManager from "./manager/StageManager";
 import StorageManager from "./manager/StorageManager";
 import TimeManager from "./manager/TimeManager";
 import ViewManager from "./manager/ViewManager";
-import { WSManager } from "./manager/WSManager";
+import { WSManager } from "./net/WSManager";
 import ArrayUtils from "./utils/ArrayUtils";
 import DateUtils from "./utils/DateUtils";
 import DebugUtils from "./utils/DebugUtils";
