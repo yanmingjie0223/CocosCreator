@@ -2,7 +2,7 @@
   "__version__": "1.0.3",
   "builder": {},
   "gizmos-infos": {
-    "is2D": false,
+    "is2D": true,
     "is3DIcon": false,
     "iconSize": 2,
     "gridVisible": true,
@@ -464,10 +464,35 @@
       "contentRect": {
         "x": 0,
         "y": 0,
-        "width": 929,
-        "height": 552
+        "width": 1173,
+        "height": 898
       },
       "scale": 1
+    },
+    "5beafc18-5129-498e-98d3-7ff5a8264685": {
+      "position": {
+        "x": 475.07199275630387,
+        "y": 300.07368824936543,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": -210.64229295798194,
+        "y": -224.88064130854465,
+        "width": 1173,
+        "height": 898
+      },
+      "scale": 0.8553124999999999
     }
   },
   "camera-uuids": [
@@ -487,7 +512,8 @@
     "255cff43-e913-4d53-a918-62c8376d2258",
     "434fea34-2628-4821-9248-1aabf84b2720",
     "e30f7c4d-fafb-439e-bd00-7becee46e434",
-    "adf3d290-ad72-4ecb-8c6d-92392f30fec1"
+    "adf3d290-ad72-4ecb-8c6d-92392f30fec1",
+    "5beafc18-5129-498e-98d3-7ff5a8264685"
   ],
   "camera": {
     "color": [
