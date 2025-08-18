@@ -21,6 +21,7 @@ CCEffect %{
 				height:			    { value: 640.0, inspector : { displayName : "黑幕高" } }
 				radius:			    { value: 60.0, inspector : { displayName : "灯光半径" } }
 				center: 				{ value: [480.0, 320.0], inspector : { displayName : "中心点" } }
+				uvOffset: 			{ value: [0.0, 0.0, 1.0, 1.0], inspector : { displayName : "图集uv偏移" } }
 }%
 
 CCProgram sprite-vs %{
@@ -73,6 +74,7 @@ CCProgram sprite-fs %{
 
   #if USE_TEXTURE
 		uniform Constant {
+			vec4 uvOffset;
 			vec2 center;
 			float width;
 			float height;
@@ -97,15 +99,19 @@ CCProgram sprite-fs %{
 
     o *= color;
     ALPHA_TEST(o);
-
+		// uvOffset [l t r b]
+		float uvx = (uv0.x - uvOffset.x) / (uvOffset.z - uvOffset.x);
+		float uvy = (uv0.y - uvOffset.y) / (uvOffset.w - uvOffset.y);
 		float cx = center.x / width;
 		float cy = center.y / height;
-		float x = abs(uv0.x - cx) * width;
-		float y = abs(uv0.y - cy) * height;
+		float x = abs(uvx - cx) * width;
+		float y = abs(uvy - cy) * height;
 		float dist = sqrt(x * x + y * y);
-		float t = clamp((dist - 1.0) / radius, 0.0, 1.0);
-		o.rgb *= mix(2.0, 1.0, t);
-		o.a *= mix(0.0, 1.0, t);
+		float t = clamp((dist - 10.0) / radius, 0.0, 1.0);
+		// 使用幂函数调整变化曲线，p > 1 变化更慢，p < 1 变化更快
+		float p = 2.0; // 可以调整这个值，越大越慢，越小越快
+		float alphaCurve = pow(t, p);
+		o.a *= mix(0.0, 1.0, alphaCurve);
 
     return o;
   }
