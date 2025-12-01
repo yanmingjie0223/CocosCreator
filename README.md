@@ -16,12 +16,12 @@
   - version: 3.8.5
 - Extensions
   - 拓展插件
-  - version: 3.8.5
+  - version: 3.8.7
 - Playable3X
   - playable试玩小游戏打包基础模板工程
   - playable-ads-adapter(https://github.com/ppgee/cocos-pnp.git)(在该基础上添加模板去除logo保证playable审核通过)
   - ccc-devtools(https://github.com/potato47/ccc-devtools.git)
-  - version: 3.8.6
+  - version: 3.8.7
 - ShaderLib
   - shader 库
-  - version: 3.8.6
+  - version: 3.8.7

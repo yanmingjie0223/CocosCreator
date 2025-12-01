@@ -1,11 +1,21 @@
 {
-  "__version__": "1.0.2",
+  "__version__": "1.0.3",
   "builder": {},
   "gizmos-infos": {
     "is2D": true,
     "is3DIcon": false,
     "iconSize": 2,
     "gridVisible": true,
+    "originAxis2D": {
+      "x_visible": true,
+      "y_visible": true,
+      "z_visible": false
+    },
+    "originAxis3D": {
+      "x_visible": true,
+      "y_visible": false,
+      "z_visible": true
+    },
     "gridColor": [
       166,
       166,
@@ -284,31 +294,6 @@
       },
       "scale": 1
     },
-    "1afb771c-ba78-40fc-86fe-3df524b939e2": {
-      "position": {
-        "x": 643.4632034632034,
-        "y": 314.45887445887445,
-        "z": 5000
-      },
-      "rotation": {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-        "w": 1
-      },
-      "viewCenter": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
-      "contentRect": {
-        "x": 0,
-        "y": 0,
-        "width": 929,
-        "height": 454
-      },
-      "scale": 0.721875
-    },
     "7820fe97-f5e5-41f0-871b-5b5da7cb6da0": {
       "position": {
         "x": 668.2192961068893,
@@ -383,6 +368,31 @@
         "height": 454
       },
       "scale": 0.47625988654459145
+    },
+    "1afb771c-ba78-40fc-86fe-3df524b939e2": {
+      "position": {
+        "x": 643.4632034632034,
+        "y": 314.45887445887445,
+        "z": 5000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": 0,
+        "y": 0,
+        "width": 929,
+        "height": 454
+      },
+      "scale": 0.721875
     }
   },
   "camera-uuids": [
@@ -396,10 +406,10 @@
     "01eb2b64-7128-41ea-b02d-6d9f3ba4c5c3",
     "49d352ab-f488-41ce-bc89-2d0747a73415",
     "496ce548-55dd-4786-972f-b3a39173d419",
-    "1afb771c-ba78-40fc-86fe-3df524b939e2",
     "7820fe97-f5e5-41f0-871b-5b5da7cb6da0",
     "527ea84c-fd44-4119-b27f-afd2dce815b9",
-    "0b0b0ac8-63ee-47ea-963d-3b6cbc5480e7"
+    "0b0b0ac8-63ee-47ea-963d-3b6cbc5480e7",
+    "1afb771c-ba78-40fc-86fe-3df524b939e2"
   ],
   "camera": {
     "color": [
