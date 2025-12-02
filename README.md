@@ -13,7 +13,7 @@
   - version: 3.8.5
 - ElectronWindow
   - electron打包window及ipc基础工程
-  - version: 3.8.5
+  - version: 3.8.7
 - Extensions
   - 拓展插件
   - version: 3.8.7
