@@ -56,6 +56,10 @@ export class Status<E extends number> {
 	 * @returns
 	 */
 	public isStatus(status: E): boolean {
+		if (status === 0 && this._status === 0) {
+			return true;
+		}
+
 		const code = this._status & (1 << status);
 		return code !== 0;
 	}
